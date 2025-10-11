@@ -28,7 +28,7 @@ const nextConfig = {
   
   // Experimental features for better performance
   experimental: {
-    optimizeCss: true, // Enable CSS optimization
+    // optimizeCss: true, // Disabled - requires critters package
     optimizePackageImports: ['lucide-react', '@radix-ui/react-select', '@radix-ui/react-toast'],
   },
   

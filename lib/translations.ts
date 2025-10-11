@@ -27,7 +27,7 @@ export const translations = {
       title: "Our Premium Services",
       description: "Comprehensive cleaning solutions tailored to your needs with professional expertise and eco-friendly products",
       ourServices: "Our Services",
-      noServices: "No services available at the moment"
+      noServices: "No services available at the moment",
       residential: {
         title: "Residential Cleaning",
         description: "Complete home cleaning services including kitchen, bathrooms, bedrooms, and living areas.",
