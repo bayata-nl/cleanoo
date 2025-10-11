@@ -1,0 +1,133 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+import { useStaffAuth } from '@/contexts/StaffAuthContext';
+import { Sparkles } from 'lucide-react';
+
+export default function StaffLogin() {
+  const router = useRouter();
+  const { toast } = useToast();
+  const { login } = useStaffAuth();
+  
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const success = await login(formData.email, formData.password);
+      
+      if (success) {
+        toast({
+          title: "Success",
+          description: "Login successful!",
+        });
+        router.push('/staff/dashboard');
+      } else {
+        toast({
+          title: "Error",
+          description: "Invalid email or password.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An error occurred during login.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+
+        <div>
+          <div className="flex items-center justify-center mb-6">
+            <Sparkles className="h-12 w-12 text-blue-600 mr-3" />
+            <h1 className="text-3xl font-bold text-gray-900">Staff Login</h1>
+          </div>
+          <h2 className="text-center text-lg text-gray-600">
+            Sign in to your staff account
+          </h2>
+        </div>
+
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                Email Address
+              </label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={handleInputChange}
+                className="w-full"
+                placeholder="Enter your email"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                Password
+              </label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                required
+                value={formData.password}
+                onChange={handleInputChange}
+                className="w-full"
+                placeholder="Enter your password"
+              />
+            </div>
+          </div>
+
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <h3 className="text-sm font-medium text-blue-900 mb-2">Demo Credentials:</h3>
+            <p className="text-xs text-blue-800">
+              <strong>Email:</strong> staff@example.com<br />
+              <strong>Password:</strong> welcome
+            </p>
+          </div>
+
+          <Button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Signing in...' : 'Sign In'}
+          </Button>
+
+          <div className="text-center">
+            <a href="/staff/register" className="text-sm text-gray-600 hover:text-gray-800">Create a staff account</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+

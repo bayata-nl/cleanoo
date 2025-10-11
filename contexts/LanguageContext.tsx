@@ -37,7 +37,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         value = value[k];
       } else {
         // Fallback to English if translation not found
-        value = keys.reduce((obj, k) => obj?.[k], translations.en);
+        value = keys.reduce((obj: any, k: string) => obj?.[k], translations.en);
         break;
       }
     }

@@ -1,23 +1,27 @@
 # Cleaning Service Website
 
-A modern, responsive website for a cleaning service company built with Next.js 14, TypeScript, Tailwind CSS, and Firebase.
+A modern, responsive website for a cleaning service company built with Next.js 15, TypeScript, Tailwind CSS, and SQLite.
 
 ## Features
 
 - **Front Page**: Hero section, services showcase, testimonials, and booking form
+- **Customer Authentication**: Custom authentication system
+- **Customer Dashboard**: Personal booking management for logged-in users
 - **Admin Panel**: View and manage booking submissions with status updates
-- **Multi-Language Support**: English and Dutch with easy language switching
+- **Multi-Language Support**: English and Turkish with easy language switching
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Real-time Data**: Firebase Firestore integration for form submissions
+- **Real-time Data**: SQLite database integration for form submissions
 - **Modern UI**: Shadcn/ui components with Lucide icons
+- **Protected Routes**: Secure access to customer dashboard
 
 ## Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **UI Components**: Shadcn/ui
-- **Database**: Firebase Firestore
+- **Database**: SQLite (Local file-based)
+- **Authentication**: Custom (Local)
 - **Icons**: Lucide React
 - **Deployment**: Vercel-ready
 
@@ -27,7 +31,6 @@ A modern, responsive website for a cleaning service company built with Next.js 1
 
 - Node.js 18+ 
 - npm or yarn
-- Firebase project
 
 ### Installation
 
@@ -42,139 +45,94 @@ cd cleaning-service-website
 npm install
 ```
 
-3. Set up environment variables:
-Create a `.env.local` file in the root directory with the following variables:
-
-```env
-# Firebase Configuration
-NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key_here
-NEXT_PUBLIC_AUTH_DOMAIN=your_project.firebaseapp.com
-NEXT_PUBLIC_PROJECT_ID=your_project_id
-NEXT_PUBLIC_STORAGE_BUCKET=your_project.appspot.com
-NEXT_PUBLIC_MESSAGING_SENDER_ID=123456789
-NEXT_PUBLIC_APP_ID=1:123456789:web:abcdef123456
-
-# Admin Access Password (change this to your preferred password)
-ADMIN_PASSWORD=yourpass
-```
-
-### Firebase Setup
-
-1. Create a new Firebase project at [Firebase Console](https://console.firebase.google.com/)
-2. Enable Firestore Database
-3. Get your Firebase configuration from Project Settings > General > Your apps
-4. Update the environment variables with your Firebase config
-
-### Running the Application
-
+3. Run the application:
 ```bash
-# Development
 npm run dev
-
-# Build
-npm run build
-
-# Start production
-npm start
 ```
 
 The application will be available at `http://localhost:3000`
 
+## Database
+
+This project uses **SQLite** as the database, which provides:
+
+- **Zero Configuration**: No setup required
+- **File-based**: Single `database.sqlite` file
+- **Automatic Setup**: Tables and sample data are created automatically
+- **Portable**: Easy to backup and move
+
+### Database Structure
+
+- **`bookings`**: Customer booking information
+- **`services`**: Available cleaning services
+- **`testimonials`**: Customer reviews and ratings
+
+### Sample Data
+
+The database comes pre-loaded with:
+- 4 cleaning services (Home, Office, Carpet, Window cleaning)
+- 3 customer testimonials
+
 ## Pages
 
 - **Home Page** (`/`): Main landing page with services, testimonials, and booking form
-- **Admin Panel** (`/admin?auth=yourpass`): Manage booking submissions
+- **Customer Login** (`/login`): Customer authentication page
+- **Customer Register** (`/register`): Customer registration page
+- **Customer Dashboard** (`/dashboard`): Customer booking management (protected route)
+- **Admin Panel** (`/admin/login`): Admin authentication page
+- **Admin Dashboard** (`/admin`): Manage all booking submissions (protected route)
 - **404 Page** (`/404`): Custom not found page
 
-## Admin Access
+## API Endpoints
 
-To access the admin panel, navigate to `/admin?auth=yourpass` (replace `yourpass` with the password you set in `ADMIN_PASSWORD`).
+- **`/api/bookings`**: GET (list), POST (create)
+- **`/api/bookings/[id]`**: PUT (update), DELETE (cancel)
+- **`/api/services`**: GET (list services)
+- **`/api/testimonials`**: GET (list testimonials)
+
+## Development
+
+### Database Management
+
+For database inspection and management, you can use:
+- **SQLite Browser**: [Download here](https://sqlitebrowser.org/)
+- **Command Line**: `sqlite3 database.sqlite`
+
+### Adding New Data
+
+```sql
+-- Add new service
+INSERT INTO services (title, description, icon, price) 
+VALUES ('Deep Cleaning', 'Comprehensive deep cleaning service', 'sparkles', '€200-300');
+
+-- Add new testimonial
+INSERT INTO testimonials (name, text, rating) 
+VALUES ('John Doe', 'Excellent service!', 5);
+```
 
 ## Deployment
 
 ### Vercel (Recommended)
 
-1. **Push your code to GitHub:**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/yourusername/cleaning-service-website.git
-   git push -u origin main
-   ```
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy automatically
 
-2. **Connect to Vercel:**
-   - Go to [Vercel](https://vercel.com)
-   - Sign up/Login with GitHub
-   - Click "New Project"
-   - Import your GitHub repository
-   - Vercel will automatically detect Next.js
+### Other Platforms
 
-3. **Add Environment Variables:**
-   In Vercel dashboard, go to Project Settings > Environment Variables and add:
-   ```
-   NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key_here
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
-   NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abcdef123456
-   ```
+The SQLite database will work on any platform that supports Node.js. For production, consider:
+- Regular database backups
+- File permissions security
+- Monitoring database file size
 
-4. **Deploy:**
-   - Click "Deploy"
-   - Your site will be live at `https://your-project.vercel.app`
+## Contributing
 
-### Manual Deployment
-
-```bash
-npm run build
-npm start
-```
-
-## Project Structure
-
-```
-├── app/
-│   ├── admin/
-│   │   └── page.tsx          # Admin panel
-│   ├── globals.css           # Global styles
-│   ├── layout.tsx            # Root layout
-│   └── page.tsx              # Home page
-├── components/
-│   └── ui/                   # Shadcn/ui components
-├── hooks/
-│   └── use-toast.ts          # Toast notifications
-├── lib/
-│   ├── firebase.ts           # Firebase configuration
-│   └── utils.ts              # Utility functions
-├── types/
-│   └── index.ts              # TypeScript interfaces
-└── public/                   # Static assets
-```
-
-## Customization
-
-### Services
-Edit the services array in `app/page.tsx` to customize your service offerings.
-
-### Testimonials
-Update the testimonials array in `app/page.tsx` with your customer reviews.
-
-### Multi-Language Support
-The website supports English and Dutch languages. To add more languages:
-1. Edit `lib/translations.ts` to add new language translations
-2. Update the `Language` type in the same file
-3. Add the new language option to `components/LanguageSwitcher.tsx`
-
-### Styling
-Modify `tailwind.config.ts` and `app/globals.css` to customize colors and styling.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## License
 
-MIT License - feel free to use this project for your own cleaning service business.
-
-## Support
-
-For issues and questions, please open an issue in the repository.
+This project is licensed under the MIT License.

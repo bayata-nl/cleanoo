@@ -1,12 +1,12 @@
 'use client';
 
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Button } from '@/components/ui/button';
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Globe } from 'lucide-react';
 
 export function LanguageSwitcher() {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
 
   return (
     <div className="flex items-center space-x-2">

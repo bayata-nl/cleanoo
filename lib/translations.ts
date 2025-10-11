@@ -86,7 +86,7 @@ export const translations = {
     // Footer
     footer: {
       description: "Professional cleaning services for homes and offices with unmatched quality and reliability",
-      copyright: "© 2024 Sparkle Clean. All rights reserved."
+      copyright: "© 2024 Cleanoo. All rights reserved."
     },
 
     // Language Switcher
@@ -96,6 +96,10 @@ export const translations = {
     admin: {
       title: "Admin Panel",
       subtitle: "Manage Booking Submissions",
+      loading: "Loading bookings...",
+      noBookings: "No bookings found",
+      backToWebsite: "Back to Website",
+      logout: "Logout",
       table: {
         name: "Name",
         service: "Service",
@@ -108,9 +112,7 @@ export const translations = {
         pending: "Pending",
         confirmed: "Confirmed",
         done: "Done"
-      },
-      noBookings: "No bookings found",
-      loading: "Loading bookings..."
+      }
     }
   },
 
@@ -201,7 +203,7 @@ export const translations = {
     // Footer
     footer: {
       description: "Professionele schoonmaakdiensten voor huizen en kantoren met ongeëvenaarde kwaliteit en betrouwbaarheid",
-      copyright: "© 2024 Sparkle Clean. Alle rechten voorbehouden."
+      copyright: "© 2024 Cleanoo. Alle rechten voorbehouden."
     },
 
     // Language Switcher
@@ -211,6 +213,10 @@ export const translations = {
     admin: {
       title: "Beheerpaneel",
       subtitle: "Beheer Boekingsverzoeken",
+      loading: "Boekingen laden...",
+      noBookings: "Geen boekingen gevonden",
+      backToWebsite: "Terug naar Website",
+      logout: "Uitloggen",
       table: {
         name: "Naam",
         service: "Dienst",
@@ -223,9 +229,7 @@ export const translations = {
         pending: "In afwachting",
         confirmed: "Bevestigd",
         done: "Voltooid"
-      },
-      noBookings: "Geen boekingen gevonden",
-      loading: "Boekingen laden..."
+      }
     }
   }
 };
