@@ -6,6 +6,7 @@ import { Plus, Edit, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Modal from '@/components/admin/shared/Modal';
 import FormField from '@/components/admin/shared/FormField';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface ServicesTabProps {
   services: any[];
@@ -14,6 +15,35 @@ interface ServicesTabProps {
   showServiceForm: boolean;
   setShowServiceForm: (show: boolean) => void;
 }
+
+// Available icons list
+const AVAILABLE_ICONS = [
+  { value: 'Broom', label: '🧹 Broom (General Cleaning)' },
+  { value: 'SprayCan', label: '🧴 Spray Can (Deep Cleaning)' },
+  { value: 'HandSparkles', label: '✨ Hand Sparkles (Premium)' },
+  { value: 'Sparkles', label: '⭐ Sparkles (Luxury)' },
+  { value: 'Home', label: '🏠 Home (House Cleaning)' },
+  { value: 'HouseUser', label: '🏡 House User (Residential)' },
+  { value: 'Building', label: '🏢 Building (Office)' },
+  { value: 'Warehouse', label: '🏭 Warehouse (Industrial)' },
+  { value: 'Store', label: '🏪 Store (Commercial)' },
+  { value: 'Shower', label: '🚿 Shower (Bathroom)' },
+  { value: 'Bed', label: '🛏️ Bed (Bedroom)' },
+  { value: 'Utensils', label: '🍴 Utensils (Kitchen)' },
+  { value: 'Couch', label: '🛋️ Couch (Furniture)' },
+  { value: 'Car', label: '🚗 Car (Vehicle)' },
+  { value: 'Door', label: '🚪 Door (Move In/Out)' },
+  { value: 'Key', label: '🔑 Key (Rental)' },
+  { value: 'Tools', label: '🔧 Tools (Maintenance)' },
+  { value: 'PaintRoller', label: '🎨 Paint Roller (Painting)' },
+  { value: 'Wind', label: '💨 Wind (Air Quality)' },
+  { value: 'Snowflake', label: '❄️ Snowflake (AC Cleaning)' },
+  { value: 'Box', label: '📦 Box (Organization)' },
+  { value: 'Sun', label: '☀️ Sun (Window Cleaning)' },
+  { value: 'Moon', label: '🌙 Moon (Night Service)' },
+  { value: 'Leaf', label: '🍃 Leaf (Eco-Friendly)' },
+  { value: 'Recycle', label: '♻️ Recycle (Green)' },
+];
 
 export default function ServicesTab({ 
   services, 
@@ -205,14 +235,25 @@ export default function ServicesTab({
             />
           </FormField>
 
-          <FormField label="Icon (Emoji)">
-            <input
-              type="text"
+          <FormField label="Icon" required>
+            <Select
               value={serviceForm.icon}
-              onChange={(e) => setServiceForm(prev => ({ ...prev, icon: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="e.g., 🧹"
-            />
+              onValueChange={(value) => setServiceForm(prev => ({ ...prev, icon: value }))}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select an icon" />
+              </SelectTrigger>
+              <SelectContent className="max-h-60">
+                {AVAILABLE_ICONS.map((icon) => (
+                  <SelectItem key={icon.value} value={icon.value}>
+                    {icon.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-gray-500 mt-1">
+              Choose an icon that represents this service
+            </p>
           </FormField>
 
           <FormField label="Price (€)">

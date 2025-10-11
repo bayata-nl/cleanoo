@@ -36,7 +36,19 @@ import {
   FaShower,
   FaDoorOpen,
   FaKey,
-  FaBox
+  FaBox,
+  FaPaintRoller,
+  FaSnowflake,
+  FaBed,
+  FaUtensils,
+  FaWind,
+  FaSun,
+  FaMoon,
+  FaLeaf,
+  FaRecycle,
+  FaHandSparkles,
+  FaHouseUser,
+  FaStore
 } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -89,24 +101,45 @@ export default function HomePage() {
 
 
 
-// FontAwesome style icon mapping (fallback to lucide if not found)
+// FontAwesome style icon mapping
 const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-  // FontAwesome icons
-  Home: FaHome,
-  Building2: FaBuilding,
-  Car: FaCar,
-  Clock: FaBroom,
-  Sparkles: FaSparkles,
+  // Temizlik İcon'ları
   Broom: FaBroom,
-  Couch: FaCouch,
-  Tools: FaTools,
-  Warehouse: FaWarehouse,
   SprayCan: FaSprayCan,
+  HandSparkles: FaHandSparkles,
+  Sparkles: FaSparkles,
+  PaintRoller: FaPaintRoller,
+  
+  // Mekan İcon'ları
+  Home: FaHome,
+  HouseUser: FaHouseUser,
+  Building: FaBuilding,
+  Building2: FaBuilding,
+  Warehouse: FaWarehouse,
+  Store: FaStore,
+  
+  // Oda/Alan İcon'ları
   Shower: FaShower,
+  Bed: FaBed,
+  Utensils: FaUtensils,
+  Couch: FaCouch,
   Door: FaDoorOpen,
+  
+  // Hizmet Tipi İcon'ları
+  Car: FaCar,
+  Tools: FaTools,
   Key: FaKey,
   Box: FaBox,
-  // Lucide fallbacks
+  Wind: FaWind,
+  Snowflake: FaSnowflake,
+  
+  // Özel İcon'lar
+  Sun: FaSun,
+  Moon: FaMoon,
+  Leaf: FaLeaf,
+  Recycle: FaRecycle,
+  
+  // Lucide Fallbacks (eski servisler için)
   LucideHome: Home,
   LucideBuilding: Building2,
   LucideCar: Car,

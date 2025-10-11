@@ -25,23 +25,29 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     // Validation
     if (!title || !description) {
-      return NextResponse.json({ error: 'Title and description are required' }, { status: 400 });
+      return NextResponse.json({ 
+        success: false,
+        error: 'Title and description are required' 
+      }, { status: 400 });
     }
 
     const stmt = db.prepare(`
       UPDATE services 
-      SET title = ?, description = ?, icon = ?, price = ?, created_at = created_at
+      SET title = ?, description = ?, icon = ?, price = ?
       WHERE id = ?
     `);
     
     const result = stmt.run(title, description, icon || '', price || '', id);
     
     if (result.changes === 0) {
-      return NextResponse.json({ error: 'Service not found' }, { status: 404 });
+      return NextResponse.json({ 
+        success: false,
+        error: 'Service not found' 
+      }, { status: 404 });
     }
     
     // Get updated record
-    const updated = db.prepare('SELECT * FROM services WHERE id = ?').get((await params).id);
+    const updated = db.prepare('SELECT * FROM services WHERE id = ?').get(id);
     
     return NextResponse.json({ 
       success: true, 
