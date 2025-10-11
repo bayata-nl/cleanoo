@@ -377,22 +377,14 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
               Enjoy flexible hours and a supportive team culture.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div>
               <Button 
                 size="lg"
-                className="bg-white text-blue-700 hover:bg-white/90 font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group px-8 py-6 text-lg"
+                className="bg-white text-blue-700 hover:bg-white/90 font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group px-8 py-4"
                 onClick={() => router.push('/staff/register')}
               >
                 Join Us
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button 
-                size="lg"
-                variant="outline"
-                className="border-2 border-white/80 text-white hover:bg-white hover:text-blue-700 font-semibold backdrop-blur-sm px-8 py-6 text-lg transition-all duration-300 hover:shadow-xl"
-                onClick={() => router.push('/staff/login')}
-              >
-                Staff Login
               </Button>
             </div>
           </div>
