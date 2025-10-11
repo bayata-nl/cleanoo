@@ -23,7 +23,23 @@ import {
   Instagram,
   Linkedin
 } from 'lucide-react';
+import { 
+  FaHome, 
+  FaBuilding, 
+  FaCar, 
+  FaBroom, 
+  FaSparkles, 
+  FaCouch,
+  FaTools,
+  FaWarehouse,
+  FaSprayCan,
+  FaShower,
+  FaDoorOpen,
+  FaKey,
+  FaBox
+} from 'react-icons/fa';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -73,12 +89,29 @@ export default function HomePage() {
 
 
 
+// FontAwesome style icon mapping (fallback to lucide if not found)
 const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-  Home,
-  Building2,
-  Car,
-  Clock,
-  Sparkles
+  // FontAwesome icons
+  Home: FaHome,
+  Building2: FaBuilding,
+  Car: FaCar,
+  Clock: FaBroom,
+  Sparkles: FaSparkles,
+  Broom: FaBroom,
+  Couch: FaCouch,
+  Tools: FaTools,
+  Warehouse: FaWarehouse,
+  SprayCan: FaSprayCan,
+  Shower: FaShower,
+  Door: FaDoorOpen,
+  Key: FaKey,
+  Box: FaBox,
+  // Lucide fallbacks
+  LucideHome: Home,
+  LucideBuilding: Building2,
+  LucideCar: Car,
+  LucideClock: Clock,
+  LucideSparkles: Sparkles
 };
 
 
@@ -139,141 +172,51 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
         </div>
       </nav>
 
-      {/* Hero Section - With Image */}
-      <section className="relative min-h-[90vh] flex items-center px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 pt-16 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-grid-pattern"></div>
+      {/* Hero Section - Simple with Background Image */}
+      <section className="relative min-h-[80vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16 overflow-hidden">
+        {/* Background Image from Unsplash */}
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop"
+            alt="Professional Cleaning Service"
+            fill
+            className="object-cover"
+            priority
+            quality={85}
+            sizes="100vw"
+          />
+          {/* Dark Overlay - Reduced opacity for better image visibility */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-blue-800/50 to-indigo-900/60"></div>
         </div>
         
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="text-left text-white space-y-8">
-              <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
-                <Sparkles className="h-4 w-4" />
-                <span className="text-sm font-semibold">Professional Cleaning Services</span>
-              </div>
-
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-                {t('hero.title')}
-                <span className="block text-blue-200 mt-2">{t('hero.subtitle')}</span>
-              </h1>
-
-              <p className="text-xl sm:text-2xl text-blue-100 leading-relaxed max-w-xl">
-                {t('hero.description')}
-              </p>
-
-              {/* Stats */}
-              <div className="flex flex-wrap gap-8 pt-4">
-                <div className="flex items-center space-x-3">
-                  <div className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl">
-                    <CheckCircle className="h-6 w-6 text-green-300" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">1000+</div>
-                    <div className="text-sm text-blue-200">Happy Clients</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl">
-                    <Star className="h-6 w-6 text-yellow-300 fill-yellow-300" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">5.0</div>
-                    <div className="text-sm text-blue-200">Rating</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl">
-                    <Award className="h-6 w-6 text-purple-300" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">10+</div>
-                    <div className="text-sm text-blue-200">Years</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button 
-                  size="lg" 
-                  className="text-lg px-8 py-6 bg-white text-blue-700 hover:bg-blue-50 font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group"
-                  onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  {t('hero.bookButton')}
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="text-lg px-8 py-6 bg-transparent text-white hover:bg-white/10 font-semibold border-2 border-white/30 hover:border-white shadow-lg backdrop-blur-sm"
-                  onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  {t('hero.viewServicesButton')}
-                </Button>
-              </div>
+        <div className="relative z-10 max-w-7xl mx-auto text-center text-white">
+          <div className="flex justify-center mb-8">
+            <div className="p-4 bg-white/10 backdrop-blur-sm rounded-full">
+              <Sparkles className="h-16 w-16 text-white" />
             </div>
-
-            {/* Right Image */}
-            <div className="hidden lg:block relative">
-              <div className="relative">
-                {/* Main Image Container */}
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
-                  <div className="aspect-[4/5] bg-gradient-to-br from-blue-400 to-indigo-500 relative">
-                    {/* Placeholder for cleaning image */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center text-white p-8">
-                        <Sparkles className="h-24 w-24 mx-auto mb-6 opacity-80" />
-                        <h3 className="text-3xl font-bold mb-3">Professional</h3>
-                        <p className="text-xl opacity-90">Cleaning Service</p>
-                      </div>
-                    </div>
-                    {/* You can replace above div with actual image:
-                    <Image
-                      src="/images/hero-cleaning.jpg"
-                      alt="Professional Cleaning Service"
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                    */}
-                  </div>
-                  {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 to-transparent"></div>
-                </div>
-
-                {/* Floating Badge */}
-                <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-2xl p-6 animate-float">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl">
-                      <CheckCircle className="h-8 w-8 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">100%</div>
-                      <div className="text-sm text-gray-600">Satisfaction</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Badge 2 */}
-                <div className="absolute -top-6 -right-6 bg-white rounded-2xl shadow-2xl p-4 animate-float animation-delay-2000">
-                  <div className="text-center">
-                    <div className="flex justify-center space-x-1 mb-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-                      ))}
-                    </div>
-                    <div className="text-xs text-gray-600 font-medium">5 Star Rating</div>
-                  </div>
-                </div>
-
-                {/* Decorative Elements */}
-                <div className="absolute -z-10 -top-8 -right-8 w-72 h-72 bg-yellow-400 rounded-full opacity-20 blur-3xl"></div>
-                <div className="absolute -z-10 -bottom-8 -left-8 w-72 h-72 bg-purple-400 rounded-full opacity-20 blur-3xl"></div>
-              </div>
-            </div>
+          </div>
+          <h1 className="text-5xl sm:text-7xl font-bold mb-6">
+            {t('hero.title')}
+            <span className="block text-blue-200">{t('hero.subtitle')}</span>
+          </h1>
+          <p className="text-xl sm:text-2xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed">
+            {t('hero.description')}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg" 
+              className="text-lg px-8 py-4 bg-white text-blue-700 hover:bg-blue-50 font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              {t('hero.bookButton')}
+            </Button>
+            <Button 
+              size="lg" 
+              className="text-lg px-8 py-4 bg-blue-500 text-white hover:bg-blue-600 font-semibold border-2 border-blue-400 hover:border-blue-300 shadow-lg backdrop-blur-sm"
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              {t('hero.viewServicesButton')}
+            </Button>
           </div>
         </div>
       </section>
