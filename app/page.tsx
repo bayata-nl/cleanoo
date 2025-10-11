@@ -166,40 +166,40 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
 
             {/* Right side */}
             <div className="flex items-center space-x-3">
-              <LanguageSwitcher />
-              {authLoading ? (
+          <LanguageSwitcher />
+          {authLoading ? (
                 <div className="animate-pulse bg-gray-100 rounded px-3 py-2">
                   <div className="w-16 h-4 bg-gray-200 rounded"></div>
-                </div>
-              ) : user ? (
-                <Button
-                  variant="ghost"
-                  size="sm"
+            </div>
+          ) : user ? (
+            <Button
+              variant="ghost"
+              size="sm"
                   className="text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium"
-                  onClick={() => router.push('/dashboard')}
-                >
-                  <User className="h-4 w-4 mr-2" />
-                  Dashboard
-                </Button>
-              ) : (
+              onClick={() => router.push('/dashboard')}
+            >
+              <User className="h-4 w-4 mr-2" />
+                  {t('nav.dashboard')}
+            </Button>
+          ) : (
                 <div className="flex space-x-2">
-                  <Button
+              <Button
                     variant="ghost"
-                    size="sm"
+                size="sm"
                     className="text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium"
-                    onClick={() => router.push('/login')}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    size="sm"
+                onClick={() => router.push('/login')}
+              >
+                    {t('nav.login')}
+              </Button>
+              <Button
+                size="sm"
                     className="bg-blue-600 text-white hover:bg-blue-700 shadow-sm font-medium px-4"
-                    onClick={() => router.push('/register')}
-                  >
-                    Sign Up
-                  </Button>
-                </div>
-              )}
+                onClick={() => router.push('/register')}
+              >
+                    {t('nav.signup')}
+              </Button>
+            </div>
+          )}
             </div>
           </div>
         </div>
@@ -266,7 +266,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
           <div className="text-center mb-20">
             <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 rounded-full px-4 py-2 mb-6">
               <Sparkles className="h-4 w-4" />
-              <span className="text-sm font-semibold">Our Services</span>
+              <span className="text-sm font-semibold">{t('services.ourServices')}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
               {t('services.title')}
@@ -319,7 +319,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                       {/* Icon with Animation */}
                       <div className="flex items-center justify-center mb-6">
                         <div className={`w-20 h-20 bg-gradient-to-br ${gradients[index % 6]} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                          {IconComponent && <IconComponent className="h-10 w-10 text-white" />}
+                        {IconComponent && <IconComponent className="h-10 w-10 text-white" />}
                         </div>
                       </div>
 
@@ -345,7 +345,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                   <div className="p-4 bg-gray-100 rounded-full">
                     <Sparkles className="h-8 w-8 text-gray-400" />
                   </div>
-                  <p className="text-gray-500 text-lg">No services available at the moment</p>
+                  <p className="text-gray-500 text-lg">{t('services.noServices')}</p>
                 </div>
               </div>
             )}
@@ -365,16 +365,15 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
           <div className="text-white space-y-8">
             <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
               <Award className="h-4 w-4" />
-              <span className="text-sm font-semibold">Career Opportunity</span>
+              <span className="text-sm font-semibold">{t('joinTeam.badge')}</span>
             </div>
             
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              Join Our Cleaning Team
+              {t('joinTeam.title')}
             </h2>
             
             <p className="text-xl text-blue-100 leading-relaxed">
-              Join our dynamic team and help us deliver the best cleaning experience to our customers. 
-              Enjoy flexible hours and a supportive team culture.
+              {t('joinTeam.description')}
             </p>
 
             <div>
@@ -383,19 +382,19 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                 className="bg-white text-blue-700 hover:bg-white/90 font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group px-8 py-4"
                 onClick={() => router.push('/staff/register')}
               >
-                Join Us
+                {t('joinTeam.button')}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
           </div>
-
+          
           {/* Right Content - Benefits Card */}
           <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-10 space-y-6">
             <div className="flex items-center space-x-3 mb-6">
               <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl">
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">What We Offer</h3>
+              <h3 className="text-2xl font-bold text-gray-900">{t('joinTeam.benefitsTitle')}</h3>
             </div>
 
             <div className="space-y-4">
@@ -404,8 +403,8 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                   <Clock className="h-5 w-5 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Flexible Shifts</h4>
-                  <p className="text-sm text-gray-600">Choose hours that work for you</p>
+                  <h4 className="font-semibold text-gray-900 mb-1">{t('joinTeam.benefits.flexible.title')}</h4>
+                  <p className="text-sm text-gray-600">{t('joinTeam.benefits.flexible.description')}</p>
                 </div>
               </div>
 
@@ -414,8 +413,8 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                   <Award className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Performance Bonuses</h4>
-                  <p className="text-sm text-gray-600">Earn more with excellent work</p>
+                  <h4 className="font-semibold text-gray-900 mb-1">{t('joinTeam.benefits.bonuses.title')}</h4>
+                  <p className="text-sm text-gray-600">{t('joinTeam.benefits.bonuses.description')}</p>
                 </div>
               </div>
 
@@ -424,35 +423,35 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                   <Zap className="h-5 w-5 text-purple-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Training & Growth</h4>
-                  <p className="text-sm text-gray-600">Continuous learning opportunities</p>
+                  <h4 className="font-semibold text-gray-900 mb-1">{t('joinTeam.benefits.training.title')}</h4>
+                  <p className="text-sm text-gray-600">{t('joinTeam.benefits.training.description')}</p>
                 </div>
-              </div>
+                  </div>
 
               <div className="flex items-start space-x-4 p-4 bg-gradient-to-br from-orange-50 to-red-50 rounded-xl">
                 <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
                   <Shield className="h-5 w-5 text-orange-600" />
-                </div>
+                  </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Safe Environment</h4>
-                  <p className="text-sm text-gray-600">Respectful and secure workplace</p>
+                  <h4 className="font-semibold text-gray-900 mb-1">{t('joinTeam.benefits.safety.title')}</h4>
+                  <p className="text-sm text-gray-600">{t('joinTeam.benefits.safety.description')}</p>
                 </div>
               </div>
-            </div>
+                  </div>
 
             <div className="pt-6 border-t border-gray-200">
               <div className="flex items-center justify-between text-center">
                 <div>
                   <div className="text-2xl font-bold text-gray-900">50+</div>
-                  <div className="text-sm text-gray-600">Team Members</div>
-                </div>
+                  <div className="text-sm text-gray-600">{t('joinTeam.stats.members')}</div>
+                    </div>
                 <div>
                   <div className="text-2xl font-bold text-gray-900">4.9/5</div>
-                  <div className="text-sm text-gray-600">Employee Rating</div>
-                </div>
+                  <div className="text-sm text-gray-600">{t('joinTeam.stats.rating')}</div>
+                  </div>
                 <div>
                   <div className="text-2xl font-bold text-gray-900">95%</div>
-                  <div className="text-sm text-gray-600">Satisfaction</div>
+                  <div className="text-sm text-gray-600">{t('joinTeam.stats.satisfaction')}</div>
                 </div>
               </div>
             </div>
@@ -465,10 +464,10 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Ready to Book Your Cleaning?
+              {t('booking.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Login to your account to book cleaning services and manage your bookings
+              {t('booking.loginDescription')}
             </p>
           </div>
           
@@ -481,13 +480,13 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
               </div>
               
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                {user ? 'Welcome back!' : 'Login to Book Services'}
+                {user ? t('booking.welcomeBack') : t('booking.loginTitle')}
               </h3>
               
               <p className="text-gray-600 mb-8 max-w-md mx-auto">
                 {user 
-                  ? 'You are already logged in. Go to your dashboard to book services.'
-                  : 'Please login to your account to book cleaning services and manage your bookings.'
+                  ? t('booking.welcomeDescription')
+                  : t('booking.loginDescription')
                 }
               </p>
               
@@ -498,7 +497,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                     className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105"
                   >
                     <User className="h-5 w-5 mr-3" />
-                    Go to Dashboard
+                    {t('booking.goDashboard')}
                   </Button>
                 ) : (
                   <>
@@ -507,20 +506,20 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                       className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105"
                     >
                       <User className="h-5 w-5 mr-3" />
-                      Login
+                      {t('nav.login')}
                     </Button>
                     <Button
                       onClick={() => router.push('/register')}
                       variant="outline"
                       className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold py-4 px-8 rounded-xl transition-all duration-300"
                     >
-                      Create Account
+                      {t('booking.createAccount')}
                     </Button>
                   </>
                 )}
               </div>
             </div>
-          </div>
+            </div>
         </div>
       </section>
 
@@ -542,7 +541,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                 </span>
               </Link>
               <p className="text-gray-400 leading-relaxed">
-                Professional cleaning services for homes and offices. Making your space sparkle since 2024.
+                {t('footer.description')}
               </p>
               {/* Social Links */}
               <div className="flex space-x-4">
@@ -563,30 +562,30 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 text-white">Quick Links</h4>
+              <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.quickLinks')}</h4>
               <ul className="space-y-3">
                 <li>
                   <a href="#services" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
                     <ArrowRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                    Services
+                    {t('footer.services')}
                   </a>
                 </li>
                 <li>
                   <a href="#booking-form" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
                     <ArrowRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                    Book Now
+                    {t('footer.bookNow')}
                   </a>
                 </li>
                 <li>
                   <button onClick={() => router.push('/staff/register')} className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
                     <ArrowRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                    Join Our Team
+                    {t('footer.joinOurTeam')}
                   </button>
                 </li>
                 <li>
                   <button onClick={() => router.push('/staff/login')} className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
                     <ArrowRight className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                    Staff Login
+                    {t('footer.staffLogin')}
                   </button>
                 </li>
               </ul>
@@ -594,30 +593,30 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
 
             {/* Services */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 text-white">Our Services</h4>
+              <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.ourServices')}</h4>
               <ul className="space-y-3">
                 <li className="text-gray-400 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-                  Home Cleaning
+                  {t('footer.homeCleaning')}
                 </li>
                 <li className="text-gray-400 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-                  Office Cleaning
+                  {t('footer.officeCleaning')}
                 </li>
                 <li className="text-gray-400 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-                  Deep Cleaning
+                  {t('footer.deepCleaning')}
                 </li>
                 <li className="text-gray-400 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-                  Move-In/Out
+                  {t('footer.moveInOut')}
                 </li>
               </ul>
             </div>
 
             {/* Contact Info */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 text-white">Contact Us</h4>
+              <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.contactUs')}</h4>
               <ul className="space-y-4">
                 <li>
                   <a href="mailto:info@cleanoo.nl" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-start group">
@@ -643,21 +642,21 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
           <div className="pt-8 border-t border-white/10">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-gray-400 text-sm">
-                © 2024 Cleanoo. All rights reserved.
+                {t('footer.copyright')}
               </p>
               <div className="flex space-x-6 text-sm">
                 <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Privacy Policy
+                  {t('footer.privacyPolicy')}
                 </a>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Terms of Service
+                  {t('footer.termsOfService')}
                 </a>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Cookie Policy
+                  {t('footer.cookiePolicy')}
                 </a>
               </div>
             </div>
-          </div>
+           </div>
         </div>
 
         {/* Decorative Elements */}

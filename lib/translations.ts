@@ -9,10 +9,25 @@ export const translations = {
       viewServicesButton: "View Our Services"
     },
 
+    // Navigation
+    nav: {
+      login: "Login",
+      signup: "Sign Up",
+      dashboard: "Dashboard"
+    },
+
+    // Hero Stats
+    stats: {
+      trustedBy: "Trusted by 1000+ Customers",
+      professionalServices: "Professional Cleaning Services"
+    },
+
     // Services Section
     services: {
       title: "Our Premium Services",
       description: "Comprehensive cleaning solutions tailored to your needs with professional expertise and eco-friendly products",
+      ourServices: "Our Services",
+      noServices: "No services available at the moment"
       residential: {
         title: "Residential Cleaning",
         description: "Complete home cleaning services including kitchen, bathrooms, bedrooms, and living areas.",
@@ -51,9 +66,47 @@ export const translations = {
       description: "Don't just take our word for it - hear from our satisfied customers"
     },
 
+    // Join Team Section
+    joinTeam: {
+      badge: "Career Opportunity",
+      title: "Join Our Cleaning Team",
+      description: "Join our dynamic team and help us deliver the best cleaning experience to our customers. Enjoy flexible hours and a supportive team culture.",
+      button: "Join Us",
+      benefitsTitle: "What We Offer",
+      benefits: {
+        flexible: {
+          title: "Flexible Shifts",
+          description: "Choose hours that work for you"
+        },
+        bonuses: {
+          title: "Performance Bonuses",
+          description: "Earn more with excellent work"
+        },
+        training: {
+          title: "Training & Growth",
+          description: "Continuous learning opportunities"
+        },
+        safety: {
+          title: "Safe Environment",
+          description: "Respectful and secure workplace"
+        }
+      },
+      stats: {
+        members: "Team Members",
+        rating: "Employee Rating",
+        satisfaction: "Satisfaction"
+      }
+    },
+
     // Booking Form Section
     booking: {
-      title: "Book Your Cleaning Service",
+      title: "Ready to Book Your Cleaning?",
+      loginTitle: "Login to Book Services",
+      loginDescription: "Please login to your account to book cleaning services and manage your bookings.",
+      welcomeBack: "Welcome back!",
+      welcomeDescription: "You are already logged in. Go to your dashboard to book services.",
+      goDashboard: "Go to Dashboard",
+      createAccount: "Create Account",
       description: "Get a professional cleaning service tailored to your needs with our easy booking system",
       form: {
         fullName: "Full Name *",
@@ -85,8 +138,22 @@ export const translations = {
 
     // Footer
     footer: {
-      description: "Professional cleaning services for homes and offices with unmatched quality and reliability",
-      copyright: "© 2024 Cleanoo. All rights reserved."
+      description: "Professional cleaning services for homes and offices. Making your space sparkle since 2024.",
+      copyright: "© 2024 Cleanoo. All rights reserved.",
+      quickLinks: "Quick Links",
+      ourServices: "Our Services",
+      contactUs: "Contact Us",
+      services: "Services",
+      bookNow: "Book Now",
+      joinOurTeam: "Join Our Team",
+      staffLogin: "Staff Login",
+      homeCleaning: "Home Cleaning",
+      officeCleaning: "Office Cleaning",
+      deepCleaning: "Deep Cleaning",
+      moveInOut: "Move-In/Out",
+      privacyPolicy: "Privacy Policy",
+      termsOfService: "Terms of Service",
+      cookiePolicy: "Cookie Policy"
     },
 
     // Language Switcher
@@ -126,10 +193,25 @@ export const translations = {
       viewServicesButton: "Bekijk Onze Diensten"
     },
 
+    // Navigation
+    nav: {
+      login: "Inloggen",
+      signup: "Registreren",
+      dashboard: "Dashboard"
+    },
+
+    // Hero Stats
+    stats: {
+      trustedBy: "Vertrouwd door 1000+ Klanten",
+      professionalServices: "Professionele Schoonmaakdiensten"
+    },
+
     // Services Section
     services: {
       title: "Onze Premium Diensten",
       description: "Uitgebreide schoonmaakoplossingen op maat voor uw behoeften met professionele expertise en milieuvriendelijke producten",
+      ourServices: "Onze Diensten",
+      noServices: "Momenteel geen diensten beschikbaar",
       residential: {
         title: "Woningreiniging",
         description: "Complete woningreiniging inclusief keuken, badkamers, slaapkamers en woonruimtes.",
@@ -168,9 +250,47 @@ export const translations = {
       description: "Geloof niet alleen ons woord - hoor het van onze tevreden klanten"
     },
 
+    // Join Team Section
+    joinTeam: {
+      badge: "Carrièremogelijkheid",
+      title: "Word Lid van Ons Team",
+      description: "Sluit je aan bij ons dynamische team en help ons de beste schoonmaakervaring aan onze klanten te bieden. Geniet van flexibele uren en een ondersteunende teamcultuur.",
+      button: "Sluit Je Aan",
+      benefitsTitle: "Wat Wij Bieden",
+      benefits: {
+        flexible: {
+          title: "Flexibele Diensten",
+          description: "Kies uren die voor jou werken"
+        },
+        bonuses: {
+          title: "Prestatiebonussen",
+          description: "Verdien meer met uitstekend werk"
+        },
+        training: {
+          title: "Training & Groei",
+          description: "Continue leermogelijkheden"
+        },
+        safety: {
+          title: "Veilige Omgeving",
+          description: "Respectvolle en veilige werkplek"
+        }
+      },
+      stats: {
+        members: "Teamleden",
+        rating: "Medewerkerbeoordeling",
+        satisfaction: "Tevredenheid"
+      }
+    },
+
     // Booking Form Section
     booking: {
-      title: "Boek Uw Schoonmaakdienst",
+      title: "Klaar om Uw Schoonmaak te Boeken?",
+      loginTitle: "Inloggen om Diensten te Boeken",
+      loginDescription: "Log in op uw account om schoonmaakdiensten te boeken en uw boekingen te beheren.",
+      welcomeBack: "Welkom terug!",
+      welcomeDescription: "U bent al ingelogd. Ga naar uw dashboard om diensten te boeken.",
+      goDashboard: "Ga naar Dashboard",
+      createAccount: "Account Aanmaken",
       description: "Krijg een professionele schoonmaakdienst op maat voor uw behoeften met ons eenvoudige boekingssysteem",
       form: {
         fullName: "Volledige Naam *",
@@ -202,8 +322,22 @@ export const translations = {
 
     // Footer
     footer: {
-      description: "Professionele schoonmaakdiensten voor huizen en kantoren met ongeëvenaarde kwaliteit en betrouwbaarheid",
-      copyright: "© 2024 Cleanoo. Alle rechten voorbehouden."
+      description: "Professionele schoonmaakdiensten voor huizen en kantoren. Uw ruimte laten schitteren sinds 2024.",
+      copyright: "© 2024 Cleanoo. Alle rechten voorbehouden.",
+      quickLinks: "Snelle Links",
+      ourServices: "Onze Diensten",
+      contactUs: "Contact",
+      services: "Diensten",
+      bookNow: "Boek Nu",
+      joinOurTeam: "Word Lid van Ons Team",
+      staffLogin: "Personeel Login",
+      homeCleaning: "Huisreiniging",
+      officeCleaning: "Kantoorreiniging",
+      deepCleaning: "Dieptereiniging",
+      moveInOut: "In-/Uitverhuizing",
+      privacyPolicy: "Privacybeleid",
+      termsOfService: "Servicevoorwaarden",
+      cookiePolicy: "Cookiebeleid"
     },
 
     // Language Switcher
