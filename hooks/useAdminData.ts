@@ -27,7 +27,13 @@ export function useAdminData() {
 
   const fetchServices = useCallback(async () => {
     try {
-      const response = await fetch('/api/services');
+      // Add timestamp to prevent caching
+      const response = await fetch(`/api/services?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        }
+      });
       if (response.ok) {
         const result = await response.json();
         if (result.success) {

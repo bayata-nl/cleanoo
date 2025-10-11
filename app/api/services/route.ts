@@ -1,12 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/sqlite';
-import { cachedResponse, CacheStrategies } from '@/lib/cache-helpers';
 
 export async function GET() {
   try {
     const services = db.prepare('SELECT * FROM services ORDER BY created_at DESC').all();
-    // Services change rarely, cache for 1 hour
-    return cachedResponse(services, CacheStrategies.Medium);
+    
+    // No cache for admin operations - always get fresh data
+    const response = NextResponse.json({ 
+      success: true, 
+      data: services 
+    });
+    
+    // Set no-cache headers to prevent stale data
+    response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    
+    return response;
   } catch (error) {
     console.error('Database error:', error);
     return NextResponse.json({ 

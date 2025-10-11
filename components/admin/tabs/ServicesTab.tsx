@@ -111,7 +111,11 @@ export default function ServicesTab({
 
       setShowServiceForm(false);
       resetForm();
-      fetchServices();
+      
+      // Force refresh services with delay to ensure DB is updated
+      setTimeout(() => {
+        fetchServices();
+      }, 100);
     } catch (error: any) {
       console.error('Error saving service:', error);
       toast({
@@ -137,7 +141,10 @@ export default function ServicesTab({
         description: "Service deleted successfully",
       });
 
-      fetchServices();
+      // Force refresh services with delay
+      setTimeout(() => {
+        fetchServices();
+      }, 100);
     } catch (error: any) {
       console.error('Error deleting service:', error);
       toast({
