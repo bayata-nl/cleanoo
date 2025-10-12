@@ -218,18 +218,34 @@ export default function StaffDashboard() {
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
-          // Filter assignments for current staff member
-          const staffAssignments = result.data.filter((assignment: Assignment) => {
-            // Individual assignments
-            if ((assignment as any).staff_id === staff?.id) {
-              return true;
-            }
-            // Team assignments - check if staff is member of the assigned team
-            if (assignment.team_id && teamIds.includes(assignment.team_id.toString())) {
-              return true;
-            }
-            return false;
-          });
+          // Filter assignments for current staff member and map to proper structure
+          const staffAssignments = result.data
+            .filter((assignment: any) => {
+              // Individual assignments
+              if (assignment.staff_id === staff?.id) {
+                return true;
+              }
+              // Team assignments - check if staff is member of the assigned team
+              if (assignment.team_id && teamIds.includes(assignment.team_id.toString())) {
+                return true;
+              }
+              return false;
+            })
+            .map((assignment: any) => ({
+              ...assignment,
+              booking: {
+                id: assignment.booking_id,
+                customer_name: assignment.customer_name,
+                customer_email: assignment.customer_email,
+                customer_phone: assignment.customer_phone,
+                service_type: assignment.service_type,
+                preferred_date: assignment.preferred_date,
+                preferred_time: assignment.preferred_time,
+                address: assignment.customer_address,
+                notes: assignment.booking_notes,
+                status: assignment.status,
+              }
+            }));
           setAssignments(staffAssignments);
         }
       }
