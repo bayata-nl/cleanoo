@@ -420,7 +420,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
 
 
       {/* Join Our Team Section */}
-      <section id="booking-form" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
         <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl opacity-5"></div>
