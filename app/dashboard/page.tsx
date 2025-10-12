@@ -38,9 +38,9 @@ import {
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
-  const { t } = useLanguage();
   const router = useRouter();
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [bookings, setBookings] = useState<BookingForm[]>([]);
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
@@ -348,7 +348,7 @@ export default function DashboardPage() {
                 </div>
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900">
-                    Welcome back, {user?.name}!
+                    {t('dashboard.welcome')}, {user?.name}!
                   </h2>
                   <p className="text-gray-600">{user?.email}</p>
                 </div>
@@ -359,7 +359,7 @@ export default function DashboardPage() {
                 onClick={() => setShowProfileModal(true)}
               >
                 <Settings className="h-4 w-4 mr-2" />
-                Edit Profile
+                {t('dashboard.editProfile')}
               </Button>
             </div>
           </div>
@@ -369,14 +369,14 @@ export default function DashboardPage() {
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">
-                  My Bookings ({bookings.length})
+                  {t('dashboard.myBookings')} ({bookings.length})
                 </h2>
                 <Button
                   onClick={() => router.push('/#services')}
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
                 >
                   <Plus className="h-4 w-4 mr-2" />
-                  New Booking
+                  {t('dashboard.newBooking')}
                 </Button>
               </div>
 
@@ -391,7 +391,7 @@ export default function DashboardPage() {
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
-                    Upcoming ({bookings.filter(b => new Date(b.preferredDate) >= new Date() && !['completed', 'cancelled'].includes(b.status)).length})
+                    {t('dashboard.tabs.upcoming')} ({bookings.filter(b => new Date(b.preferredDate) >= new Date() && !['completed', 'cancelled'].includes(b.status)).length})
                   </button>
                   <button
                     onClick={() => setBookingTab('past')}
@@ -401,7 +401,7 @@ export default function DashboardPage() {
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
-                    Past ({bookings.filter(b => new Date(b.preferredDate) < new Date() || ['completed', 'cancelled'].includes(b.status)).length})
+                    {t('dashboard.tabs.past')} ({bookings.filter(b => new Date(b.preferredDate) < new Date() || ['completed', 'cancelled'].includes(b.status)).length})
                   </button>
                 </div>
               )}
@@ -410,18 +410,18 @@ export default function DashboardPage() {
             {loading ? (
               <div className="p-8 text-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-2 text-gray-600">Loading your bookings...</p>
+                <p className="mt-2 text-gray-600">{t('dashboard.loading')}</p>
               </div>
             ) : bookings.length === 0 ? (
               <div className="p-8 text-center">
                 <Sparkles className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No bookings found</h3>
-                <p className="text-gray-600 mb-6">You haven't made any bookings yet.</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">{t('dashboard.noBookings')}</h3>
+                <p className="text-gray-600 mb-6">{t('dashboard.noBookingsDesc')}</p>
                 <Button 
                   onClick={() => router.push('/')}
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
                 >
-                  Book Your First Cleaning
+                  {t('dashboard.bookFirst')}
                 </Button>
               </div>
             ) : (
@@ -488,7 +488,7 @@ export default function DashboardPage() {
                                 }}
                               >
                                 <Calendar className="h-4 w-4 mr-1" />
-                                Reschedule
+                                {t('dashboard.bookingCard.reschedule')}
                               </Button>
                               <Button
                                 size="sm"
@@ -497,7 +497,7 @@ export default function DashboardPage() {
                                 onClick={() => cancelBooking(booking.id!, 'cancelled')}
                               >
                                 <X className="h-4 w-4 mr-1" />
-                                Cancel
+                                {t('dashboard.bookingCard.cancel')}
                               </Button>
                             </>
                           )}
@@ -514,7 +514,7 @@ export default function DashboardPage() {
                               }}
                             >
                               <Star className="h-4 w-4 mr-1" />
-                              Rate Service
+                              {t('dashboard.bookingCard.rate')}
                             </Button>
                           )}
                           
@@ -530,7 +530,7 @@ export default function DashboardPage() {
                               }}
                             >
                               <RefreshCw className="h-4 w-4 mr-1" />
-                              Rebook
+                              {t('dashboard.bookingCard.rebook')}
                             </Button>
                           )}
                           {booking.status === 'assigned' && (

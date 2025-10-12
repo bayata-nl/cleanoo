@@ -92,7 +92,7 @@ export default function StaffLogin() {
                 value={formData.email}
                 onChange={handleInputChange}
                 className="w-full"
-                placeholder="Enter your email"
+                placeholder={t('auth.login.emailPlaceholder')}
               />
             </div>
 
@@ -108,7 +108,7 @@ export default function StaffLogin() {
                 value={formData.password}
                 onChange={handleInputChange}
                 className="w-full"
-                placeholder="Enter your password"
+                placeholder={t('auth.login.passwordPlaceholder')}
               />
             </div>
           </div>

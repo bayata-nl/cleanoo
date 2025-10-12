@@ -76,6 +76,7 @@ export default function StaffDashboard() {
   const router = useRouter();
   const { toast } = useToast();
   const { staff, logout, changePassword, isLoading } = useStaffAuth();
+  const { t } = useLanguage();
   
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -477,7 +478,7 @@ export default function StaffDashboard() {
             <div className="flex items-center">
               <div className="flex items-center">
                 <Sparkles className="h-8 w-8 text-blue-600 mr-3" />
-                <h1 className="text-xl font-semibold text-gray-900">Staff Dashboard</h1>
+                <h1 className="text-xl font-semibold text-gray-900">{t('staff.dashboard.title')}</h1>
               </div>
             </div>
             
@@ -669,9 +670,9 @@ export default function StaffDashboard() {
                       <div>
                         <div className="flex items-center space-x-2 mb-2">
                           <Target className="h-5 w-5" />
-                          <h3 className="text-lg font-bold">Today's Schedule</h3>
+                          <h3 className="text-lg font-bold">{t('staff.dashboard.todaySchedule')}</h3>
                         </div>
-                        <p className="text-blue-100 text-sm">You have {todayTasks.length} {todayTasks.length === 1 ? 'task' : 'tasks'} scheduled for today</p>
+                        <p className="text-blue-100 text-sm">{todayTasks.length} {t('staff.dashboard.tasksToday')}</p>
                       </div>
                       <div className="text-4xl font-bold">{todayTasks.length}</div>
                     </div>
@@ -697,7 +698,7 @@ export default function StaffDashboard() {
                 className="flex items-center"
                 >
                   <CalendarDays className="h-4 w-4 mr-2" />
-                Calendar View
+                {t('common.calendar') || 'Calendar View'}
                 </Button>
                 <Button
                   onClick={() => setViewMode('list')}
@@ -705,7 +706,7 @@ export default function StaffDashboard() {
                 className="flex items-center"
                 >
                   <List className="h-4 w-4 mr-2" />
-                List View
+                {t('common.list') || 'List View'}
               </Button>
               <Button
                 onClick={() => setActiveTab('active')}
@@ -723,7 +724,7 @@ export default function StaffDashboard() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <h2 className="text-lg font-semibold text-gray-900">
-                      My Assignments ({getFilteredAssignments().length})
+                      {t('staff.dashboard.myAssignments')} ({getFilteredAssignments().length})
                     </h2>
             </div>
                   <div className="flex bg-gray-100 rounded-lg p-1">
@@ -815,7 +816,7 @@ export default function StaffDashboard() {
                                       className="bg-green-600 hover:bg-green-700"
                                     >
                                       <CheckCircle className="h-4 w-4 mr-1" />
-                                      Accept
+                                      {t('staff.dashboard.assignmentCard.accept')}
                                     </Button>
                                   )}
                                   {assignment.status === 'accepted' && (
@@ -825,7 +826,7 @@ export default function StaffDashboard() {
                                       className="bg-blue-600 hover:bg-blue-700"
                                     >
                                       <Play className="h-4 w-4 mr-1" />
-                                      Start
+                                      {t('staff.dashboard.assignmentCard.start')}
                                     </Button>
                                   )}
                                   {assignment.status === 'in_progress' && (
@@ -835,7 +836,7 @@ export default function StaffDashboard() {
                                       className="bg-green-600 hover:bg-green-700"
                                     >
                                       <Square className="h-4 w-4 mr-1" />
-                                      Complete
+                                      {t('staff.dashboard.assignmentCard.complete')}
                                     </Button>
                                   )}
                             </div>
@@ -845,7 +846,7 @@ export default function StaffDashboard() {
                     </div>
                       ) : (
                         <p className="text-gray-500 text-center py-8">
-                          {activeTab === 'active' ? 'No active assignments for this date.' : 'No completed assignments for this date.'}
+                          {activeTab === 'active' ? t('staff.dashboard.noAssignments') : t('staff.dashboard.noAssignments')}
                         </p>
                   )}
                 </div>
@@ -900,7 +901,7 @@ export default function StaffDashboard() {
                                     className="bg-green-600 hover:bg-green-700 text-white"
                                   >
                                     <CheckCircle className="h-4 w-4 mr-1" />
-                                    Accept
+                                    {t('staff.dashboard.assignmentCard.accept')}
                                   </Button>
                                   <Button
                                     variant="outline"
@@ -922,7 +923,7 @@ export default function StaffDashboard() {
                                     className="bg-blue-600 hover:bg-blue-700 text-white"
                                   >
                                     <Play className="h-4 w-4 mr-1" />
-                                    Start Work
+                                    {t('staff.dashboard.assignmentCard.start')}
                                   </Button>
                                   <Button
                                     variant="outline"
@@ -944,7 +945,7 @@ export default function StaffDashboard() {
                                     className="bg-green-600 hover:bg-green-700 text-white"
                                   >
                                     <CheckCircle className="h-4 w-4 mr-1" />
-                                    Complete
+                                    {t('staff.dashboard.assignmentCard.complete')}
                                   </Button>
                                   <Button
                                     variant="outline"
@@ -1135,12 +1136,12 @@ export default function StaffDashboard() {
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div className="mt-3">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
-              {isFirstLogin ? 'Set Your Password' : 'Change Password'}
+              {isFirstLogin ? t('common.password') || 'Set Your Password' : t('staff.dashboard.changePassword')}
             </h3>
               <div className="space-y-4">
                 {!isFirstLogin && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Current Password</label>
+                    <label className="block text-sm font-medium text-gray-700">{t('dashboard.modals.password.current')}</label>
                     <input
                       type="password"
                       value={passwordForm.currentPassword}
@@ -1150,7 +1151,7 @@ export default function StaffDashboard() {
               </div>
             )}
               <div>
-                  <label className="block text-sm font-medium text-gray-700">New Password</label>
+                  <label className="block text-sm font-medium text-gray-700">{t('dashboard.modals.password.new')}</label>
                 <input
                   type="password"
                   value={passwordForm.newPassword}
@@ -1159,7 +1160,7 @@ export default function StaffDashboard() {
                 />
               </div>
               <div>
-                  <label className="block text-sm font-medium text-gray-700">Confirm New Password</label>
+                  <label className="block text-sm font-medium text-gray-700">{t('dashboard.modals.password.confirm')}</label>
                 <input
                   type="password"
                   value={passwordForm.confirmPassword}
@@ -1176,10 +1177,10 @@ export default function StaffDashboard() {
                     setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
                   }}
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </Button>
                 <Button onClick={handlePasswordChange}>
-                  {isFirstLogin ? 'Set Password' : 'Change Password'}
+                  {isFirstLogin ? t('common.password') || 'Set Password' : t('dashboard.modals.password.button')}
                 </Button>
               </div>
             </div>
@@ -1192,7 +1193,7 @@ export default function StaffDashboard() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-10 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white">
             <div className="mt-1">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Edit Profile</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-4">{t('staff.dashboard.editProfile')}</h3>
               {profileLoading ? (
                 <div className="flex items-center justify-center py-10">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -1228,27 +1229,27 @@ export default function StaffDashboard() {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t('dashboard.modals.profile.name')}</label>
                       <Input value={profileForm.name} onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })} required />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t('dashboard.modals.profile.phone')}</label>
                       <Input value={profileForm.phone} onChange={(e) => setProfileForm({ ...profileForm, phone: e.target.value })} required />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t('dashboard.modals.profile.address')}</label>
                       <Input value={profileForm.address} onChange={(e) => setProfileForm({ ...profileForm, address: e.target.value })} required />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Specialization</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.staff.form.specialization')}</label>
                       <Input value={profileForm.specialization} onChange={(e) => setProfileForm({ ...profileForm, specialization: e.target.value })} placeholder="e.g., Deep Cleaning, Window Cleaning" />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Experience (Years)</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.staff.form.experience')}</label>
                       <Input type="number" min={0} value={profileForm.experience_years} onChange={(e) => setProfileForm({ ...profileForm, experience_years: parseInt(e.target.value || '0', 10) })} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Hourly Rate (€)</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t('admin.staff.form.hourlyRate')}</label>
                       <Input type="number" step="0.01" value={profileForm.hourly_rate} disabled title="Contact your admin to update hourly rate" />
                     </div>
                   </div>
@@ -1260,9 +1261,9 @@ export default function StaffDashboard() {
                         setShowProfileModal(false);
                       }}
                   >
-                    Cancel
+                    {t('common.cancel')}
                   </Button>
-                    <Button type="submit">Save Changes</Button>
+                    <Button type="submit">{t('dashboard.modals.profile.save')}</Button>
                   </div>
                 </form>
                 )}
@@ -1280,11 +1281,11 @@ export default function StaffDashboard() {
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Service Type</label>
+                    <label className="block text-sm font-medium text-gray-700">{t('dashboard.bookingCard.service')}</label>
                     <p className="mt-1 text-sm text-gray-900">{selectedAssignment.booking?.service_type}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Status</label>
+                    <label className="block text-sm font-medium text-gray-700">{t('dashboard.bookingCard.status')}</label>
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(selectedAssignment.status)}`}>
                       {getStatusIcon(selectedAssignment.status)}
                       <span className="ml-1 capitalize">{selectedAssignment.status.replace('_', ' ')}</span>
@@ -1292,7 +1293,7 @@ export default function StaffDashboard() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Customer</label>
+                  <label className="block text-sm font-medium text-gray-700">{t('staff.dashboard.assignmentCard.customer')}</label>
                   <p className="mt-1 text-sm text-gray-900">{selectedAssignment.booking?.customer_name}</p>
                 </div>
                 <div>
@@ -1307,7 +1308,7 @@ export default function StaffDashboard() {
                 </div>
                 {selectedAssignment.booking?.notes && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Notes</label>
+                    <label className="block text-sm font-medium text-gray-700">{t('dashboard.bookingCard.notes')}</label>
                     <p className="mt-1 text-sm text-gray-900">{selectedAssignment.booking.notes}</p>
                   </div>
                 )}
