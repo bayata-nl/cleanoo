@@ -42,6 +42,7 @@ export default function DashboardPage() {
   const [editingBooking, setEditingBooking] = useState<string | null>(null);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingTab, setBookingTab] = useState<'upcoming' | 'past'>('upcoming');
   const [editForm, setEditForm] = useState({
     preferredDate: '',
     preferredTime: '',
@@ -345,22 +346,45 @@ export default function DashboardPage() {
 
           {/* Bookings Section */}
           <div className="bg-white rounded-lg shadow">
-            <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <div>
+            <div className="px-6 py-4 border-b border-gray-200">
+              <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">
                   My Bookings ({bookings.length})
                 </h2>
-                <p className="text-sm text-gray-600 mt-1">
-                  Showing bookings for: {user?.email}
-                </p>
+                <Button
+                  onClick={() => router.push('/#services')}
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  New Booking
+                </Button>
               </div>
-              <Button
-                onClick={() => setShowBookingForm(true)}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                New Booking
-              </Button>
+
+              {/* Tabs */}
+              {bookings.length > 0 && (
+                <div className="flex bg-gray-100 rounded-lg p-1">
+                  <button
+                    onClick={() => setBookingTab('upcoming')}
+                    className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      bookingTab === 'upcoming'
+                        ? 'bg-white text-blue-600 shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    Upcoming ({bookings.filter(b => new Date(b.preferredDate) >= new Date() && !['completed', 'cancelled'].includes(b.status)).length})
+                  </button>
+                  <button
+                    onClick={() => setBookingTab('past')}
+                    className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      bookingTab === 'past'
+                        ? 'bg-white text-blue-600 shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    Past ({bookings.filter(b => new Date(b.preferredDate) < new Date() || ['completed', 'cancelled'].includes(b.status)).length})
+                  </button>
+                </div>
+              )}
             </div>
 
             {loading ? (
@@ -383,7 +407,12 @@ export default function DashboardPage() {
             ) : (
               <div className="p-6">
                 <div className="space-y-4">
-                  {bookings.map((booking) => (
+                  {bookings
+                    .filter(b => {
+                      const isPast = new Date(b.preferredDate) < new Date() || ['completed', 'cancelled'].includes(b.status);
+                      return bookingTab === 'past' ? isPast : !isPast;
+                    })
+                    .map((booking) => (
                     <div key={booking.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
