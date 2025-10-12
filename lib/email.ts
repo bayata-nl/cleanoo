@@ -1,8 +1,21 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// SMTP transporter configuration
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT) || 587,
+  secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  // Add these for better reliability
+  tls: {
+    rejectUnauthorized: false // Allow self-signed certificates (hosting servers)
+  }
+});
 
-const FROM_EMAIL = process.env.FROM_EMAIL || 'noreply@cleanoo.nl';
+const FROM_EMAIL = process.env.FROM_EMAIL || process.env.SMTP_USER || 'noreply@cleanoo.nl';
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
 export interface SendVerificationEmailParams {
@@ -34,9 +47,9 @@ export async function sendVerificationEmail({
   const verificationUrl = `${APP_URL}/verify-booking?token=${token}`;
 
   try {
-    const { data, error } = await resend.emails.send({
-      from: FROM_EMAIL,
-      to: [to],
+    const info = await transporter.sendMail({
+      from: `"Cleanoo" <${FROM_EMAIL}>`,
+      to: to,
       subject: 'Verify your booking with Cleanoo',
       html: `
         <!DOCTYPE html>
@@ -134,15 +147,11 @@ export async function sendVerificationEmail({
       `,
     });
 
-    if (error) {
-      console.error('❌ Failed to send verification email:', error);
-      throw new Error('Failed to send verification email');
-    }
-
     console.log('✅ Verification email sent to:', to);
-    return { success: true, data };
+    console.log('📧 Message ID:', info.messageId);
+    return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error('❌ Email sending error:', error);
+    console.error('❌ Failed to send verification email:', error);
     throw error;
   }
 }
@@ -158,9 +167,9 @@ export async function sendWelcomeEmail({
   const dashboardUrl = `${APP_URL}/dashboard`;
 
   try {
-    const { data, error } = await resend.emails.send({
-      from: FROM_EMAIL,
-      to: [to],
+    const info = await transporter.sendMail({
+      from: `"Cleanoo" <${FROM_EMAIL}>`,
+      to: to,
       subject: '🎉 Your Cleanoo booking is confirmed!',
       html: `
         <!DOCTYPE html>
@@ -281,16 +290,23 @@ export async function sendWelcomeEmail({
       `,
     });
 
-    if (error) {
-      console.error('❌ Failed to send welcome email:', error);
-      throw new Error('Failed to send welcome email');
-    }
-
     console.log('✅ Welcome email sent to:', to);
-    return { success: true, data };
+    console.log('📧 Message ID:', info.messageId);
+    return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error('❌ Email sending error:', error);
+    console.error('❌ Failed to send welcome email:', error);
     throw error;
   }
 }
 
+// Test connection on startup (optional)
+export async function verifyEmailConnection() {
+  try {
+    await transporter.verify();
+    console.log('✅ SMTP connection verified successfully');
+    return true;
+  } catch (error) {
+    console.error('❌ SMTP connection failed:', error);
+    return false;
+  }
+}
