@@ -59,7 +59,10 @@ function initializeDatabase() {
         preferred_date TEXT NOT NULL,
         preferred_time TEXT NOT NULL,
         notes TEXT,
-        status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'assigned', 'in_progress', 'completed', 'cancelled')),
+        status TEXT DEFAULT 'pending_verification' CHECK (status IN ('pending_verification', 'pending_password', 'confirmed', 'assigned', 'in_progress', 'completed', 'cancelled')),
+        verification_token TEXT,
+        verified_at DATETIME,
+        user_id INTEGER,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
@@ -89,6 +92,28 @@ function initializeDatabase() {
     } catch (e) {
       console.warn('Testimonials table drop warning:', e);
     }
+
+    // Users table (for customers)
+    db.exec(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        phone TEXT NOT NULL,
+        address TEXT,
+        password TEXT NOT NULL,
+        email_verified BOOLEAN DEFAULT FALSE,
+        verification_token TEXT,
+        token_expires_at DATETIME,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create indexes for users table
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)`);
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_users_verified ON users(email_verified)`);
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_users_token ON users(verification_token)`);
 
     // Staff table
     db.exec(`

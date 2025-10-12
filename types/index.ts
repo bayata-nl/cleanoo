@@ -3,7 +3,11 @@ export interface User {
   name: string;
   email: string;
   phone: string;
+  address?: string;
   password: string;
+  email_verified: boolean;
+  verification_token?: string;
+  token_expires_at?: Date;
   created_at: Date;
   updated_at: Date;
 }
@@ -19,7 +23,9 @@ export interface BookingForm {
   preferredTime: string;
   createdAt: Date;
   updatedAt?: Date;
-  status: 'pending' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+  status: 'pending_verification' | 'pending_password' | 'confirmed' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+  verification_token?: string;
+  verified_at?: Date;
   userId?: string | null;
   notes?: string;
   cancellationReason?: string;
@@ -107,7 +113,10 @@ export interface BookingDbRow {
   preferred_date: string;
   preferred_time: string;
   notes?: string | null;
-  status: 'pending' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+  status: 'pending_verification' | 'pending_password' | 'confirmed' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+  verification_token?: string | null;
+  verified_at?: string | null;
+  user_id?: number | null;
   created_at: string;
   updated_at?: string | null;
 }

@@ -62,6 +62,7 @@ import { Service } from '@/types';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { useAuth } from '@/contexts/AuthContext';
+import BookingWizard from '@/components/BookingWizard';
 
 export default function HomePage() {
   const { toast } = useToast();
@@ -71,6 +72,8 @@ export default function HomePage() {
 
   const [services, setServices] = useState<Service[]>([]);
   const [loadingServices, setLoadingServices] = useState(true);
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   useEffect(() => {
     // Fetch services from API
@@ -309,6 +312,10 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                 return (
                   <div 
                     key={service.id} 
+                    onClick={() => {
+                      setSelectedService(service);
+                      setBookingModalOpen(true);
+                    }}
                     className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl p-8 border border-gray-100 hover:border-gray-200 transition-all duration-500 relative overflow-hidden cursor-pointer transform hover:-translate-y-2"
                   >
                     {/* Hover Background */}
@@ -329,9 +336,19 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                       </h3>
 
                       {/* Description */}
-                      <p className="text-gray-600 text-center leading-relaxed group-hover:text-gray-700 transition-colors">
+                      <p className="text-gray-600 text-center leading-relaxed group-hover:text-gray-700 transition-colors mb-6">
                         {service.description}
                       </p>
+
+                      {/* Book Now Badge */}
+                      <div className="mt-6 pt-4 border-t border-gray-200 group-hover:border-blue-300 transition-all">
+                        <div className="flex items-center justify-center space-x-2 px-4 py-2 rounded-lg bg-blue-50 group-hover:bg-blue-600 transition-all duration-300">
+                          <span className="text-sm font-semibold text-blue-700 group-hover:text-white transition-colors">
+                            Book Now
+                          </span>
+                          <ArrowRight className="h-4 w-4 text-blue-700 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                        </div>
+                      </div>
                     </div>
 
                     {/* Corner Decoration */}
@@ -667,6 +684,13 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600 rounded-full blur-3xl opacity-5"></div>
         <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600 rounded-full blur-3xl opacity-5"></div>
       </footer>
+
+      {/* Booking Wizard Modal */}
+      <BookingWizard
+        isOpen={bookingModalOpen}
+        onClose={() => setBookingModalOpen(false)}
+        preSelectedService={selectedService}
+      />
     </div>
   );
 } 
