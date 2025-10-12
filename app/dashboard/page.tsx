@@ -13,6 +13,9 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import ProfileEditModal from '@/components/customer/ProfileEditModal';
+import RescheduleModal from '@/components/customer/RescheduleModal';
+import RateServiceModal from '@/components/customer/RateServiceModal';
 import { 
   Sparkles, 
   LogOut, 
@@ -27,7 +30,10 @@ import {
   Calendar,
   MapPin,
   Phone,
-  Mail
+  Mail,
+  RefreshCw,
+  Star,
+  Settings
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -43,6 +49,10 @@ export default function DashboardPage() {
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingTab, setBookingTab] = useState<'upcoming' | 'past'>('upcoming');
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showRescheduleModal, setShowRescheduleModal] = useState(false);
+  const [showRateModal, setShowRateModal] = useState(false);
+  const [selectedBookingForAction, setSelectedBookingForAction] = useState<BookingForm | null>(null);
   const [editForm, setEditForm] = useState({
     preferredDate: '',
     preferredTime: '',
@@ -331,16 +341,26 @@ export default function DashboardPage() {
         {/* User Info */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-white rounded-lg shadow p-6 mb-8">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
-                <UserIcon className="h-6 w-6 text-white" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                  <UserIcon className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-900">
+                    Welcome back, {user?.name}!
+                  </h2>
+                  <p className="text-gray-600">{user?.email}</p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-xl font-semibold text-gray-900">
-                  Welcome back!
-                </h2>
-                <p className="text-gray-600">{user?.email}</p>
-              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowProfileModal(true)}
+              >
+                <Settings className="h-4 w-4 mr-2" />
+                Edit Profile
+              </Button>
             </div>
           </div>
 
@@ -455,23 +475,20 @@ export default function DashboardPage() {
                             </div>
                           )}
                         </div>
-                        <div className="flex space-x-2">
-                          {booking.status === 'pending' && (
+                        <div className="flex flex-wrap gap-2">
+                          {/* Upcoming bookings */}
+                          {!['completed', 'cancelled'].includes(booking.status) && (
                             <>
                               <Button
                                 size="sm"
                                 variant="outline"
                                 onClick={() => {
-                                  setEditingBooking(booking.id!);
-                                  setEditForm({
-                                    preferredDate: booking.preferredDate,
-                                    preferredTime: booking.preferredTime,
-                                    notes: booking.notes || ''
-                                  });
+                                  setSelectedBookingForAction(booking);
+                                  setShowRescheduleModal(true);
                                 }}
                               >
-                                <Edit className="h-4 w-4 mr-1" />
-                                Edit
+                                <Calendar className="h-4 w-4 mr-1" />
+                                Reschedule
                               </Button>
                               <Button
                                 size="sm"
@@ -483,6 +500,38 @@ export default function DashboardPage() {
                                 Cancel
                               </Button>
                             </>
+                          )}
+                          
+                          {/* Completed bookings */}
+                          {booking.status === 'completed' && !booking.rating && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-yellow-600 border-yellow-200 hover:bg-yellow-50"
+                              onClick={() => {
+                                setSelectedBookingForAction(booking);
+                                setShowRateModal(true);
+                              }}
+                            >
+                              <Star className="h-4 w-4 mr-1" />
+                              Rate Service
+                            </Button>
+                          )}
+                          
+                          {/* Rebook button (any past booking) */}
+                          {(booking.status === 'completed' || new Date(booking.preferredDate) < new Date()) && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-blue-600 border-blue-200 hover:bg-blue-50"
+                              onClick={() => {
+                                // Copy booking data and redirect to homepage
+                                router.push('/#services');
+                              }}
+                            >
+                              <RefreshCw className="h-4 w-4 mr-1" />
+                              Rebook
+                            </Button>
                           )}
                           {booking.status === 'assigned' && (
                             <div className="text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
@@ -748,6 +797,42 @@ export default function DashboardPage() {
             </div>
           </div>
         )}
+
+        {/* Customer Modals */}
+        <ProfileEditModal
+          isOpen={showProfileModal}
+          onClose={() => setShowProfileModal(false)}
+          user={user}
+          onSuccess={() => {
+            toast({ title: 'Success', description: 'Profile updated successfully' });
+          }}
+        />
+
+        <RescheduleModal
+          isOpen={showRescheduleModal}
+          onClose={() => {
+            setShowRescheduleModal(false);
+            setSelectedBookingForAction(null);
+          }}
+          booking={selectedBookingForAction}
+          onSuccess={() => {
+            toast({ title: 'Success', description: 'Booking rescheduled successfully' });
+            fetchUserBookings();
+          }}
+        />
+
+        <RateServiceModal
+          isOpen={showRateModal}
+          onClose={() => {
+            setShowRateModal(false);
+            setSelectedBookingForAction(null);
+          }}
+          booking={selectedBookingForAction}
+          onSuccess={() => {
+            toast({ title: 'Success', description: 'Thank you for your review!' });
+            fetchUserBookings();
+          }}
+        />
       </div>
     </ProtectedRoute>
   );
