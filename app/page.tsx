@@ -28,7 +28,6 @@ import {
   FaBuilding, 
   FaCar, 
   FaBroom, 
-  FaSparkles, 
   FaCouch,
   FaTools,
   FaWarehouse,
@@ -110,7 +109,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
   Broom: FaBroom,
   SprayCan: FaSprayCan,
   HandSparkles: FaHandSparkles,
-  Sparkles: FaSparkles,
+  Sparkles: FaHandSparkles, // FaSparkles doesn't exist, use HandSparkles
   PaintRoller: FaPaintRoller,
   
   // Mekan İcon'ları
