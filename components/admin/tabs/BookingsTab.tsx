@@ -4,9 +4,12 @@ import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Eye, CheckCircle, XCircle, Search, Filter } from 'lucide-react';
+import { Eye, CheckCircle, XCircle, Search, Filter, DollarSign, CreditCard } from 'lucide-react';
 import StatusBadge from '@/components/admin/shared/StatusBadge';
+import Modal from '@/components/admin/shared/Modal';
+import PaymentModal from '@/components/admin/PaymentModal';
 import { BookingForm } from '@/types';
+import { useToast } from '@/hooks/use-toast';
 
 interface BookingsTabProps {
   bookings: BookingForm[];
@@ -15,10 +18,17 @@ interface BookingsTabProps {
 }
 
 export default function BookingsTab({ bookings, loading, fetchBookings }: BookingsTabProps) {
+  const { toast } = useToast();
   const [updating, setUpdating] = useState<string | null>(null);
   const [selectedBooking, setSelectedBooking] = useState<BookingForm | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentBooking, setPaymentBooking] = useState<BookingForm | null>(null);
+  const [paymentForm, setPaymentForm] = useState({
+    payment_method: 'Cash',
+    payment_amount: '',
+  });
 
   // Filter and search logic
   const filteredBookings = useMemo(() => {
@@ -194,6 +204,9 @@ export default function BookingsTab({ bookings, loading, fetchBookings }: Bookin
                     Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Payment
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -216,6 +229,32 @@ export default function BookingsTab({ bookings, loading, fetchBookings }: Bookin
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <StatusBadge status={booking.status} type="booking" />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {booking.payment_status === 'paid' ? (
+                        <div className="flex items-center">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            <CheckCircle className="h-3 w-3 mr-1" />
+                            Paid
+                          </span>
+                          {booking.payment_amount && (
+                            <span className="ml-2 text-xs text-gray-600">€{booking.payment_amount}</span>
+                          )}
+                        </div>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-green-600 border-green-200 hover:bg-green-50"
+                          onClick={() => {
+                            setPaymentBooking(booking);
+                            setShowPaymentModal(true);
+                          }}
+                        >
+                          <DollarSign className="h-4 w-4 mr-1" />
+                          Mark Paid
+                        </Button>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                       <Button
@@ -308,6 +347,23 @@ export default function BookingsTab({ bookings, loading, fetchBookings }: Bookin
           </div>
         </div>
       )}
+
+      {/* Payment Modal */}
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => {
+          setShowPaymentModal(false);
+          setPaymentBooking(null);
+        }}
+        booking={paymentBooking}
+        onSuccess={() => {
+          toast({
+            title: 'Success',
+            description: 'Payment marked as paid successfully',
+          });
+          fetchBookings();
+        }}
+      />
     </div>
   );
 }
