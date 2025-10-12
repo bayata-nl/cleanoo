@@ -56,8 +56,8 @@ export default function LoginPage() {
               <Sparkles className="h-12 w-12 text-white" />
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
-          <p className="text-gray-600">Sign in to your account to continue</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">{t('auth.login.title')}</h2>
+          <p className="text-gray-600">{t('auth.login.subtitle')}</p>
         </div>
 
         {/* Language Switcher */}
@@ -69,7 +69,7 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
+              {t('auth.login.email')}
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -79,7 +79,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
+                placeholder={t('auth.login.emailPlaceholder')}
                 className="pl-10"
                 required
               />
@@ -88,7 +88,7 @@ export default function LoginPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Password
+              {t('auth.login.password')}
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -98,7 +98,7 @@ export default function LoginPage() {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
+                placeholder={t('auth.login.passwordPlaceholder')}
                 className="pl-10 pr-12"
                 required
               />
@@ -121,7 +121,7 @@ export default function LoginPage() {
             className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3"
             disabled={isLoading}
           >
-            {isLoading ? "Signing in..." : "Sign In"}
+            {isLoading ? t('auth.login.signingIn') : t('auth.login.button')}
           </Button>
         </form>
 
@@ -161,9 +161,9 @@ export default function LoginPage() {
         {/* Links */}
         <div className="text-center space-y-4">
           <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
+            {t('auth.login.noAccount')}{' '}
             <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
-              Sign up here
+              {t('auth.login.signUp')}
             </Link>
           </p>
           <Link 
@@ -171,7 +171,7 @@ export default function LoginPage() {
             className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700"
           >
             <ArrowLeft className="h-4 w-4 mr-1" />
-            Back to Home
+            {t('auth.login.backHome')}
           </Link>
         </div>
       </div>
