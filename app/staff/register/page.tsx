@@ -5,10 +5,13 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Sparkles, Mail, Lock, Phone, MapPin, ArrowLeft } from 'lucide-react';
 
 export default function StaffRegister() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [form, setForm] = useState({
     name: '',
     email: '',

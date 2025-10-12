@@ -6,12 +6,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { useStaffAuth } from '@/contexts/StaffAuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Sparkles } from 'lucide-react';
 
 export default function StaffLogin() {
   const router = useRouter();
   const { toast } = useToast();
   const { login } = useStaffAuth();
+  const { t } = useLanguage();
   
   const [formData, setFormData] = useState({
     email: '',
@@ -60,14 +63,18 @@ export default function StaffLogin() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
+        {/* Language Switcher */}
+        <div className="flex justify-end">
+          <LanguageSwitcher />
+        </div>
 
         <div>
           <div className="flex items-center justify-center mb-6">
             <Sparkles className="h-12 w-12 text-blue-600 mr-3" />
-            <h1 className="text-3xl font-bold text-gray-900">Staff Login</h1>
+            <h1 className="text-3xl font-bold text-gray-900">{t('staff.login.title')}</h1>
           </div>
           <h2 className="text-center text-lg text-gray-600">
-            Sign in to your staff account
+            {t('staff.login.subtitle')}
           </h2>
         </div>
 
@@ -75,7 +82,7 @@ export default function StaffLogin() {
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address
+                {t('staff.login.email')}
               </label>
               <Input
                 id="email"
@@ -91,7 +98,7 @@ export default function StaffLogin() {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
+                {t('staff.login.password')}
               </label>
               <Input
                 id="password"
@@ -119,7 +126,7 @@ export default function StaffLogin() {
             className="w-full bg-blue-600 hover:bg-blue-700"
             disabled={isLoading}
           >
-            {isLoading ? 'Signing in...' : 'Sign In'}
+            {isLoading ? t('staff.login.signingIn') : t('staff.login.button')}
           </Button>
 
           <div className="text-center">
