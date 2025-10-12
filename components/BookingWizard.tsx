@@ -382,11 +382,11 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
               {submitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending...
+                  Processing...
                 </>
               ) : (
                 <>
-                  {step === 2 ? 'Send Verification Email' : 'Next'}
+                  {step === 2 ? 'Complete Booking' : 'Next'}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </>
               )}
