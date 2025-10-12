@@ -78,8 +78,8 @@ export default function RegisterPage() {
               <Sparkles className="h-12 w-12 text-white" />
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
-          <p className="text-gray-600">Join Cleanoo today</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">{t('auth.register.title')}</h2>
+          <p className="text-gray-600">{t('auth.register.subtitle')}</p>
         </div>
 
         {/* Language Switcher */}

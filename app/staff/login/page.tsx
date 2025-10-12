@@ -130,7 +130,12 @@ export default function StaffLogin() {
           </Button>
 
           <div className="text-center">
-            <a href="/staff/register" className="text-sm text-gray-600 hover:text-gray-800">Create a staff account</a>
+            <p className="text-sm text-gray-600">
+              {t('staff.login.noAccount')}{' '}
+              <a href="/staff/register" className="font-medium text-blue-600 hover:text-blue-500">
+                {t('staff.login.register')}
+              </a>
+            </p>
           </div>
         </form>
       </div>
