@@ -1,5 +1,38 @@
 export const translations = {
   en: {
+    // Common
+    common: {
+      loading: "Loading...",
+      save: "Save",
+      cancel: "Cancel",
+      delete: "Delete",
+      edit: "Edit",
+      view: "View",
+      close: "Close",
+      submit: "Submit",
+      back: "Back",
+      next: "Next",
+      previous: "Previous",
+      search: "Search",
+      filter: "Filter",
+      refresh: "Refresh",
+      confirm: "Confirm",
+      success: "Success",
+      error: "Error",
+      warning: "Warning",
+      info: "Information",
+      yes: "Yes",
+      no: "No",
+      all: "All",
+      none: "None",
+      select: "Select",
+      logout: "Logout",
+      profile: "Profile",
+      settings: "Settings",
+      welcome: "Welcome",
+      welcomeBack: "Welcome back",
+    },
+
     // Hero Section
     hero: {
       title: "Professional",
@@ -13,13 +46,432 @@ export const translations = {
     nav: {
       login: "Login",
       signup: "Sign Up",
-      dashboard: "Dashboard"
+      dashboard: "Dashboard",
+      home: "Home",
+      services: "Services",
+      about: "About",
+      contact: "Contact",
     },
 
-    // Hero Stats
-    stats: {
-      trustedBy: "Trusted by 1000+ Customers",
-      professionalServices: "Professional Cleaning Services"
+    // Auth
+    auth: {
+      login: {
+        title: "Welcome Back",
+        subtitle: "Sign in to your account",
+        email: "Email Address",
+        emailPlaceholder: "Enter your email",
+        password: "Password",
+        passwordPlaceholder: "Enter your password",
+        button: "Sign In",
+        signingIn: "Signing in...",
+        forgotPassword: "Forgot password?",
+        noAccount: "Don't have an account?",
+        signUp: "Sign up here",
+        backHome: "Back to Home",
+        error: "Invalid credentials",
+      },
+      register: {
+        title: "Create Account",
+        subtitle: "Join our cleaning service",
+        name: "Full Name",
+        namePlaceholder: "Enter your full name",
+        email: "Email Address",
+        emailPlaceholder: "Enter your email",
+        confirmEmail: "Confirm Email",
+        confirmEmailPlaceholder: "Confirm your email",
+        phone: "Phone Number",
+        phonePlaceholder: "Enter your phone number",
+        address: "Address",
+        addressPlaceholder: "Street, number, city, postal code",
+        password: "Password",
+        passwordPlaceholder: "Create a password",
+        confirmPassword: "Confirm Password",
+        confirmPasswordPlaceholder: "Confirm your password",
+        passwordHint: "Must be at least 6 characters",
+        button: "Create Account",
+        creating: "Creating account...",
+        haveAccount: "Already have an account?",
+        signIn: "Sign in here",
+        backHome: "Back to Home",
+        emailMismatch: "Emails do not match",
+        passwordMismatch: "Passwords do not match",
+        passwordShort: "Password must be at least 6 characters",
+      },
+    },
+
+    // Customer Dashboard
+    dashboard: {
+      title: "My Dashboard",
+      welcome: "Welcome back",
+      userInfo: "User Information",
+      myBookings: "My Bookings",
+      bookingsCount: "bookings",
+      newBooking: "New Booking",
+      editProfile: "Edit Profile",
+      changePassword: "Change Password",
+      noBookings: "No bookings found",
+      noBookingsDesc: "You haven't made any bookings yet.",
+      bookFirst: "Book Your First Cleaning",
+      loading: "Loading your bookings...",
+      tabs: {
+        upcoming: "Upcoming",
+        past: "Past",
+      },
+      bookingCard: {
+        service: "Service",
+        date: "Date",
+        time: "Time",
+        address: "Address",
+        notes: "Notes",
+        status: "Status",
+        actions: "Actions",
+        reschedule: "Reschedule",
+        cancel: "Cancel",
+        rate: "Rate Service",
+        rebook: "Rebook",
+        assigned: "Assigned to Team",
+        inProgress: "In Progress",
+        completed: "Completed",
+        cancelled: "Cancelled",
+      },
+      status: {
+        pending: "Pending",
+        pending_verification: "Pending Verification",
+        pending_password: "Pending Password",
+        confirmed: "Confirmed",
+        assigned: "Assigned",
+        in_progress: "In Progress",
+        completed: "Completed",
+        cancelled: "Cancelled",
+      },
+      modals: {
+        profile: {
+          title: "Edit Profile",
+          name: "Full Name",
+          email: "Email",
+          phone: "Phone",
+          address: "Address",
+          save: "Save Changes",
+          saving: "Saving...",
+          success: "Profile updated successfully",
+        },
+        password: {
+          title: "Change Password",
+          current: "Current Password",
+          new: "New Password",
+          confirm: "Confirm New Password",
+          button: "Change Password",
+          changing: "Changing...",
+          success: "Password changed successfully",
+          mismatch: "Passwords do not match",
+        },
+        reschedule: {
+          title: "Reschedule Booking",
+          date: "New Date",
+          time: "New Time",
+          notes: "Additional Notes",
+          button: "Reschedule",
+          rescheduling: "Rescheduling...",
+          success: "Booking rescheduled successfully",
+        },
+        rate: {
+          title: "Rate Your Service",
+          rating: "Rating",
+          review: "Your Review",
+          reviewPlaceholder: "Tell us about your experience...",
+          button: "Submit Review",
+          submitting: "Submitting...",
+          success: "Thank you for your review!",
+        },
+      },
+    },
+
+    // Staff Dashboard
+    staff: {
+      dashboard: {
+        title: "Staff Dashboard",
+        welcome: "Welcome",
+        myAssignments: "My Assignments",
+        todaySchedule: "Today's Schedule",
+        tasksToday: "tasks scheduled for today",
+        noAssignments: "No assignments yet",
+        loading: "Loading assignments...",
+        profile: "Profile",
+        editProfile: "Edit Profile",
+        changePassword: "Change Password",
+        tabs: {
+          all: "All",
+          today: "Today",
+          upcoming: "Upcoming",
+          completed: "Completed",
+        },
+        assignmentCard: {
+          service: "Service",
+          customer: "Customer",
+          date: "Date",
+          time: "Time",
+          address: "Address",
+          notes: "Notes",
+          status: "Status",
+          accept: "Accept",
+          start: "Start Work",
+          complete: "Complete",
+          viewDetails: "View Details",
+        },
+        status: {
+          assigned: "Assigned",
+          accepted: "Accepted",
+          in_progress: "In Progress",
+          completed: "Completed",
+          cancelled: "Cancelled",
+        },
+      },
+      register: {
+        title: "Join Our Team",
+        subtitle: "Create your staff account",
+        name: "Full Name",
+        email: "Email Address",
+        phone: "Phone Number",
+        address: "Address",
+        password: "Password",
+        confirmPassword: "Confirm Password",
+        button: "Register Account",
+        registering: "Registering...",
+        haveAccount: "Already have an account?",
+        signIn: "Sign in here",
+        backHome: "Back to Home",
+      },
+      login: {
+        title: "Staff Login",
+        subtitle: "Sign in to your staff account",
+        email: "Email Address",
+        password: "Password",
+        button: "Sign In",
+        signingIn: "Signing in...",
+        noAccount: "Don't have a staff account?",
+        register: "Register here",
+        backHome: "Back to Home",
+      },
+    },
+
+    // Admin Panel
+    admin: {
+      title: "Admin Panel",
+      subtitle: "Manage your business",
+      logout: "Logout",
+      backToWebsite: "Back to Website",
+      
+      // Sidebar
+      sidebar: {
+        operations: "Operations",
+        analytics: "Analytics",
+        customers: "Customers",
+        services: "Services",
+        staff: "Staff",
+        teams: "Teams",
+      },
+
+      // Operations Tab
+      operations: {
+        title: "Operations Management",
+        bookings: "Bookings",
+        assignments: "Assignments",
+        createAssignment: "Create Assignment",
+        assignToStaff: "Assign to Staff",
+        assignToTeam: "Assign to Team",
+        filters: "Filters",
+        search: "Search",
+        noData: "No data available",
+      },
+
+      // Bookings Tab
+      bookings: {
+        title: "Bookings Management",
+        total: "Total",
+        pendingVerification: "Pending Verification",
+        pendingPassword: "Pending Password",
+        confirmed: "Confirmed",
+        assigned: "Assigned",
+        active: "Active",
+        done: "Done",
+        revenue: "Revenue",
+        thisMonth: "This month",
+        filters: "Filters & Search",
+        searchPlaceholder: "Search by name, email, phone, or service...",
+        statusFilter: "Status Filter",
+        showingResults: "Showing {count} of {total} bookings",
+        table: {
+          customer: "Customer",
+          service: "Service",
+          date: "Date & Time",
+          contact: "Contact",
+          status: "Status",
+          payment: "Payment",
+          actions: "Actions",
+        },
+        actions: {
+          view: "View",
+          markPaid: "Mark as Paid",
+          updateStatus: "Update Status",
+          assign: "Assign",
+        },
+        noBookings: "No bookings found",
+      },
+
+      // Customers Tab
+      customers: {
+        title: "Customers Management",
+        totalCustomers: "Total Customers",
+        verified: "Verified",
+        active: "Active",
+        returning: "Returning",
+        totalRevenue: "Total Revenue",
+        avgBookings: "Avg Bookings",
+        searchPlaceholder: "Search customers by name, email, or phone...",
+        showingResults: "Showing {count} of {total} customers",
+        table: {
+          customer: "Customer",
+          contact: "Contact",
+          bookings: "Bookings",
+          totalSpent: "Total Spent",
+          status: "Status",
+          actions: "Actions",
+        },
+        detail: {
+          title: "Customer Details",
+          email: "Email",
+          phone: "Phone",
+          address: "Address",
+          memberSince: "Member Since",
+          verified: "Email Verified",
+          stats: "Statistics",
+          totalBookings: "Total Bookings",
+          completed: "Completed",
+          pending: "Pending",
+          totalSpent: "Total Spent",
+          recentBookings: "Recent Bookings",
+        },
+        noCustomers: "No customers found",
+      },
+
+      // Services Tab
+      services: {
+        title: "Services Management",
+        addService: "Add Service",
+        editService: "Edit Service",
+        table: {
+          title: "Title",
+          description: "Description",
+          icon: "Icon",
+          price: "Price",
+          actions: "Actions",
+        },
+        form: {
+          title: "Service Title",
+          description: "Description",
+          icon: "Icon Name",
+          price: "Price",
+          save: "Save",
+          cancel: "Cancel",
+        },
+        noServices: "No services found",
+      },
+
+      // Staff Tab
+      staff: {
+        title: "Staff Management",
+        addStaff: "Add Staff",
+        editStaff: "Edit Staff",
+        table: {
+          name: "Name",
+          email: "Email",
+          phone: "Phone",
+          role: "Role",
+          status: "Status",
+          hourlyRate: "Hourly Rate",
+          actions: "Actions",
+        },
+        form: {
+          name: "Full Name",
+          email: "Email",
+          phone: "Phone",
+          address: "Address",
+          password: "Password",
+          role: "Role",
+          status: "Status",
+          specialization: "Specialization",
+          experience: "Experience (years)",
+          hourlyRate: "Hourly Rate (€)",
+          save: "Save",
+          cancel: "Cancel",
+        },
+        roles: {
+          cleaner: "Cleaner",
+          supervisor: "Supervisor",
+          manager: "Manager",
+        },
+        statuses: {
+          active: "Active",
+          inactive: "Inactive",
+          on_leave: "On Leave",
+        },
+        noStaff: "No staff found",
+      },
+
+      // Teams Tab
+      teams: {
+        title: "Teams Management",
+        addTeam: "Add Team",
+        editTeam: "Edit Team",
+        table: {
+          name: "Team Name",
+          leader: "Team Leader",
+          members: "Members",
+          status: "Status",
+          actions: "Actions",
+        },
+        form: {
+          name: "Team Name",
+          description: "Description",
+          leader: "Team Leader",
+          status: "Status",
+          save: "Save",
+          cancel: "Cancel",
+        },
+        members: {
+          title: "Team Members",
+          add: "Add Member",
+          remove: "Remove",
+        },
+        noTeams: "No teams found",
+      },
+
+      // Analytics Tab
+      analytics: {
+        title: "Analytics Dashboard",
+        period: {
+          today: "Today",
+          week: "This Week",
+          month: "This Month",
+          year: "This Year",
+        },
+        metrics: {
+          totalBookings: "Total Bookings",
+          activeAssignments: "Active Assignments",
+          activeStaff: "Active Staff",
+          activeTeams: "Active Teams",
+          newBookings: "New Bookings",
+          newAssignments: "New Assignments",
+        },
+        charts: {
+          bookingsByStatus: "Bookings by Status",
+          assignmentsByStatus: "Assignments by Status",
+          bookingsOverTime: "Bookings Over Time",
+          popularServices: "Popular Services",
+          staffPerformance: "Staff Performance",
+          teamPerformance: "Team Performance",
+        },
+      },
     },
 
     // Services Section
@@ -28,42 +480,7 @@ export const translations = {
       description: "Comprehensive cleaning solutions tailored to your needs with professional expertise and eco-friendly products",
       ourServices: "Our Services",
       noServices: "No services available at the moment",
-      residential: {
-        title: "Residential Cleaning",
-        description: "Complete home cleaning services including kitchen, bathrooms, bedrooms, and living areas.",
-        price: "From $80"
-      },
-      office: {
-        title: "Office Cleaning",
-        description: "Professional office cleaning for businesses of all sizes with flexible scheduling.",
-        price: "From $120"
-      },
-      deep: {
-        title: "Deep Cleaning",
-        description: "Thorough deep cleaning service for move-in/move-out or seasonal cleaning needs.",
-        price: "From $150"
-      },
-      carpet: {
-        title: "Carpet Cleaning",
-        description: "Professional carpet and upholstery cleaning using eco-friendly products.",
-        price: "From $60"
-      },
-      window: {
-        title: "Window Cleaning",
-        description: "Interior and exterior window cleaning for crystal clear views.",
-        price: "From $40"
-      },
-      moveInOut: {
-        title: "Move-in/Move-out",
-        description: "Comprehensive cleaning service for rental properties and real estate.",
-        price: "From $200"
-      }
-    },
-
-    // Testimonials Section
-    testimonials: {
-      title: "What Our Clients Say",
-      description: "Don't just take our word for it - hear from our satisfied customers"
+      bookNow: "Book Now",
     },
 
     // Join Team Section
@@ -107,33 +524,6 @@ export const translations = {
       welcomeDescription: "You are already logged in. Go to your dashboard to book services.",
       goDashboard: "Go to Dashboard",
       createAccount: "Create Account",
-      description: "Get a professional cleaning service tailored to your needs with our easy booking system",
-      form: {
-        fullName: "Full Name *",
-        fullNamePlaceholder: "Enter your full name",
-        phoneNumber: "Phone Number *",
-        phoneNumberPlaceholder: "Enter your phone number",
-        address: "Address *",
-        addressPlaceholder: "Enter your full address",
-        serviceType: "Service Type *",
-        serviceTypePlaceholder: "Select a service",
-        preferredDate: "Preferred Date *",
-        preferredTime: "Preferred Time *",
-        timePlaceholder: "Select time",
-        morning: "Morning (8AM-12PM)",
-        afternoon: "Afternoon (12PM-4PM)",
-        evening: "Evening (4PM-8PM)",
-        submitButton: "Book Your Cleaning Service",
-        submitting: "Submitting..."
-      },
-      success: {
-        title: "Booking Submitted!",
-        description: "We'll contact you soon to confirm your appointment."
-      },
-      error: {
-        title: "Error",
-        description: "Failed to submit booking. Please try again."
-      }
     },
 
     // Footer
@@ -155,35 +545,42 @@ export const translations = {
       termsOfService: "Terms of Service",
       cookiePolicy: "Cookie Policy"
     },
-
-    // Language Switcher
-    language: "Language",
-    
-    // Admin Panel
-    admin: {
-      title: "Admin Panel",
-      subtitle: "Manage Booking Submissions",
-      loading: "Loading bookings...",
-      noBookings: "No bookings found",
-      backToWebsite: "Back to Website",
-      logout: "Logout",
-      table: {
-        name: "Name",
-        service: "Service",
-        phone: "Phone",
-        date: "Date",
-        status: "Status",
-        actions: "Actions"
-      },
-      status: {
-        pending: "Pending",
-        confirmed: "Confirmed",
-        done: "Done"
-      }
-    }
   },
 
   nl: {
+    // Common
+    common: {
+      loading: "Laden...",
+      save: "Opslaan",
+      cancel: "Annuleren",
+      delete: "Verwijderen",
+      edit: "Bewerken",
+      view: "Bekijken",
+      close: "Sluiten",
+      submit: "Versturen",
+      back: "Terug",
+      next: "Volgende",
+      previous: "Vorige",
+      search: "Zoeken",
+      filter: "Filteren",
+      refresh: "Vernieuwen",
+      confirm: "Bevestigen",
+      success: "Succes",
+      error: "Fout",
+      warning: "Waarschuwing",
+      info: "Informatie",
+      yes: "Ja",
+      no: "Nee",
+      all: "Alle",
+      none: "Geen",
+      select: "Selecteren",
+      logout: "Uitloggen",
+      profile: "Profiel",
+      settings: "Instellingen",
+      welcome: "Welkom",
+      welcomeBack: "Welkom terug",
+    },
+
     // Hero Section
     hero: {
       title: "Professionele",
@@ -197,13 +594,432 @@ export const translations = {
     nav: {
       login: "Inloggen",
       signup: "Registreren",
-      dashboard: "Dashboard"
+      dashboard: "Dashboard",
+      home: "Home",
+      services: "Diensten",
+      about: "Over Ons",
+      contact: "Contact",
     },
 
-    // Hero Stats
-    stats: {
-      trustedBy: "Vertrouwd door 1000+ Klanten",
-      professionalServices: "Professionele Schoonmaakdiensten"
+    // Auth
+    auth: {
+      login: {
+        title: "Welkom Terug",
+        subtitle: "Inloggen op uw account",
+        email: "E-mailadres",
+        emailPlaceholder: "Voer uw e-mail in",
+        password: "Wachtwoord",
+        passwordPlaceholder: "Voer uw wachtwoord in",
+        button: "Inloggen",
+        signingIn: "Inloggen...",
+        forgotPassword: "Wachtwoord vergeten?",
+        noAccount: "Geen account?",
+        signUp: "Registreer hier",
+        backHome: "Terug naar Home",
+        error: "Ongeldige inloggegevens",
+      },
+      register: {
+        title: "Account Aanmaken",
+        subtitle: "Word lid van onze schoonmaakdienst",
+        name: "Volledige Naam",
+        namePlaceholder: "Voer uw volledige naam in",
+        email: "E-mailadres",
+        emailPlaceholder: "Voer uw e-mail in",
+        confirmEmail: "Bevestig E-mail",
+        confirmEmailPlaceholder: "Bevestig uw e-mail",
+        phone: "Telefoonnummer",
+        phonePlaceholder: "Voer uw telefoonnummer in",
+        address: "Adres",
+        addressPlaceholder: "Straat, nummer, stad, postcode",
+        password: "Wachtwoord",
+        passwordPlaceholder: "Maak een wachtwoord",
+        confirmPassword: "Bevestig Wachtwoord",
+        confirmPasswordPlaceholder: "Bevestig uw wachtwoord",
+        passwordHint: "Minimaal 6 tekens vereist",
+        button: "Account Aanmaken",
+        creating: "Account aanmaken...",
+        haveAccount: "Al een account?",
+        signIn: "Log hier in",
+        backHome: "Terug naar Home",
+        emailMismatch: "E-mails komen niet overeen",
+        passwordMismatch: "Wachtwoorden komen niet overeen",
+        passwordShort: "Wachtwoord moet minimaal 6 tekens zijn",
+      },
+    },
+
+    // Customer Dashboard
+    dashboard: {
+      title: "Mijn Dashboard",
+      welcome: "Welkom terug",
+      userInfo: "Gebruikersinformatie",
+      myBookings: "Mijn Boekingen",
+      bookingsCount: "boekingen",
+      newBooking: "Nieuwe Boeking",
+      editProfile: "Profiel Bewerken",
+      changePassword: "Wachtwoord Wijzigen",
+      noBookings: "Geen boekingen gevonden",
+      noBookingsDesc: "U heeft nog geen boekingen gemaakt.",
+      bookFirst: "Boek Uw Eerste Schoonmaak",
+      loading: "Uw boekingen laden...",
+      tabs: {
+        upcoming: "Aankomend",
+        past: "Verleden",
+      },
+      bookingCard: {
+        service: "Dienst",
+        date: "Datum",
+        time: "Tijd",
+        address: "Adres",
+        notes: "Notities",
+        status: "Status",
+        actions: "Acties",
+        reschedule: "Verplaatsen",
+        cancel: "Annuleren",
+        rate: "Beoordeel Dienst",
+        rebook: "Opnieuw Boeken",
+        assigned: "Toegewezen aan Team",
+        inProgress: "Bezig",
+        completed: "Voltooid",
+        cancelled: "Geannuleerd",
+      },
+      status: {
+        pending: "In afwachting",
+        pending_verification: "Verificatie in behandeling",
+        pending_password: "Wachtwoord in behandeling",
+        confirmed: "Bevestigd",
+        assigned: "Toegewezen",
+        in_progress: "Bezig",
+        completed: "Voltooid",
+        cancelled: "Geannuleerd",
+      },
+      modals: {
+        profile: {
+          title: "Profiel Bewerken",
+          name: "Volledige Naam",
+          email: "E-mail",
+          phone: "Telefoon",
+          address: "Adres",
+          save: "Wijzigingen Opslaan",
+          saving: "Opslaan...",
+          success: "Profiel succesvol bijgewerkt",
+        },
+        password: {
+          title: "Wachtwoord Wijzigen",
+          current: "Huidig Wachtwoord",
+          new: "Nieuw Wachtwoord",
+          confirm: "Bevestig Nieuw Wachtwoord",
+          button: "Wachtwoord Wijzigen",
+          changing: "Wijzigen...",
+          success: "Wachtwoord succesvol gewijzigd",
+          mismatch: "Wachtwoorden komen niet overeen",
+        },
+        reschedule: {
+          title: "Boeking Verplaatsen",
+          date: "Nieuwe Datum",
+          time: "Nieuwe Tijd",
+          notes: "Extra Notities",
+          button: "Verplaatsen",
+          rescheduling: "Verplaatsen...",
+          success: "Boeking succesvol verplaatst",
+        },
+        rate: {
+          title: "Beoordeel Uw Dienst",
+          rating: "Beoordeling",
+          review: "Uw Recensie",
+          reviewPlaceholder: "Vertel ons over uw ervaring...",
+          button: "Recensie Versturen",
+          submitting: "Versturen...",
+          success: "Bedankt voor uw recensie!",
+        },
+      },
+    },
+
+    // Staff Dashboard
+    staff: {
+      dashboard: {
+        title: "Personeel Dashboard",
+        welcome: "Welkom",
+        myAssignments: "Mijn Opdrachten",
+        todaySchedule: "Schema Vandaag",
+        tasksToday: "taken gepland voor vandaag",
+        noAssignments: "Nog geen opdrachten",
+        loading: "Opdrachten laden...",
+        profile: "Profiel",
+        editProfile: "Profiel Bewerken",
+        changePassword: "Wachtwoord Wijzigen",
+        tabs: {
+          all: "Alle",
+          today: "Vandaag",
+          upcoming: "Aankomend",
+          completed: "Voltooid",
+        },
+        assignmentCard: {
+          service: "Dienst",
+          customer: "Klant",
+          date: "Datum",
+          time: "Tijd",
+          address: "Adres",
+          notes: "Notities",
+          status: "Status",
+          accept: "Accepteren",
+          start: "Start Werk",
+          complete: "Voltooien",
+          viewDetails: "Details Bekijken",
+        },
+        status: {
+          assigned: "Toegewezen",
+          accepted: "Geaccepteerd",
+          in_progress: "Bezig",
+          completed: "Voltooid",
+          cancelled: "Geannuleerd",
+        },
+      },
+      register: {
+        title: "Word Lid van Ons Team",
+        subtitle: "Maak uw personeelsaccount aan",
+        name: "Volledige Naam",
+        email: "E-mailadres",
+        phone: "Telefoonnummer",
+        address: "Adres",
+        password: "Wachtwoord",
+        confirmPassword: "Bevestig Wachtwoord",
+        button: "Account Registreren",
+        registering: "Registreren...",
+        haveAccount: "Al een account?",
+        signIn: "Log hier in",
+        backHome: "Terug naar Home",
+      },
+      login: {
+        title: "Personeel Login",
+        subtitle: "Inloggen op uw personeelsaccount",
+        email: "E-mailadres",
+        password: "Wachtwoord",
+        button: "Inloggen",
+        signingIn: "Inloggen...",
+        noAccount: "Geen personeelsaccount?",
+        register: "Registreer hier",
+        backHome: "Terug naar Home",
+      },
+    },
+
+    // Admin Panel
+    admin: {
+      title: "Beheerpaneel",
+      subtitle: "Beheer uw bedrijf",
+      logout: "Uitloggen",
+      backToWebsite: "Terug naar Website",
+      
+      // Sidebar
+      sidebar: {
+        operations: "Operaties",
+        analytics: "Analytics",
+        customers: "Klanten",
+        services: "Diensten",
+        staff: "Personeel",
+        teams: "Teams",
+      },
+
+      // Operations Tab
+      operations: {
+        title: "Operatiebeheer",
+        bookings: "Boekingen",
+        assignments: "Opdrachten",
+        createAssignment: "Opdracht Maken",
+        assignToStaff: "Toewijzen aan Personeel",
+        assignToTeam: "Toewijzen aan Team",
+        filters: "Filters",
+        search: "Zoeken",
+        noData: "Geen gegevens beschikbaar",
+      },
+
+      // Bookings Tab
+      bookings: {
+        title: "Boekingenbeheer",
+        total: "Totaal",
+        pendingVerification: "Verificatie in Behandeling",
+        pendingPassword: "Wachtwoord in Behandeling",
+        confirmed: "Bevestigd",
+        assigned: "Toegewezen",
+        active: "Actief",
+        done: "Voltooid",
+        revenue: "Omzet",
+        thisMonth: "Deze maand",
+        filters: "Filters & Zoeken",
+        searchPlaceholder: "Zoek op naam, e-mail, telefoon of dienst...",
+        statusFilter: "Statusfilter",
+        showingResults: "{count} van {total} boekingen weergeven",
+        table: {
+          customer: "Klant",
+          service: "Dienst",
+          date: "Datum & Tijd",
+          contact: "Contact",
+          status: "Status",
+          payment: "Betaling",
+          actions: "Acties",
+        },
+        actions: {
+          view: "Bekijken",
+          markPaid: "Markeer als Betaald",
+          updateStatus: "Status Bijwerken",
+          assign: "Toewijzen",
+        },
+        noBookings: "Geen boekingen gevonden",
+      },
+
+      // Customers Tab
+      customers: {
+        title: "Klantenbeheer",
+        totalCustomers: "Totaal Klanten",
+        verified: "Geverifieerd",
+        active: "Actief",
+        returning: "Terugkerend",
+        totalRevenue: "Totale Omzet",
+        avgBookings: "Gem. Boekingen",
+        searchPlaceholder: "Zoek klanten op naam, e-mail of telefoon...",
+        showingResults: "{count} van {total} klanten weergeven",
+        table: {
+          customer: "Klant",
+          contact: "Contact",
+          bookings: "Boekingen",
+          totalSpent: "Totaal Uitgegeven",
+          status: "Status",
+          actions: "Acties",
+        },
+        detail: {
+          title: "Klantdetails",
+          email: "E-mail",
+          phone: "Telefoon",
+          address: "Adres",
+          memberSince: "Lid Sinds",
+          verified: "E-mail Geverifieerd",
+          stats: "Statistieken",
+          totalBookings: "Totaal Boekingen",
+          completed: "Voltooid",
+          pending: "In Behandeling",
+          totalSpent: "Totaal Uitgegeven",
+          recentBookings: "Recente Boekingen",
+        },
+        noCustomers: "Geen klanten gevonden",
+      },
+
+      // Services Tab
+      services: {
+        title: "Dienstenbeheer",
+        addService: "Dienst Toevoegen",
+        editService: "Dienst Bewerken",
+        table: {
+          title: "Titel",
+          description: "Beschrijving",
+          icon: "Icoon",
+          price: "Prijs",
+          actions: "Acties",
+        },
+        form: {
+          title: "Diensttitel",
+          description: "Beschrijving",
+          icon: "Icoonnaam",
+          price: "Prijs",
+          save: "Opslaan",
+          cancel: "Annuleren",
+        },
+        noServices: "Geen diensten gevonden",
+      },
+
+      // Staff Tab
+      staff: {
+        title: "Personeelsbeheer",
+        addStaff: "Personeel Toevoegen",
+        editStaff: "Personeel Bewerken",
+        table: {
+          name: "Naam",
+          email: "E-mail",
+          phone: "Telefoon",
+          role: "Rol",
+          status: "Status",
+          hourlyRate: "Uurloon",
+          actions: "Acties",
+        },
+        form: {
+          name: "Volledige Naam",
+          email: "E-mail",
+          phone: "Telefoon",
+          address: "Adres",
+          password: "Wachtwoord",
+          role: "Rol",
+          status: "Status",
+          specialization: "Specialisatie",
+          experience: "Ervaring (jaren)",
+          hourlyRate: "Uurloon (€)",
+          save: "Opslaan",
+          cancel: "Annuleren",
+        },
+        roles: {
+          cleaner: "Schoonmaker",
+          supervisor: "Supervisor",
+          manager: "Manager",
+        },
+        statuses: {
+          active: "Actief",
+          inactive: "Inactief",
+          on_leave: "Met Verlof",
+        },
+        noStaff: "Geen personeel gevonden",
+      },
+
+      // Teams Tab
+      teams: {
+        title: "Teambeheer",
+        addTeam: "Team Toevoegen",
+        editTeam: "Team Bewerken",
+        table: {
+          name: "Teamnaam",
+          leader: "Teamleider",
+          members: "Leden",
+          status: "Status",
+          actions: "Acties",
+        },
+        form: {
+          name: "Teamnaam",
+          description: "Beschrijving",
+          leader: "Teamleider",
+          status: "Status",
+          save: "Opslaan",
+          cancel: "Annuleren",
+        },
+        members: {
+          title: "Teamleden",
+          add: "Lid Toevoegen",
+          remove: "Verwijderen",
+        },
+        noTeams: "Geen teams gevonden",
+      },
+
+      // Analytics Tab
+      analytics: {
+        title: "Analytics Dashboard",
+        period: {
+          today: "Vandaag",
+          week: "Deze Week",
+          month: "Deze Maand",
+          year: "Dit Jaar",
+        },
+        metrics: {
+          totalBookings: "Totaal Boekingen",
+          activeAssignments: "Actieve Opdrachten",
+          activeStaff: "Actief Personeel",
+          activeTeams: "Actieve Teams",
+          newBookings: "Nieuwe Boekingen",
+          newAssignments: "Nieuwe Opdrachten",
+        },
+        charts: {
+          bookingsByStatus: "Boekingen per Status",
+          assignmentsByStatus: "Opdrachten per Status",
+          bookingsOverTime: "Boekingen Over Tijd",
+          popularServices: "Populaire Diensten",
+          staffPerformance: "Personeelsprestaties",
+          teamPerformance: "Teamprestaties",
+        },
+      },
     },
 
     // Services Section
@@ -212,42 +1028,7 @@ export const translations = {
       description: "Uitgebreide schoonmaakoplossingen op maat voor uw behoeften met professionele expertise en milieuvriendelijke producten",
       ourServices: "Onze Diensten",
       noServices: "Momenteel geen diensten beschikbaar",
-      residential: {
-        title: "Woningreiniging",
-        description: "Complete woningreiniging inclusief keuken, badkamers, slaapkamers en woonruimtes.",
-        price: "Vanaf €70"
-      },
-      office: {
-        title: "Kantoorreiniging",
-        description: "Professionele kantoorreiniging voor bedrijven van alle groottes met flexibele planning.",
-        price: "Vanaf €100"
-      },
-      deep: {
-        title: "Dieptereiniging",
-        description: "Grondige dieptereiniging voor in-/uitverhuizing of seizoensreiniging.",
-        price: "Vanaf €130"
-      },
-      carpet: {
-        title: "Tapijtreiniging",
-        description: "Professionele tapijt- en stofferingreiniging met milieuvriendelijke producten.",
-        price: "Vanaf €50"
-      },
-      window: {
-        title: "Ramenreiniging",
-        description: "Interieur- en exterieur ramenreiniging voor kristalheldere uitzichten.",
-        price: "Vanaf €35"
-      },
-      moveInOut: {
-        title: "In-/Uitverhuizing",
-        description: "Uitgebreide schoonmaakdienst voor huurwoningen en vastgoed.",
-        price: "Vanaf €180"
-      }
-    },
-
-    // Testimonials Section
-    testimonials: {
-      title: "Wat Onze Klanten Zeggen",
-      description: "Geloof niet alleen ons woord - hoor het van onze tevreden klanten"
+      bookNow: "Boek Nu",
     },
 
     // Join Team Section
@@ -291,33 +1072,6 @@ export const translations = {
       welcomeDescription: "U bent al ingelogd. Ga naar uw dashboard om diensten te boeken.",
       goDashboard: "Ga naar Dashboard",
       createAccount: "Account Aanmaken",
-      description: "Krijg een professionele schoonmaakdienst op maat voor uw behoeften met ons eenvoudige boekingssysteem",
-      form: {
-        fullName: "Volledige Naam *",
-        fullNamePlaceholder: "Voer uw volledige naam in",
-        phoneNumber: "Telefoonnummer *",
-        phoneNumberPlaceholder: "Voer uw telefoonnummer in",
-        address: "Adres *",
-        addressPlaceholder: "Voer uw volledige adres in",
-        serviceType: "Type Dienst *",
-        serviceTypePlaceholder: "Selecteer een dienst",
-        preferredDate: "Gewenste Datum *",
-        preferredTime: "Gewenste Tijd *",
-        timePlaceholder: "Selecteer tijd",
-        morning: "Ochtend (8:00-12:00)",
-        afternoon: "Middag (12:00-16:00)",
-        evening: "Avond (16:00-20:00)",
-        submitButton: "Boek Uw Schoonmaakdienst",
-        submitting: "Versturen..."
-      },
-      success: {
-        title: "Boeking Verzonden!",
-        description: "We nemen binnenkort contact met u op om uw afspraak te bevestigen."
-      },
-      error: {
-        title: "Fout",
-        description: "Boeking verzenden mislukt. Probeer het opnieuw."
-      }
     },
 
     // Footer
@@ -339,32 +1093,6 @@ export const translations = {
       termsOfService: "Servicevoorwaarden",
       cookiePolicy: "Cookiebeleid"
     },
-
-    // Language Switcher
-    language: "Taal",
-    
-    // Admin Panel
-    admin: {
-      title: "Beheerpaneel",
-      subtitle: "Beheer Boekingsverzoeken",
-      loading: "Boekingen laden...",
-      noBookings: "Geen boekingen gevonden",
-      backToWebsite: "Terug naar Website",
-      logout: "Uitloggen",
-      table: {
-        name: "Naam",
-        service: "Dienst",
-        phone: "Telefoon",
-        date: "Datum",
-        status: "Status",
-        actions: "Acties"
-      },
-      status: {
-        pending: "In afwachting",
-        confirmed: "Bevestigd",
-        done: "Voltooid"
-      }
-    }
   }
 };
 
