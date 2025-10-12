@@ -353,7 +353,73 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
         </div>
       </section>
 
-      {/* Login to Book Section */}
+
+      {/* Booking Section */}
+      <section id="booking-form" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              {t('booking.title')}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              {t('booking.loginDescription')}
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+            
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <User className="h-10 w-10 text-white" />
+              </div>
+              
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                {user ? t('booking.welcomeBack') : t('booking.loginTitle')}
+              </h3>
+              
+              <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                {user 
+                  ? t('booking.welcomeDescription')
+                  : t('booking.loginDescription')
+                }
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                {user ? (
+                  <Button
+                    onClick={() => router.push('/dashboard')}
+                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    <User className="h-5 w-5 mr-3" />
+                    {t('booking.goDashboard')}
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      onClick={() => router.push('/login')}
+                      className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105"
+                    >
+                      <User className="h-5 w-5 mr-3" />
+                      {t('nav.login')}
+                    </Button>
+                    <Button
+                      onClick={() => router.push('/register')}
+                      variant="outline"
+                      className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold py-4 px-8 rounded-xl transition-all duration-300"
+                    >
+                      {t('booking.createAccount')}
+                    </Button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Join Our Team Section */}
       <section id="booking-form" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
@@ -459,69 +525,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
         </div>
       </section>
 
-      {/* Login to Book Section */}
-      <section id="booking-form" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              {t('booking.title')}
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              {t('booking.loginDescription')}
-            </p>
-          </div>
-          
-          <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
-            
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <User className="h-10 w-10 text-white" />
-              </div>
-              
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                {user ? t('booking.welcomeBack') : t('booking.loginTitle')}
-              </h3>
-              
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                {user 
-                  ? t('booking.welcomeDescription')
-                  : t('booking.loginDescription')
-                }
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                {user ? (
-                  <Button
-                    onClick={() => router.push('/dashboard')}
-                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105"
-                  >
-                    <User className="h-5 w-5 mr-3" />
-                    {t('booking.goDashboard')}
-                  </Button>
-                ) : (
-                  <>
-                    <Button
-                      onClick={() => router.push('/login')}
-                      className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105"
-                    >
-                      <User className="h-5 w-5 mr-3" />
-                      {t('nav.login')}
-                    </Button>
-                    <Button
-                      onClick={() => router.push('/register')}
-                      variant="outline"
-                      className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold py-4 px-8 rounded-xl transition-all duration-300"
-                    >
-                      {t('booking.createAccount')}
-                    </Button>
-                  </>
-                )}
-              </div>
-            </div>
-            </div>
-        </div>
-      </section>
+
 
       {/* Footer */}
       <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden">
