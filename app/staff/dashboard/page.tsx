@@ -554,26 +554,26 @@ export default function StaffDashboard() {
                       <User className="h-4 w-4 mr-2" />
                       Edit Profile
                     </button>
-                    <button
-                      onClick={() => {
-                        setShowPasswordModal(true);
-                        setShowProfileMenu(false);
-                      }}
+                      <button
+                        onClick={() => {
+                          setShowPasswordModal(true);
+                          setShowProfileMenu(false);
+                        }}
                       className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                    >
+                      >
                       <Settings className="h-4 w-4 mr-2" />
-                      Change Password
-                    </button>
-                    <button
-                      onClick={() => {
+                        Change Password
+                      </button>
+                      <button
+                        onClick={() => {
                         logout();
                         router.push('/staff/login');
-                      }}
+                        }}
                       className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                    >
+                      >
                       <LogOut className="h-4 w-4 mr-2" />
-                      Logout
-                    </button>
+                        Logout
+                      </button>
                   </div>
                 )}
               </div>
@@ -636,22 +636,57 @@ export default function StaffDashboard() {
               </div>
             </div>
 
+            {/* Today's Tasks Highlight */}
+            {(() => {
+              const today = new Date().toISOString().split('T')[0];
+              const todayTasks = assignments.filter(a => 
+                a.booking?.preferred_date === today && 
+                !['completed', 'cancelled'].includes(a.status)
+              );
+              
+              if (todayTasks.length > 0) {
+                return (
+                  <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg p-6 mb-6 text-white">
+            <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center space-x-2 mb-2">
+                          <Target className="h-5 w-5" />
+                          <h3 className="text-lg font-bold">Today's Schedule</h3>
+                        </div>
+                        <p className="text-blue-100 text-sm">You have {todayTasks.length} {todayTasks.length === 1 ? 'task' : 'tasks'} scheduled for today</p>
+                      </div>
+                      <div className="text-4xl font-bold">{todayTasks.length}</div>
+                    </div>
+                    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {todayTasks.slice(0, 2).map(task => (
+                        <div key={task.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+                          <p className="font-semibold text-sm">{task.booking?.service_type}</p>
+                          <p className="text-xs text-blue-100 mt-1">{task.booking?.preferred_time}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              return null;
+            })()}
+
             {/* Quick Actions */}
             <div className="flex flex-wrap gap-4 mb-8">
-              <Button
-                onClick={() => setViewMode('calendar')}
+                <Button
+                  onClick={() => setViewMode('calendar')}
                 variant={viewMode === 'calendar' ? 'default' : 'outline'}
                 className="flex items-center"
-              >
-                <CalendarDays className="h-4 w-4 mr-2" />
+                >
+                  <CalendarDays className="h-4 w-4 mr-2" />
                 Calendar View
-              </Button>
-              <Button
-                onClick={() => setViewMode('list')}
+                </Button>
+                <Button
+                  onClick={() => setViewMode('list')}
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 className="flex items-center"
-              >
-                <List className="h-4 w-4 mr-2" />
+                >
+                  <List className="h-4 w-4 mr-2" />
                 List View
               </Button>
               <Button
@@ -661,8 +696,8 @@ export default function StaffDashboard() {
               >
                 <Zap className="h-4 w-4 mr-2" />
                 Active Tasks
-              </Button>
-            </div>
+                </Button>
+              </div>
 
             {/* Assignments Section */}
             <div className="bg-white rounded-lg shadow">
@@ -672,7 +707,7 @@ export default function StaffDashboard() {
                     <h2 className="text-lg font-semibold text-gray-900">
                       My Assignments ({getFilteredAssignments().length})
                     </h2>
-                  </div>
+            </div>
                   <div className="flex bg-gray-100 rounded-lg p-1">
                     <button
                       onClick={() => setActiveTab('active')}
@@ -694,24 +729,24 @@ export default function StaffDashboard() {
                     >
                       Completed ({assignments.filter(a => ['completed', 'cancelled'].includes(a.status)).length})
                     </button>
-                  </div>
-                </div>
-              </div>
+          </div>
+            </div>
+            </div>
 
               {viewMode === 'calendar' ? (
-                <div className="p-6">
-                  <Calendar
-                    assignments={assignments}
-                    onDateSelect={setSelectedDate}
-                    selectedDate={selectedDate || undefined}
-                  />
-                  {selectedDate && (
-                    <div className="mt-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="p-6">
+              <Calendar 
+                assignments={assignments}
+                onDateSelect={setSelectedDate}
+                selectedDate={selectedDate || undefined}
+              />
+              {selectedDate && (
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
                         Assignments for {selectedDate.toLocaleDateString('nl-NL')}
-                      </h3>
+                  </h3>
                       {getAssignmentsForDate(selectedDate, getFilteredAssignments()).length > 0 ? (
-                        <div className="space-y-4">
+                    <div className="space-y-4">
                           {getAssignmentsForDate(selectedDate, getFilteredAssignments()).map((assignment) => (
                             <div key={assignment.id} className="border rounded-lg p-4 hover:bg-gray-50">
                               <div className="flex items-center justify-between">
@@ -728,9 +763,9 @@ export default function StaffDashboard() {
                                       </span>
                                     )}
                                   </div>
-                                  <h4 className="text-lg font-medium text-gray-900">
+                            <h4 className="text-lg font-medium text-gray-900">
                                     {assignment.booking?.service_type || 'Service Assignment'}
-                                  </h4>
+                            </h4>
                                   <p className="text-sm text-gray-600">
                                     Customer: {assignment.booking?.customer_name}
                                   </p>
@@ -742,7 +777,7 @@ export default function StaffDashboard() {
                                       Notes: {assignment.booking.notes}
                                     </p>
                                   )}
-                                </div>
+                          </div>
                                 <div className="flex space-x-2">
                                   <Button
                                     variant="outline"
@@ -785,46 +820,46 @@ export default function StaffDashboard() {
                                       Complete
                                     </Button>
                                   )}
-                                </div>
-                              </div>
                             </div>
-                          ))}
+                            </div>
                         </div>
+                      ))}
+                    </div>
                       ) : (
                         <p className="text-gray-500 text-center py-8">
                           {activeTab === 'active' ? 'No active assignments for this date.' : 'No completed assignments for this date.'}
                         </p>
-                      )}
-                    </div>
                   )}
                 </div>
-              ) : (
+              )}
+            </div>
+          ) : (
                 <div className="p-6">
                   {getFilteredAssignments().length > 0 ? (
                     <div className="space-y-4">
                       {getFilteredAssignments().map((assignment) => (
                         <div key={assignment.id} className="border rounded-lg p-4 hover:bg-gray-50">
                           <div className="flex items-center justify-between">
-                            <div className="flex-1">
+                    <div className="flex-1">
                               <div className="flex items-center space-x-2 mb-2">
                                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(assignment.status)}`}>
-                                  {getStatusIcon(assignment.status)}
+                          {getStatusIcon(assignment.status)}
                                   <span className="ml-1 capitalize">{assignment.status.replace('_', ' ')}</span>
-                                </span>
+                        </span>
                                 {assignment.team && (
                                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                     <Users className="h-3 w-3 mr-1" />
                                     {assignment.team.name}
-                                  </span>
+                        </span>
                                 )}
-                              </div>
+                      </div>
                               <h4 className="text-lg font-medium text-gray-900">
                                 {assignment.booking?.service_type || 'Service Assignment'}
                               </h4>
                               <div className="flex items-center text-sm text-gray-600 mt-1">
                                 <CalendarIcon className="h-4 w-4 mr-2" />
                                 {new Date((assignment as any).preferred_date || (assignment as any).preferredDate).toLocaleDateString('nl-NL')}
-                              </div>
+                      </div>
                               <p className="text-sm text-gray-600">
                                 Customer: {assignment.booking?.customer_name}
                               </p>
@@ -836,47 +871,86 @@ export default function StaffDashboard() {
                                   Notes: {assignment.booking.notes}
                                 </p>
                               )}
-                            </div>
-                            <div className="flex space-x-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => {
-                                  setSelectedAssignment(assignment);
-                                  setShowAssignmentModal(true);
-                                }}
-                              >
-                                <Eye className="h-4 w-4 mr-1" />
-                                View
-                              </Button>
+                          </div>
+                            <div className="flex flex-col space-y-2">
+                              {/* Quick Action Buttons Based on Status */}
                               {assignment.status === 'assigned' && (
-                                <Button
-                                  onClick={() => updateAssignmentStatus(assignment.id, 'accepted')}
-                                  size="sm"
-                                  className="bg-green-600 hover:bg-green-700"
-                                >
-                                  <CheckCircle className="h-4 w-4 mr-1" />
-                                  Accept
-                                </Button>
+                                <div className="flex space-x-2">
+                                  <Button
+                                    onClick={() => updateAssignmentStatus(assignment.id, 'accepted')}
+                                    size="sm"
+                                    className="bg-green-600 hover:bg-green-700 text-white"
+                                  >
+                                    <CheckCircle className="h-4 w-4 mr-1" />
+                                    Accept
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => {
+                                      setSelectedAssignment(assignment);
+                                      setShowAssignmentModal(true);
+                                    }}
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                          </div>
                               )}
                               {assignment.status === 'accepted' && (
-                                <Button
-                                  onClick={() => updateAssignmentStatus(assignment.id, 'in_progress')}
-                                  size="sm"
-                                  className="bg-blue-600 hover:bg-blue-700"
-                                >
-                                  <Play className="h-4 w-4 mr-1" />
-                                  Start
-                                </Button>
+                                <div className="flex space-x-2">
+                                  <Button
+                                    onClick={() => updateAssignmentStatus(assignment.id, 'in_progress')}
+                                    size="sm"
+                                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                                  >
+                                    <Play className="h-4 w-4 mr-1" />
+                                    Start Work
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => {
+                                      setSelectedAssignment(assignment);
+                                      setShowAssignmentModal(true);
+                                    }}
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                          </div>
                               )}
                               {assignment.status === 'in_progress' && (
+                                <div className="flex space-x-2">
+                                  <Button
+                                    onClick={() => updateAssignmentStatus(assignment.id, 'completed')}
+                                    size="sm"
+                                    className="bg-green-600 hover:bg-green-700 text-white"
+                                  >
+                                    <CheckCircle className="h-4 w-4 mr-1" />
+                                    Complete
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => {
+                                      setSelectedAssignment(assignment);
+                                      setShowAssignmentModal(true);
+                                    }}
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              )}
+                              {(assignment.status === 'completed' || assignment.status === 'cancelled') && (
                                 <Button
-                                  onClick={() => updateAssignmentStatus(assignment.id, 'completed')}
+                                  variant="outline"
                                   size="sm"
-                                  className="bg-green-600 hover:bg-green-700"
+                                  onClick={() => {
+                                    setSelectedAssignment(assignment);
+                                    setShowAssignmentModal(true);
+                                  }}
                                 >
-                                  <Square className="h-4 w-4 mr-1" />
-                                  Complete
+                                  <Eye className="h-4 w-4 mr-1" />
+                                  View Details
                                 </Button>
                               )}
                             </div>
@@ -916,7 +990,7 @@ export default function StaffDashboard() {
                 {/* Performance Overview Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div className="bg-white rounded-lg shadow p-6">
-                    <div className="flex items-center">
+                          <div className="flex items-center">
                       <div className="p-2 bg-blue-100 rounded-lg">
                         <Target className="h-6 w-6 text-blue-600" />
                       </div>
@@ -924,14 +998,14 @@ export default function StaffDashboard() {
                         <p className="text-sm font-medium text-gray-600">Total Assignments</p>
                         <p className="text-2xl font-bold text-gray-900">{performanceData.overview.total_assignments}</p>
                       </div>
-                    </div>
-                  </div>
-
+                          </div>
+                        </div>
+                        
                   <div className="bg-white rounded-lg shadow p-6">
-                    <div className="flex items-center">
+                          <div className="flex items-center">
                       <div className="p-2 bg-green-100 rounded-lg">
                         <CheckCircle className="h-6 w-6 text-green-600" />
-                      </div>
+                          </div>
                       <div className="ml-4">
                         <p className="text-sm font-medium text-gray-600">Completed</p>
                         <p className="text-2xl font-bold text-gray-900">{performanceData.overview.completed_assignments}</p>
@@ -940,10 +1014,10 @@ export default function StaffDashboard() {
                   </div>
 
                   <div className="bg-white rounded-lg shadow p-6">
-                    <div className="flex items-center">
+                          <div className="flex items-center">
                       <div className="p-2 bg-purple-100 rounded-lg">
                         <TrendingUp className="h-6 w-6 text-purple-600" />
-                      </div>
+                          </div>
                       <div className="ml-4">
                         <p className="text-sm font-medium text-gray-600">Success Rate</p>
                         <p className="text-2xl font-bold text-gray-900">{performanceData.overview.success_rate}%</p>
@@ -952,10 +1026,10 @@ export default function StaffDashboard() {
                   </div>
 
                   <div className="bg-white rounded-lg shadow p-6">
-                    <div className="flex items-center">
+                            <div className="flex items-center">
                       <div className="p-2 bg-orange-100 rounded-lg">
                         <Clock className="h-6 w-6 text-orange-600" />
-                      </div>
+                            </div>
                       <div className="ml-4">
                         <p className="text-sm font-medium text-gray-600">Avg. Time</p>
                         <p className="text-2xl font-bold text-gray-900">
@@ -966,9 +1040,9 @@ export default function StaffDashboard() {
                         </p>
                       </div>
                     </div>
-                  </div>
-                </div>
-
+                        </div>
+                      </div>
+                      
                 {/* Service Performance */}
                 <div className="bg-white rounded-lg shadow p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Service Performance</h3>
@@ -984,8 +1058,8 @@ export default function StaffDashboard() {
                         <div className="text-right">
                           <p className="text-lg font-bold text-gray-900">{service.success_rate}%</p>
                           <p className="text-sm text-gray-600">Success Rate</p>
-                        </div>
-                      </div>
+                    </div>
+                  </div>
                     ))}
                   </div>
                 </div>
@@ -999,9 +1073,9 @@ export default function StaffDashboard() {
                         <p className="font-medium text-gray-900">{time.time_period}</p>
                         <p className="text-2xl font-bold text-gray-900">{time.success_rate}%</p>
                         <p className="text-sm text-gray-600">{time.completed} / {time.assignments} completed</p>
-                      </div>
-                    ))}
-                  </div>
+                </div>
+              ))}
+            </div>
                 </div>
 
                 {/* Team Performance */}
@@ -1031,7 +1105,7 @@ export default function StaffDashboard() {
               <div className="text-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
                 <p className="text-gray-600">Loading performance data...</p>
-              </div>
+        </div>
             )}
           </div>
         )}
@@ -1043,8 +1117,8 @@ export default function StaffDashboard() {
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div className="mt-3">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
-                {isFirstLogin ? 'Set Your Password' : 'Change Password'}
-              </h3>
+              {isFirstLogin ? 'Set Your Password' : 'Change Password'}
+            </h3>
               <div className="space-y-4">
                 {!isFirstLogin && (
                   <div>
@@ -1055,26 +1129,26 @@ export default function StaffDashboard() {
                       onChange={(e) => setPasswordForm({...passwordForm, currentPassword: e.target.value})}
                       className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     />
-                  </div>
-                )}
-                <div>
+              </div>
+            )}
+              <div>
                   <label className="block text-sm font-medium text-gray-700">New Password</label>
-                  <input
-                    type="password"
-                    value={passwordForm.newPassword}
+                <input
+                  type="password"
+                  value={passwordForm.newPassword}
                     onChange={(e) => setPasswordForm({...passwordForm, newPassword: e.target.value})}
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
+                />
+              </div>
+              <div>
                   <label className="block text-sm font-medium text-gray-700">Confirm New Password</label>
-                  <input
-                    type="password"
-                    value={passwordForm.confirmPassword}
+                <input
+                  type="password"
+                  value={passwordForm.confirmPassword}
                     onChange={(e) => setPasswordForm({...passwordForm, confirmPassword: e.target.value})}
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
+                />
+              </div>
               </div>
               <div className="flex justify-end space-x-3 mt-6">
                 <Button
@@ -1161,22 +1235,22 @@ export default function StaffDashboard() {
                     </div>
                   </div>
                   <div className="flex justify-end space-x-3 mt-4">
-                    <Button
-                      variant="outline"
+                  <Button
+                    variant="outline"
                       type="button"
-                      onClick={() => {
+                    onClick={() => {
                         setShowProfileModal(false);
                       }}
-                    >
-                      Cancel
-                    </Button>
+                  >
+                    Cancel
+                  </Button>
                     <Button type="submit">Save Changes</Button>
                   </div>
                 </form>
-              )}
+                )}
+              </div>
             </div>
           </div>
-        </div>
       )}
 
       {/* Assignment Detail Modal */}

@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Eye, CheckCircle, XCircle } from 'lucide-react';
+import { Eye, CheckCircle, XCircle, Search, Filter } from 'lucide-react';
 import StatusBadge from '@/components/admin/shared/StatusBadge';
 import { BookingForm } from '@/types';
 
@@ -16,6 +17,41 @@ interface BookingsTabProps {
 export default function BookingsTab({ bookings, loading, fetchBookings }: BookingsTabProps) {
   const [updating, setUpdating] = useState<string | null>(null);
   const [selectedBooking, setSelectedBooking] = useState<BookingForm | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Filter and search logic
+  const filteredBookings = useMemo(() => {
+    let filtered = [...bookings];
+
+    // Status filter
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(b => b.status === statusFilter);
+    }
+
+    // Search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(b => 
+        b.name.toLowerCase().includes(query) ||
+        b.email.toLowerCase().includes(query) ||
+        b.phone.includes(query)
+      );
+    }
+
+    return filtered;
+  }, [bookings, statusFilter, searchQuery]);
+
+  // Stats
+  const stats = useMemo(() => ({
+    total: bookings.length,
+    pending_verification: bookings.filter(b => b.status === 'pending_verification').length,
+    pending_password: bookings.filter(b => b.status === 'pending_password').length,
+    confirmed: bookings.filter(b => b.status === 'confirmed').length,
+    assigned: bookings.filter(b => b.status === 'assigned').length,
+    in_progress: bookings.filter(b => b.status === 'in_progress').length,
+    completed: bookings.filter(b => b.status === 'completed').length,
+  }), [bookings]);
 
   const updateBookingStatus = async (bookingId: string, status: string) => {
     setUpdating(bookingId);
@@ -54,6 +90,87 @@ export default function BookingsTab({ bookings, loading, fetchBookings }: Bookin
         </Button>
       </div>
 
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
+          <p className="text-xs font-medium text-blue-700 uppercase">Total</p>
+          <p className="text-2xl font-bold text-blue-900">{stats.total}</p>
+        </div>
+        <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg p-4 border border-yellow-200">
+          <p className="text-xs font-medium text-yellow-700 uppercase">Pending</p>
+          <p className="text-2xl font-bold text-yellow-900">{stats.pending_verification}</p>
+        </div>
+        <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
+          <p className="text-xs font-medium text-orange-700 uppercase">Verifying</p>
+          <p className="text-2xl font-bold text-orange-900">{stats.pending_password}</p>
+        </div>
+        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
+          <p className="text-xs font-medium text-green-700 uppercase">Confirmed</p>
+          <p className="text-2xl font-bold text-green-900">{stats.confirmed}</p>
+        </div>
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
+          <p className="text-xs font-medium text-purple-700 uppercase">Assigned</p>
+          <p className="text-2xl font-bold text-purple-900">{stats.assigned}</p>
+        </div>
+        <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg p-4 border border-indigo-200">
+          <p className="text-xs font-medium text-indigo-700 uppercase">Active</p>
+          <p className="text-2xl font-bold text-indigo-900">{stats.in_progress}</p>
+        </div>
+        <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 border border-gray-200">
+          <p className="text-xs font-medium text-gray-700 uppercase">Done</p>
+          <p className="text-2xl font-bold text-gray-900">{stats.completed}</p>
+        </div>
+      </div>
+
+      {/* Filters & Search */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Search by name, email, or phone..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <div className="w-full md:w-64">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger>
+                <Filter className="h-4 w-4 mr-2" />
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Statuses</SelectItem>
+                <SelectItem value="pending_verification">Pending Verification</SelectItem>
+                <SelectItem value="pending_password">Pending Password</SelectItem>
+                <SelectItem value="confirmed">Confirmed</SelectItem>
+                <SelectItem value="assigned">Assigned</SelectItem>
+                <SelectItem value="in_progress">In Progress</SelectItem>
+                <SelectItem value="completed">Completed</SelectItem>
+                <SelectItem value="cancelled">Cancelled</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        {(statusFilter !== 'all' || searchQuery) && (
+          <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
+            <p>Showing {filteredBookings.length} of {bookings.length} bookings</p>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setStatusFilter('all');
+                setSearchQuery('');
+              }}
+            >
+              Clear Filters
+            </Button>
+          </div>
+        )}
+      </div>
+
       {bookings.length === 0 ? (
         <div className="text-center py-8">
           <p className="text-gray-500">No bookings found.</p>
@@ -82,7 +199,7 @@ export default function BookingsTab({ bookings, loading, fetchBookings }: Bookin
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {bookings.map((booking) => (
+                {filteredBookings.map((booking) => (
                   <tr key={booking.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
