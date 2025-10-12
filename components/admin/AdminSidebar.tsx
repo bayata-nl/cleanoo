@@ -19,10 +19,10 @@ interface AdminSidebarProps {
 const tabs = [
   { id: 'operations', label: 'Operations', icon: UserCheck },
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+  { id: 'customers', label: 'Customers', icon: Users },
   { id: 'services', label: 'Services', icon: Settings },
-  // Testimonials removed per requirements
-  { id: 'staff', label: 'Staff', icon: Users },
-  { id: 'teams', label: 'Teams', icon: UserPlus },
+  { id: 'staff', label: 'Staff', icon: UserPlus },
+  { id: 'teams', label: 'Teams', icon: UserCheck },
 ];
 
 export default function AdminSidebar({ activeTab, onTabChange }: AdminSidebarProps) {

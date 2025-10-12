@@ -12,6 +12,7 @@ import StaffTab from '@/components/admin/tabs/StaffTab';
 import TeamsTab from '@/components/admin/tabs/TeamsTab';
 import OperationsTab from '@/components/admin/tabs/OperationsTab';
 import AnalyticsTab from '@/components/admin/tabs/AnalyticsTab';
+import CustomersTab from '@/components/admin/tabs/CustomersTab';
 
 export default function AdminPage() {
   const router = useRouter();
@@ -68,9 +69,8 @@ export default function AdminPage() {
     switch (activeTab) {
       case 'services':
         return <ServicesTab {...adminData} {...adminModals} />;
-      // Testimonials removed per requirements
-      case 'testimonials':
-        return <div className="text-gray-600">Testimonials have been removed.</div>;
+      case 'customers':
+        return <CustomersTab users={adminData.users} bookings={adminData.bookings} loading={adminData.loading} fetchUsers={adminData.fetchUsers} />;
       case 'staff':
         return <StaffTab {...adminData} {...adminModals} />;
       case 'teams':

@@ -9,6 +9,7 @@ export function useAdminData() {
   const [staff, setStaff] = useState<Personnel[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchBookings = useCallback(async () => {
@@ -87,6 +88,20 @@ export function useAdminData() {
     }
   }, []);
 
+  const fetchUsers = useCallback(async () => {
+    try {
+      const response = await fetch('/api/users');
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          setUsers(result.data);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  }, []);
+
   const fetchAllData = useCallback(async () => {
     setLoading(true);
     try {
@@ -95,12 +110,13 @@ export function useAdminData() {
         fetchServices(),
         fetchStaff(),
         fetchTeams(),
-        fetchAssignments()
+        fetchAssignments(),
+        fetchUsers()
       ]);
     } finally {
       setLoading(false);
     }
-  }, [fetchBookings, fetchServices, fetchStaff, fetchTeams, fetchAssignments]);
+  }, [fetchBookings, fetchServices, fetchStaff, fetchTeams, fetchAssignments, fetchUsers]);
 
   return {
     // Data
@@ -109,6 +125,7 @@ export function useAdminData() {
     staff,
     teams,
     assignments,
+    users,
     loading,
     
     // Setters
@@ -117,6 +134,7 @@ export function useAdminData() {
     setStaff,
     setTeams,
     setAssignments,
+    setUsers,
     
     // Fetch functions
     fetchBookings,
@@ -124,6 +142,7 @@ export function useAdminData() {
     fetchStaff,
     fetchTeams,
     fetchAssignments,
+    fetchUsers,
     fetchAllData
   };
 }
