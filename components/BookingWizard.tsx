@@ -23,7 +23,6 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    confirmEmail: '',
     phone: '',
     address: '',
     preferredDate: '',
@@ -46,14 +45,14 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
       toast({ title: 'Error', description: 'Please enter a valid email', variant: 'destructive' });
       return false;
     }
-    if (formData.email.trim().toLowerCase() !== formData.confirmEmail.trim().toLowerCase()) {
-      toast({ title: 'Error', description: 'Email addresses do not match', variant: 'destructive' });
-      return false;
-    }
     if (!formData.phone.trim()) {
       toast({ title: 'Error', description: 'Please enter your phone number', variant: 'destructive' });
       return false;
     }
+    return true;
+  };
+
+  const validateStep2 = () => {
     if (!formData.address.trim()) {
       toast({ title: 'Error', description: 'Please enter your address', variant: 'destructive' });
       return false;
@@ -72,6 +71,10 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
   const handleNext = () => {
     if (step === 1) {
       if (validateStep1()) {
+        setStep(2);
+      }
+    } else if (step === 2) {
+      if (validateStep2()) {
         handleSubmit();
       }
     }
@@ -108,8 +111,8 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
         throw new Error(data.error || 'Failed to create booking');
       }
 
-      // Move to step 2 (email sent confirmation)
-      setStep(2);
+      // Move to step 3 (email sent confirmation)
+      setStep(3);
     } catch (error: any) {
       console.error('Booking creation error:', error);
       toast({
@@ -127,7 +130,6 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
     setFormData({
       name: '',
       email: '',
-      confirmEmail: '',
       phone: '',
       address: '',
       preferredDate: '',
@@ -148,7 +150,6 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold">Book: {preSelectedService?.title}</h2>
-              <p className="text-sm text-blue-100 mt-1">Step {step} of 2</p>
             </div>
             <button
               onClick={handleClose}
@@ -160,12 +161,14 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
           </div>
 
           {/* Progress Bar */}
-          <div className="mt-4 w-full bg-white/20 rounded-full h-2">
-            <div
-              className="bg-white rounded-full h-2 transition-all duration-300"
-              style={{ width: `${(step / 2) * 100}%` }}
-            />
-          </div>
+          {step < 3 && (
+            <div className="mt-4 w-full bg-white/20 rounded-full h-2">
+              <div
+                className="bg-white rounded-full h-2 transition-all duration-300"
+                style={{ width: `${(step / 2) * 100}%` }}
+              />
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -213,22 +216,6 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Confirm Email *
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <Input
-                    type="email"
-                    value={formData.confirmEmail}
-                    onChange={(e) => handleInputChange('confirmEmail', e.target.value)}
-                    placeholder="Confirm your email"
-                    className="pl-10"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Phone Number *
                 </label>
                 <div className="relative">
@@ -241,6 +228,18 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
                     className="pl-10"
                   />
                 </div>
+              </div>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div className="space-y-5">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                <div className="flex items-center space-x-2 text-green-700">
+                  <CheckCircle className="h-5 w-5" />
+                  <p className="text-sm font-medium">Contact info saved!</p>
+                </div>
+                <p className="text-sm text-green-600 mt-1">Now let's schedule your cleaning</p>
               </div>
 
               <div>
@@ -312,7 +311,7 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
             </div>
           )}
 
-          {step === 2 && (
+          {step === 3 && (
             <div className="text-center py-8">
               <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
                 <Mail className="h-10 w-10 text-blue-600" />
@@ -359,14 +358,21 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
         </div>
 
         {/* Footer with Actions */}
-        {step === 1 && (
+        {(step === 1 || step === 2) && (
           <div className="sticky bottom-0 bg-gray-50 px-6 py-4 rounded-b-2xl border-t border-gray-200 flex justify-between">
             <Button
               variant="ghost"
-              onClick={handleClose}
+              onClick={step === 1 ? handleClose : handleBack}
               disabled={submitting}
             >
-              Cancel
+              {step === 1 ? (
+                'Cancel'
+              ) : (
+                <>
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back
+                </>
+              )}
             </Button>
             <Button
               onClick={handleNext}
@@ -380,7 +386,7 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
                 </>
               ) : (
                 <>
-                  Send Verification Email
+                  {step === 2 ? 'Send Verification Email' : 'Next'}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </>
               )}
