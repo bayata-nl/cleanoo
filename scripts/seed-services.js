@@ -1,15 +1,33 @@
-import Database from 'better-sqlite3';
-import path from 'path';
+// Use .js instead of .ts for simpler execution
+const Database = require('better-sqlite3');
+const path = require('path');
 
 const dbPath = path.join(process.cwd(), 'database.sqlite');
-const db = new Database(dbPath);
 
-// Ensure database is initialized (trigger lib/sqlite.ts initialization)
-import('../lib/sqlite').then(() => {
-  console.log('✅ Database initialized');
-}).catch((err) => {
-  console.log('⚠️ Database initialization:', err.message);
-});
+// Import db to ensure initialization
+let dbModule;
+try {
+  dbModule = require('../lib/sqlite.ts');
+} catch (e) {
+  // If TypeScript import fails, manually initialize
+  const db = new Database(dbPath);
+  
+  // Ensure tables exist
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS services (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      description TEXT NOT NULL,
+      icon TEXT,
+      price TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+  
+  dbModule = { default: db };
+}
+
+const db = dbModule.default;
 
 const services = [
   {
@@ -89,17 +107,9 @@ const services = [
 try {
   console.log('🌱 Starting service seed...\n');
 
-  // Check if services already exist
-  const existingCount = db.prepare('SELECT COUNT(*) as count FROM services').get() as { count: number };
+  const existingCount = db.prepare('SELECT COUNT(*) as count FROM services').get();
   
   if (existingCount.count > 0) {
-    console.log(`⚠️  Found ${existingCount.count} existing services.`);
-    console.log('❓ Do you want to:');
-    console.log('   1. Keep existing services (abort)');
-    console.log('   2. Add new services (append)');
-    console.log('   3. Replace all services (delete + insert)');
-    console.log('\n💡 Run with flag: --append or --replace\n');
-    
     const flag = process.argv[2];
     
     if (flag === '--replace') {
@@ -107,7 +117,7 @@ try {
       db.prepare('DELETE FROM services').run();
       console.log('✅ Existing services deleted\n');
     } else if (flag !== '--append') {
-      console.log('⛔ Aborted. No changes made.\n');
+      console.log('⛔ Aborted. Use --replace or --append flag.\n');
       process.exit(0);
     }
   }
@@ -124,7 +134,7 @@ try {
       insert.run(service.title, service.description, service.icon, service.price);
       console.log(`✅ ${service.title}`);
       inserted++;
-    } catch (error: any) {
+    } catch (error) {
       if (error.code === 'SQLITE_CONSTRAINT') {
         console.log(`⏭️  ${service.title} (already exists, skipping)`);
       } else {

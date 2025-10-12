@@ -9,8 +9,8 @@
     "lint": "next lint",
     "analyze": "ANALYZE=true next build",
     "type-check": "tsc --noEmit",
-    "seed:services": "npx tsx scripts/seed-services.ts --replace",
-    "seed:services:append": "npx tsx scripts/seed-services.ts --append"
+    "seed:services": "node scripts/seed-services.js --replace",
+    "seed:services:append": "node scripts/seed-services.js --append"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.2.5",

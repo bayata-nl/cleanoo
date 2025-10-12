@@ -63,6 +63,14 @@ function initializeDatabase() {
         verification_token TEXT,
         verified_at DATETIME,
         user_id INTEGER,
+        payment_status TEXT DEFAULT 'unpaid' CHECK (payment_status IN ('unpaid', 'paid', 'refunded', 'cancelled')),
+        payment_method TEXT,
+        payment_amount DECIMAL(10,2),
+        paid_at DATETIME,
+        cancellation_reason TEXT,
+        rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+        review_text TEXT,
+        reviewed_at DATETIME,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
@@ -73,6 +81,8 @@ function initializeDatabase() {
     db.exec(`CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status)`);
     db.exec(`CREATE INDEX IF NOT EXISTS idx_bookings_date ON bookings(preferred_date)`);
     db.exec(`CREATE INDEX IF NOT EXISTS idx_bookings_created ON bookings(created_at DESC)`);
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_bookings_payment_status ON bookings(payment_status)`);
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_bookings_user_id ON bookings(user_id)`);
 
     // Services table
     db.exec(`

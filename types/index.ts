@@ -28,7 +28,14 @@ export interface BookingForm {
   verified_at?: Date;
   userId?: string | null;
   notes?: string;
+  payment_status?: 'unpaid' | 'paid' | 'refunded' | 'cancelled';
+  payment_method?: string;
+  payment_amount?: number;
+  paid_at?: Date;
   cancellationReason?: string;
+  rating?: number;
+  review_text?: string;
+  reviewed_at?: Date;
 }
 
 export interface Service {
