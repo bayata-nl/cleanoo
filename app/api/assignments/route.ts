@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import db from '@/lib/sqlite'
 import { requireAdminJson } from '@/lib/auth'
+import { sendAssignmentNotification } from '@/lib/email-notifications'
 
 export async function GET(request: NextRequest) {
   try {
@@ -173,8 +174,28 @@ export async function POST(request: NextRequest) {
     // Update booking status to 'assigned' when assigned
     db.prepare('UPDATE bookings SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?').run('assigned', body.booking_id)
     
-    // Get the inserted record
-    const inserted = db.prepare('SELECT * FROM assignments WHERE id = ?').get(result.lastInsertRowid)
+    // Get the inserted record with staff/booking details
+    const inserted = db.prepare(`
+      SELECT a.*, b.service_type, b.name as customer_name, b.preferred_date, b.preferred_time, b.address,
+             s.name as staff_name, s.email as staff_email
+      FROM assignments a
+      JOIN bookings b ON a.booking_id = b.id
+      LEFT JOIN staff s ON a.staff_id = s.id
+      WHERE a.id = ?
+    `).get(result.lastInsertRowid) as any;
+    
+    // Send email notification to assigned staff (fire and forget)
+    if (inserted.staff_email) {
+      sendAssignmentNotification({
+        staffEmail: inserted.staff_email,
+        staffName: inserted.staff_name,
+        serviceType: inserted.service_type,
+        customerName: inserted.customer_name,
+        preferredDate: inserted.preferred_date,
+        preferredTime: inserted.preferred_time,
+        address: inserted.address,
+      }).catch(err => console.error('Email notification failed:', err));
+    }
     
     return NextResponse.json({ 
       success: true, 
