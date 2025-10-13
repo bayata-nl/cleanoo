@@ -19,7 +19,7 @@ export async function PUT(
       body.preferredDate || body.preferred_date || new Date().toISOString().split('T')[0],
       body.preferredTime || body.preferred_time || 'Morning (8AM-12PM)',
       body.notes || null,
-      (body.status || 'pending').toLowerCase(),
+      body.status || 'confirmed',
       id
     ]
     
