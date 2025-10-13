@@ -39,6 +39,12 @@ jobs:
             echo "🏗️  Building application..."
             npm run build
             
+            echo "📦 Copying static files to standalone..."
+            cp -r public .next/standalone/ 2>/dev/null || true
+            mkdir -p .next/standalone/.next/static
+            cp -r .next/static/* .next/standalone/.next/static/ 2>/dev/null || true
+            echo "✅ Static files copied!"
+            
             echo "📋 Checking environment file..."
             if [ ! -f .env.production ]; then
               echo "⚠️  Warning: .env.production not found!"
