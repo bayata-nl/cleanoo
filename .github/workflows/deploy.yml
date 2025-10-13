@@ -58,6 +58,16 @@ jobs:
             
             echo "✅ Static files and manifests copied!"
             
+            echo "💾 Syncing database to standalone..."
+            if [ -f "database.sqlite" ]; then
+              cp database.sqlite .next/standalone/database.sqlite
+              cp database.sqlite-shm .next/standalone/database.sqlite-shm 2>/dev/null || true
+              cp database.sqlite-wal .next/standalone/database.sqlite-wal 2>/dev/null || true
+              echo "✅ Database synced!"
+            else
+              echo "⚠️  No database found, will create on first run"
+            fi
+            
             echo "📋 Checking environment file..."
             if [ ! -f .env.production ]; then
               echo "⚠️  Warning: .env.production not found!"
