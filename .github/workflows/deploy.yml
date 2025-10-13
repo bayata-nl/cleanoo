@@ -43,7 +43,16 @@ jobs:
             cp -r public .next/standalone/ 2>/dev/null || true
             mkdir -p .next/standalone/.next/static
             cp -r .next/static/* .next/standalone/.next/static/ 2>/dev/null || true
-            echo "✅ Static files copied!"
+            
+            echo "📦 Copying middleware-manifest..."
+            mkdir -p .next/standalone/.next/server
+            if [ -f ".next/server/middleware-manifest.json" ]; then
+              cp .next/server/middleware-manifest.json .next/standalone/.next/server/
+            else
+              echo '{"sortedMiddleware":[],"middleware":{}}' > .next/standalone/.next/server/middleware-manifest.json
+            fi
+            
+            echo "✅ Static files and manifests copied!"
             
             echo "📋 Checking environment file..."
             if [ ! -f .env.production ]; then
