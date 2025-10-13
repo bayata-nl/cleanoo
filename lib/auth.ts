@@ -141,5 +141,55 @@ export function requireAdminJson(request: NextRequest): NextResponse | null {
   return result as NextResponse;
 }
 
+// Customer/User Auth Functions
+type UserPayload = {
+  id: string;
+  email: string;
+  role: 'customer';
+  name?: string;
+};
 
+const USER_COOKIE_NAME = 'userToken';
 
+export function createUserToken(payload: UserPayload): string {
+  return jwt.sign(payload, getJwtSecret(), { expiresIn: '7d' });
+}
+
+export function verifyUserToken(token: string): UserPayload | null {
+  try {
+    return jwt.verify(token, getJwtSecret()) as UserPayload;
+  } catch {
+    return null;
+  }
+}
+
+export function getUserFromRequest(request: NextRequest): UserPayload | null {
+  const cookieToken = request.cookies.get(USER_COOKIE_NAME)?.value;
+  const header = request.headers.get('authorization');
+  const bearerToken = header?.startsWith('Bearer ')
+    ? header.substring('Bearer '.length)
+    : undefined;
+  const token = cookieToken || bearerToken;
+  if (!token) return null;
+  return verifyUserToken(token);
+}
+
+export function setUserCookie(response: NextResponse, token: string) {
+  response.cookies.set(USER_COOKIE_NAME, token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+    path: '/',
+  });
+}
+
+export function clearUserCookie(response: NextResponse) {
+  response.cookies.set(USER_COOKIE_NAME, '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 0,
+    path: '/',
+  });
+}
