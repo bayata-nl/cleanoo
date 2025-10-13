@@ -108,7 +108,11 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
     setSubmitting(true);
 
     try {
-      const response = await fetch('/api/bookings/create-with-verification', {
+      // If user is logged in, create confirmed booking directly
+      // If not logged in, create with email verification
+      const endpoint = user ? '/api/bookings' : '/api/bookings/create-with-verification';
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -129,8 +133,18 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
         throw new Error(data.error || 'Failed to create booking');
       }
 
-      // Move to step 3 (email sent confirmation)
-      setStep(3);
+      if (user) {
+        // Logged-in user: booking confirmed, redirect to dashboard
+        toast({
+          title: 'Booking Created!',
+          description: 'Your booking has been confirmed. Check your dashboard.',
+        });
+        onClose();
+        router.push('/dashboard');
+      } else {
+        // Guest user: move to step 3 (email sent confirmation)
+        setStep(3);
+      }
     } catch (error: any) {
       console.error('Booking creation error:', error);
       toast({

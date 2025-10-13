@@ -42,10 +42,17 @@ export async function POST(request: NextRequest) {
         error: 'Missing required fields' 
       }, { status: 400 })
     }
+
+    // Check if user exists and get user_id
+    let userId = null;
+    const existingUser = db.prepare('SELECT id FROM users WHERE email = ?').get(body.email.trim().toLowerCase());
+    if (existingUser) {
+      userId = (existingUser as any).id;
+    }
     
     const query = `
-      INSERT INTO bookings (name, email, phone, address, service_type, preferred_date, preferred_time, notes, status)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO bookings (name, email, phone, address, service_type, preferred_date, preferred_time, notes, status, user_id)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `
     
     const values = [
@@ -57,7 +64,8 @@ export async function POST(request: NextRequest) {
       body.preferredDate,
       body.preferredTime,
       body.notes?.trim() || null,
-      (body.status || 'pending').toLowerCase()
+      'confirmed', // Logged-in users get confirmed booking
+      userId
     ]
     
     const stmt = db.prepare(query)
