@@ -30,6 +30,10 @@ jobs:
             echo "📂 Navigating to project directory..."
             cd ${{ secrets.VPS_PATH }}
             
+            echo "🔧 Resetting local changes..."
+            git reset --hard HEAD
+            git clean -fd
+            
             echo "📥 Pulling latest code from GitHub..."
             git pull origin main
             
@@ -107,4 +111,3 @@ jobs:
           echo "❌ Deployment failed!"
           echo "Check the logs above for details."
           echo "Manual intervention may be required."
-
