@@ -1,0 +1,95 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Manuel trigger için
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🔐 Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: 🚀 Deploy to VPS
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'ENDSSH'
+            set -e
+            
+            echo "📂 Navigating to project directory..."
+            cd ${{ secrets.VPS_PATH }}
+            
+            echo "📥 Pulling latest code from GitHub..."
+            git pull origin main
+            
+            echo "📦 Installing dependencies..."
+            npm ci --production=false
+            
+            echo "🏗️  Building application..."
+            npm run build
+            
+            echo "📋 Checking environment file..."
+            if [ ! -f .env.production ]; then
+              echo "⚠️  Warning: .env.production not found!"
+              echo "Creating from .env.production.example if exists..."
+              [ -f .env.production.example ] && cp .env.production.example .env.production || echo "No .env.production.example found"
+            fi
+            
+            echo "🔄 Restarting PM2 application..."
+            pm2 restart cleanoo || pm2 start ecosystem.config.js
+            
+            echo "💾 Saving PM2 configuration..."
+            pm2 save
+            
+            echo "🧹 Cleaning up..."
+            npm prune --production
+            
+            echo "✅ Deployment completed successfully!"
+          ENDSSH
+
+      - name: 🏥 Health Check
+        run: |
+          echo "⏳ Waiting for application to start..."
+          sleep 10
+          
+          echo "🏥 Checking application health..."
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://${{ secrets.VPS_HOST }})
+          
+          if [ $HTTP_CODE -eq 200 ] || [ $HTTP_CODE -eq 301 ] || [ $HTTP_CODE -eq 302 ]; then
+            echo "✅ Health check passed! HTTP $HTTP_CODE"
+          else
+            echo "❌ Health check failed! HTTP $HTTP_CODE"
+            exit 1
+          fi
+
+      - name: 📊 Deployment Summary
+        if: always()
+        run: |
+          echo "════════════════════════════════════════"
+          echo "🎉 Deployment Summary"
+          echo "════════════════════════════════════════"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Author: ${{ github.actor }}"
+          echo "Server: ${{ secrets.VPS_HOST }}"
+          echo "════════════════════════════════════════"
+
+      - name: 💬 Notify on Failure
+        if: failure()
+        run: |
+          echo "❌ Deployment failed!"
+          echo "Check the logs above for details."
+          echo "Manual intervention may be required."
+
