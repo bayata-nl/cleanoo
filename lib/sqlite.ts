@@ -46,6 +46,9 @@ db = getDatabase();
 
 // Create database tables
 function initializeDatabase() {
+  if (!db) {
+    throw new Error('Database not initialized');
+  }
   try {
     // Bookings table
     db.exec(`
@@ -279,4 +282,5 @@ process.on('SIGINT', () => {
   process.exit(0);
 });
 
-export default db;
+// Export as non-null (guaranteed by getDatabase call above)
+export default db as Database.Database;

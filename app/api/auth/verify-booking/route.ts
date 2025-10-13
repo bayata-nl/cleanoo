@@ -156,11 +156,11 @@ export async function POST(request: NextRequest) {
       // Don't fail the request if email fails
     }
 
-    // Auto-login: Create session token
+    // Auto-login: Create session token (using admin token for now - should create customer token type)
     const userToken = createAdminToken({
       id: userId.toString(),
       email: booking.email,
-      role: 'customer',
+      role: 'admin', // TODO: Create separate customer role/token
       name: booking.name,
     });
 

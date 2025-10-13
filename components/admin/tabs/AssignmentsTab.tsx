@@ -468,7 +468,7 @@ export default function AssignmentsTab({
               required
             >
               <option value="">Select a booking</option>
-              {bookings.filter(booking => booking.status === 'pending').map((booking) => (
+              {bookings.filter(booking => booking.status === 'confirmed').map((booking) => (
                 <option key={booking.id} value={booking.id}>
                   {booking.name} - {booking.serviceType} ({booking.preferredDate})
                 </option>

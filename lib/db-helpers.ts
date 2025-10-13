@@ -241,7 +241,7 @@ export const queries = {
         fields.push(`${dateField} = CURRENT_TIMESTAMP`);
       }
 
-      params.push(id);
+      params.push(String(id));
       return update(`UPDATE assignments SET ${fields.join(', ')} WHERE id = ?`, params);
     },
   },

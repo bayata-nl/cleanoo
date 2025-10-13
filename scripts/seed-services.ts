@@ -135,7 +135,8 @@ try {
 
   console.log(`\n🎉 Seed completed!`);
   console.log(`   ✅ ${inserted} services inserted`);
-  console.log(`   📊 Total services: ${db.prepare('SELECT COUNT(*) as count FROM services').get().count}\n`);
+  const result = db.prepare('SELECT COUNT(*) as count FROM services').get() as { count: number };
+  console.log(`   📊 Total services: ${result.count}\n`);
 
 } catch (error) {
   console.error('❌ Seed error:', error);

@@ -19,7 +19,7 @@ export function LanguageSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const currentLang = languages.find(lang => lang.code === language) || languages[0];
+  const currentLang = languages.find(lang => lang.code === language) ?? languages[0];
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -44,9 +44,9 @@ export function LanguageSwitcher() {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
       >
-        <span className="text-xl">{currentLang.flag}</span>
+        <span className="text-xl">{currentLang?.flag ?? '🇬🇧'}</span>
         <span className="text-sm font-medium text-gray-700 hidden sm:inline">
-          {currentLang.name}
+          {currentLang?.name ?? 'English'}
         </span>
         <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>

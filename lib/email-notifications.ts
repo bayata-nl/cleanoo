@@ -1,4 +1,4 @@
-import { sendVerificationEmail } from './email';
+import nodemailer from 'nodemailer';
 
 export async function sendAssignmentNotification({
   staffEmail,
@@ -18,7 +18,6 @@ export async function sendAssignmentNotification({
   address: string;
 }) {
   // Reuse email infrastructure
-  const nodemailer = require('nodemailer');
   
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,

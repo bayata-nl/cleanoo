@@ -288,7 +288,7 @@ export default function BookingsTab({ bookings, loading, fetchBookings, staff = 
                         <Eye className="h-4 w-4 mr-1" />
                         View
                       </Button>
-                      {booking.status === 'pending' && (
+                      {booking.status === 'confirmed' && (
                         <Button
                           size="sm"
                           className="bg-green-600 hover:bg-green-700"

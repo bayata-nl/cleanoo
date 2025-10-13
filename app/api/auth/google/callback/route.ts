@@ -42,7 +42,11 @@ export async function GET(request: NextRequest) {
     const idToken = tokenJson.id_token as string
 
     // Parse ID token
-    const payload = JSON.parse(Buffer.from(idToken.split('.')[1], 'base64').toString('utf8'))
+    const tokenPart = idToken?.split('.')[1];
+    if (!tokenPart) {
+      return NextResponse.redirect(new URL('/login?error=invalid_token', request.url));
+    }
+    const payload = JSON.parse(Buffer.from(tokenPart, 'base64').toString('utf8'))
     const email = (payload.email || '').toLowerCase()
     const name = payload.name || email.split('@')[0] || 'User'
 
