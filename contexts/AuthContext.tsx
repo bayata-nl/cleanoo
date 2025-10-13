@@ -28,29 +28,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check if user is logged in from localStorage
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
+    // Check authentication with backend
+    const checkAuth = async () => {
       try {
-        setUser(JSON.parse(savedUser));
+        const response = await fetch('/api/auth/check');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.user) {
+            setUser(data.user);
+          }
+        }
       } catch (error) {
-        localStorage.removeItem('user');
+        console.error('Auth check failed:', error);
+      } finally {
+        setLoading(false);
       }
-    }
-    setLoading(false);
+    };
+    
+    checkAuth();
   }, []);
 
   const signIn = async (email: string, password: string) => {
     try {
-      // Demo: client-side fake auth retained for non-staff users
-      const userData: User = { 
-        id: Date.now().toString(), 
-        name: email.split('@')[0] || 'User', // Use email prefix as name
-        email, 
-        phone: '' // Default empty phone
-      };
-      localStorage.setItem('user', JSON.stringify(userData));
-      setUser(userData);
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Login failed');
+      }
+
+      setUser(data.user);
       toast({ title: "Login Successful", description: "Welcome back!" });
     } catch (error: any) {
       toast({ title: "Login Failed", description: error.message || "Invalid email or password", variant: "destructive" });
@@ -60,19 +72,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = async (data: { email: string; password: string; phone: string; address: string }) => {
     try {
-      // Simple registration - in production, you'd save to your database
-      const userData: User = {
-        id: Date.now().toString(),
-        name: data.email.split('@')[0] || 'User',
-        email: data.email,
-        phone: data.phone || '',
-        address: data.address || ''
-      };
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
 
-      // Save to localStorage
-      localStorage.setItem('user', JSON.stringify(userData));
-      setUser(userData);
+      const result = await response.json();
 
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Registration failed');
+      }
+
+      setUser(result.user);
       toast({
         title: "Account Created",
         description: "Welcome to Cleanoo!",
@@ -105,10 +117,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      // Remove from localStorage
-      localStorage.removeItem('user');
+      await fetch('/api/auth/logout', { method: 'POST' });
       setUser(null);
-
       toast({
         title: "Logged Out",
         description: "You have been successfully logged out.",

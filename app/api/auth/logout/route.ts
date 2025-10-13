@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { clearAdminCookie } from '@/lib/auth';
+import { clearAdminCookie, clearStaffCookie, clearUserCookie } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,8 +8,10 @@ export async function POST(request: NextRequest) {
       message: 'Logged out successfully'
     });
     
-    // Clear authentication cookie
+    // Clear all authentication cookies
     clearAdminCookie(response);
+    clearStaffCookie(response);
+    clearUserCookie(response);
     
     return response;
     
