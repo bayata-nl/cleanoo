@@ -34,10 +34,16 @@ export default function AdminPage() {
       });
       if (response.ok) {
         const result = await response.json();
-        if (result.success) {
+        if (result.success && result.role === 'admin') {
           setIsAuthenticated(true);
           adminData.fetchAllData();
         } else {
+          // Not admin, redirect to login
+          toast({
+            title: 'Access Denied',
+            description: 'Admin access required',
+            variant: 'destructive'
+          });
           router.push('/admin/login');
         }
       } else {

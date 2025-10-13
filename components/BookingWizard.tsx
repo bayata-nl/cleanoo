@@ -37,15 +37,16 @@ export default function BookingWizard({ isOpen, onClose, preSelectedService }: B
   // Auto-fill form if user is logged in
   useEffect(() => {
     if (user && isOpen) {
-      // If user is logged in, redirect to dashboard instead of showing booking wizard
-      toast({
-        title: 'Already Logged In',
-        description: 'Please book from your dashboard',
-      });
-      onClose();
-      router.push('/dashboard');
+      // Auto-fill user data
+      setFormData(prev => ({
+        ...prev,
+        name: user.name || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        address: user.address || '',
+      }));
     }
-  }, [user, isOpen, onClose, router, toast]);
+  }, [user, isOpen]);
 
   if (!isOpen) return null;
 
