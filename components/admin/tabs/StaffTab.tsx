@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Plus, Edit, Trash2, User } from 'lucide-react';
+import { Plus, Edit, Trash2, User, Eye } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Modal from '@/components/admin/shared/Modal';
 import FormField from '@/components/admin/shared/FormField';
 import StatusBadge from '@/components/admin/shared/StatusBadge';
+import StaffDetailModal from '@/components/admin/StaffDetailModal';
 import { Personnel, Team } from '@/types';
 
 interface StaffTabProps {
@@ -41,6 +42,8 @@ export default function StaffTab({
     password: ''
   });
   const [editingPersonnel, setEditingPersonnel] = useState<any>(null);
+  const [selectedStaff, setSelectedStaff] = useState<any>(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
 
   const resetForm = () => {
     setStaffForm({
@@ -200,6 +203,17 @@ export default function StaffTab({
                   <User className="h-6 w-6 text-blue-600" />
                 </div>
                 <div className="flex space-x-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      setSelectedStaff(person);
+                      setShowDetailModal(true);
+                    }}
+                    title="View Details"
+                  >
+                    <Eye className="h-4 w-4" />
+                  </Button>
                   <Button
                     size="sm"
                     variant="outline"
@@ -404,6 +418,17 @@ export default function StaffTab({
           </div>
         </form>
       </Modal>
+
+      {/* Staff Detail Modal */}
+      <StaffDetailModal
+        isOpen={showDetailModal}
+        onClose={() => {
+          setShowDetailModal(false);
+          setSelectedStaff(null);
+        }}
+        staff={selectedStaff}
+        onApprovalChange={fetchStaff}
+      />
     </div>
   );
 }

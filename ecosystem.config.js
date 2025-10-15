@@ -20,7 +20,7 @@ module.exports = {
       SMTP_PASS: 'dL2X/dj4+/2tjn-',
       SMTP_FROM: 'no-reply@cleanoo.nl',
       ADMIN_EMAIL: 'admin@cleanoo.nl',
-      ADMIN_NOTIFICATION_EMAIL: 'adminops@cleanoo.nl', // Email for notifications
+      ADMIN_NOTIFICATION_EMAIL: 'admin@cleanoo.nl', // Email for notifications
       ADMIN_PASSWORD: 'Admin@2025pWd',
       NEXT_PUBLIC_APP_NAME: 'Cleanoo',
       NEXT_PUBLIC_APP_URL: 'https://cleanoo.nl'
