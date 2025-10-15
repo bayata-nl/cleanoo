@@ -62,7 +62,7 @@ function initializeDatabase() {
         preferred_date TEXT NOT NULL,
         preferred_time TEXT NOT NULL,
         notes TEXT,
-        status TEXT DEFAULT 'pending_verification' CHECK (status IN ('pending_verification', 'pending_password', 'confirmed', 'assigned', 'in_progress', 'completed', 'cancelled')),
+        status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'pending_verification', 'pending_password', 'confirmed', 'assigned', 'in_progress', 'completed', 'cancelled')),
         verification_token TEXT,
         verified_at DATETIME,
         user_id INTEGER,
@@ -95,6 +95,9 @@ function initializeDatabase() {
         description TEXT NOT NULL,
         icon TEXT,
         price TEXT,
+        detailed_info TEXT,
+        duration TEXT,
+        features TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);
@@ -142,6 +145,29 @@ function initializeDatabase() {
         specialization TEXT,
         experience_years INTEGER DEFAULT 0,
         hourly_rate DECIMAL(10,2),
+        
+        -- Email verification
+        email_verified BOOLEAN DEFAULT FALSE,
+        verification_token TEXT,
+        verified_at DATETIME,
+        
+        -- Approval system
+        approval_status TEXT DEFAULT 'pending_info' CHECK (approval_status IN ('pending_info', 'pending_approval', 'approved', 'rejected')),
+        approved_by TEXT,
+        approved_at DATETIME,
+        rejection_reason TEXT,
+        
+        -- Detailed information (filled after email verification)
+        zzp_number TEXT,
+        kvk_number TEXT,
+        bsn_number TEXT,
+        brp_number TEXT,
+        car_type TEXT,
+        bhv_certificate BOOLEAN DEFAULT FALSE,
+        identity_document TEXT,
+        passport_number TEXT,
+        bank_account TEXT,
+        
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
@@ -151,6 +177,9 @@ function initializeDatabase() {
     db.exec(`CREATE INDEX IF NOT EXISTS idx_staff_email ON staff(email)`);
     db.exec(`CREATE INDEX IF NOT EXISTS idx_staff_status ON staff(status)`);
     db.exec(`CREATE INDEX IF NOT EXISTS idx_staff_role ON staff(role)`);
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_staff_verified ON staff(email_verified)`);
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_staff_approval ON staff(approval_status)`);
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_staff_token ON staff(verification_token)`);
 
     // Ensure address column exists for existing databases
     try {

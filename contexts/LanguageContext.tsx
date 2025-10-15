@@ -12,7 +12,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>('nl'); // Default: Dutch
 
   useEffect(() => {
     // Load language from localStorage on mount
@@ -20,6 +20,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const validLanguages: Language[] = ['en', 'nl', 'pl', 'tr', 'ro', 'uk', 'bg'];
     if (savedLanguage && validLanguages.includes(savedLanguage)) {
       setLanguage(savedLanguage);
+    } else {
+      // Set default to Dutch if no saved language
+      setLanguage('nl');
+      localStorage.setItem('language', 'nl');
     }
   }, []);
 

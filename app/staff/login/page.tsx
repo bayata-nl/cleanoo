@@ -113,14 +113,6 @@ export default function StaffLogin() {
             </div>
           </div>
 
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <h3 className="text-sm font-medium text-blue-900 mb-2">Demo Credentials:</h3>
-            <p className="text-xs text-blue-800">
-              <strong>Email:</strong> staff@example.com<br />
-              <strong>Password:</strong> welcome
-            </p>
-          </div>
-
           <Button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700"

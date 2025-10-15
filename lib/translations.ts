@@ -38,8 +38,7 @@ export const translations = {
       title: "Professional",
       subtitle: "Cleaning Services",
       description: "Transform your space with our expert cleaning services. From homes to offices, we deliver spotless results every time with attention to detail.",
-      bookButton: "Book Your Cleaning Today",
-      viewServicesButton: "View Our Services"
+      exploreServices: "Explore Our Services"
     },
 
     // Navigation
@@ -481,6 +480,13 @@ export const translations = {
       ourServices: "Our Services",
       noServices: "No services available at the moment",
       bookNow: "Book Now",
+      modal: {
+        description: "Description",
+        details: "Detailed Information",
+        features: "What's Included",
+        startingFrom: "Starting from",
+        bookNow: "Book This Service"
+      }
     },
 
     // Join Team Section
@@ -586,8 +592,7 @@ export const translations = {
       title: "Professionele",
       subtitle: "Schoonmaakdiensten",
       description: "Transformeer uw ruimte met onze expert schoonmaakdiensten. Van huizen tot kantoren, wij leveren altijd vlekkeloze resultaten met aandacht voor detail.",
-      bookButton: "Boek Uw Schoonmaak Vandaag",
-      viewServicesButton: "Bekijk Onze Diensten"
+      exploreServices: "Ontdek Onze Diensten"
     },
 
     // Navigation
@@ -1029,6 +1034,13 @@ export const translations = {
       ourServices: "Onze Diensten",
       noServices: "Momenteel geen diensten beschikbaar",
       bookNow: "Boek Nu",
+      modal: {
+        description: "Beschrijving",
+        details: "Gedetailleerde Informatie",
+        features: "Wat is Inbegrepen",
+        startingFrom: "Vanaf",
+        bookNow: "Boek Deze Service"
+      }
     },
 
     // Join Team Section
@@ -1132,8 +1144,7 @@ export const translations = {
       title: "Profesjonalne",
       subtitle: "Usługi Sprzątania",
       description: "Przekształć swoją przestrzeń dzięki naszym eksperckim usługom sprzątania. Od domów po biura, zawsze dostarczamy nienaganne rezultaty z dbałością o szczegóły.",
-      bookButton: "Zarezerwuj Sprzątanie Już Dziś",
-      viewServicesButton: "Zobacz Nasze Usługi"
+      exploreServices: "Odkryj Nasze Usługi"
     },
     nav: {
       login: "Zaloguj",
@@ -1547,6 +1558,13 @@ export const translations = {
       ourServices: "Nasze Usługi",
       noServices: "Brak dostępnych usług",
       bookNow: "Zarezerwuj Teraz",
+      modal: {
+        description: "Opis",
+        details: "Szczegółowe Informacje",
+        features: "Co Jest Wliczone",
+        startingFrom: "Od",
+        bookNow: "Zarezerwuj Tę Usługę"
+      }
     },
     joinTeam: {
       badge: "Możliwość Kariery",
@@ -1644,8 +1662,7 @@ export const translations = {
       title: "Profesyonel",
       subtitle: "Temizlik Hizmetleri",
       description: "Uzman temizlik hizmetlerimizle mekanınızı dönüştürün. Evlerden ofislere kadar, her zaman detaylara özen göstererek kusursuz sonuçlar sunuyoruz.",
-      bookButton: "Temizliğinizi Bugün Rezerve Edin",
-      viewServicesButton: "Hizmetlerimizi Görüntüleyin"
+      exploreServices: "Hizmetlerimizi Keşfedin"
     },
     nav: {
       login: "Giriş Yap",
@@ -2059,6 +2076,13 @@ export const translations = {
       ourServices: "Hizmetlerimiz",
       noServices: "Şu anda hizmet bulunmuyor",
       bookNow: "Şimdi Rezerve Et",
+      modal: {
+        description: "Açıklama",
+        details: "Detaylı Bilgi",
+        features: "Neler Dahil",
+        startingFrom: "Başlangıç",
+        bookNow: "Bu Hizmeti Rezerve Et"
+      }
     },
     joinTeam: {
       badge: "Kariyer Fırsatı",
@@ -2156,8 +2180,7 @@ export const translations = {
       title: "Servicii Profesionale",
       subtitle: "de Curățenie",
       description: "Transformă-ți spațiul cu serviciile noastre experte de curățenie. De la case la birouri, livrăm rezultate impecabile de fiecare dată cu atenție la detalii.",
-      bookButton: "Rezervă Curățenia Astăzi",
-      viewServicesButton: "Vezi Serviciile Noastre"
+      exploreServices: "Explorează Serviciile Noastre"
     },
     nav: {
       login: "Autentificare",
@@ -2571,6 +2594,13 @@ export const translations = {
       ourServices: "Serviciile Noastre",
       noServices: "Niciun serviciu disponibil momentan",
       bookNow: "Rezervă Acum",
+      modal: {
+        description: "Descriere",
+        details: "Informații Detaliate",
+        features: "Ce Este Inclus",
+        startingFrom: "Începând de la",
+        bookNow: "Rezervă Acest Serviciu"
+      }
     },
     joinTeam: {
       badge: "Oportunitate Carieră",
@@ -2668,8 +2698,7 @@ export const translations = {
       title: "Професійні",
       subtitle: "Послуги з Прибирання",
       description: "Перетворіть свій простір за допомогою наших експертних послуг з прибирання. Від будинків до офісів, ми завжди надаємо бездоганні результати з увагою до деталей.",
-      bookButton: "Замовте Прибирання Сьогодні",
-      viewServicesButton: "Переглянути Наші Послуги"
+      exploreServices: "Досліджуйте Наші Послуги"
     },
     nav: {
       login: "Увійти",
@@ -3083,6 +3112,13 @@ export const translations = {
       ourServices: "Наші Послуги",
       noServices: "Наразі немає доступних послуг",
       bookNow: "Забронювати Зараз",
+      modal: {
+        description: "Опис",
+        details: "Детальна Інформація",
+        features: "Що Включено",
+        startingFrom: "Починаючи від",
+        bookNow: "Замовити Цю Послугу"
+      }
     },
     joinTeam: {
       badge: "Кар'єрна Можливість",
@@ -3180,8 +3216,7 @@ export const translations = {
       title: "Професионални",
       subtitle: "Услуги за Почистване",
       description: "Трансформирайте пространството си с нашите експертни услуги за почистване. От домове до офиси, доставяме безупречни резултати всеки път с внимание към детайлите.",
-      bookButton: "Резервирайте Почистване Днес",
-      viewServicesButton: "Вижте Нашите Услуги"
+      exploreServices: "Разгледайте Нашите Услуги"
     },
     nav: {
       login: "Вход",
@@ -3595,6 +3630,13 @@ export const translations = {
       ourServices: "Нашите Услуги",
       noServices: "В момента няма налични услуги",
       bookNow: "Резервирай Сега",
+      modal: {
+        description: "Описание",
+        details: "Подробна Информация",
+        features: "Какво е Включено",
+        startingFrom: "Започвайки от",
+        bookNow: "Резервирайте Тази Услуга"
+      }
     },
     joinTeam: {
       badge: "Кариерна Възможност",

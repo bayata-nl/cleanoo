@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/sqlite';
 import bcrypt from 'bcryptjs';
 import { createUserToken, setUserCookie } from '@/lib/auth';
+import { notifyNewCustomer } from '@/lib/email-notifications';
 
 export async function POST(request: NextRequest) {
   try {
@@ -58,6 +59,9 @@ export async function POST(request: NextRequest) {
     });
 
     setUserCookie(response, token);
+
+    // Notify admin of new customer
+    await notifyNewCustomer(newUser);
 
     return response;
   } catch (error) {

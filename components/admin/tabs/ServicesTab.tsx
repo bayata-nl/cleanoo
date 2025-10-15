@@ -57,12 +57,15 @@ export default function ServicesTab({
     title: '',
     description: '',
     icon: '',
-    price: ''
+    price: '',
+    detailed_info: '',
+    duration: '',
+    features: ''
   });
   const [editingService, setEditingService] = useState<any>(null);
 
   const resetForm = () => {
-    setServiceForm({ title: '', description: '', icon: '', price: '' });
+    setServiceForm({ title: '', description: '', icon: '', price: '', detailed_info: '', duration: '', features: '' });
     setEditingService(null);
   };
 
@@ -72,7 +75,10 @@ export default function ServicesTab({
       title: service.title,
       description: service.description,
       icon: service.icon,
-      price: service.price || ''
+      price: service.price || '',
+      detailed_info: service.detailed_info || '',
+      duration: service.duration || '',
+      features: service.features || ''
     });
     setShowServiceForm(true);
   };
@@ -271,6 +277,36 @@ export default function ServicesTab({
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter price"
               step="0.01"
+            />
+          </FormField>
+
+          <FormField label="Duration (e.g., 2-3 hours)">
+            <input
+              type="text"
+              value={serviceForm.duration}
+              onChange={(e) => setServiceForm(prev => ({ ...prev, duration: e.target.value }))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="e.g., 2-3 hours"
+            />
+          </FormField>
+
+          <FormField label="Detailed Information">
+            <textarea
+              value={serviceForm.detailed_info}
+              onChange={(e) => setServiceForm(prev => ({ ...prev, detailed_info: e.target.value }))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter detailed information about this service..."
+              rows={4}
+            />
+          </FormField>
+
+          <FormField label="Features (one per line or comma separated)">
+            <textarea
+              value={serviceForm.features}
+              onChange={(e) => setServiceForm(prev => ({ ...prev, features: e.target.value }))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Feature 1&#10;Feature 2&#10;Feature 3"
+              rows={4}
             />
           </FormField>
 

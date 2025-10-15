@@ -69,6 +69,7 @@ export default function BookingsTab({ bookings, loading, fetchBookings, staff = 
 
     return {
       total: bookings.length,
+      pending: bookings.filter(b => b.status === 'pending').length,
       pending_verification: bookings.filter(b => b.status === 'pending_verification').length,
       pending_password: bookings.filter(b => b.status === 'pending_password').length,
       confirmed: bookings.filter(b => b.status === 'confirmed').length,
@@ -95,6 +96,35 @@ export default function BookingsTab({ bookings, loading, fetchBookings, staff = 
       await fetchBookings();
     } catch (error) {
       console.error('Error updating booking status:', error);
+    } finally {
+      setUpdating(null);
+    }
+  };
+
+  const confirmBooking = async (bookingId: string) => {
+    setUpdating(bookingId);
+    try {
+      const response = await fetch('/api/bookings/confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bookingId }),
+      });
+
+      if (!response.ok) throw new Error('Failed to confirm booking');
+
+      toast({
+        title: 'Booking Confirmed',
+        description: 'Confirmation email sent to customer',
+      });
+
+      await fetchBookings();
+    } catch (error) {
+      console.error('Error confirming booking:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to confirm booking',
+        variant: 'destructive',
+      });
     } finally {
       setUpdating(null);
     }

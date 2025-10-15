@@ -62,6 +62,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { useAuth } from '@/contexts/AuthContext';
 import BookingWizard from '@/components/BookingWizard';
+import ServiceDetailModal from '@/components/ServiceDetailModal';
 
 export default function HomePage() {
   const { toast } = useToast();
@@ -72,6 +73,7 @@ export default function HomePage() {
   const [services, setServices] = useState<Service[]>([]);
   const [loadingServices, setLoadingServices] = useState(true);
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  const [serviceDetailModalOpen, setServiceDetailModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   useEffect(() => {
@@ -228,20 +230,15 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
           <p className="text-xl sm:text-2xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed">
             {t('hero.description')}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Button 
               size="lg" 
-              className="text-lg px-8 py-4 bg-white text-blue-700 hover:bg-blue-50 font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              className="text-xl px-12 py-6 bg-white text-blue-700 hover:bg-blue-50 font-bold shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 rounded-2xl group"
               onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              {t('hero.bookButton')}
-            </Button>
-            <Button 
-              size="lg" 
-              className="text-lg px-8 py-4 bg-blue-500 text-white hover:bg-blue-600 font-semibold border-2 border-blue-400 hover:border-blue-300 shadow-lg backdrop-blur-sm"
-              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              {t('hero.viewServicesButton')}
+              <Sparkles className="h-6 w-6 mr-3 group-hover:rotate-12 transition-transform" />
+              {t('hero.exploreServices')}
+              <ArrowRight className="h-6 w-6 ml-3 group-hover:translate-x-2 transition-transform" />
             </Button>
           </div>
         </div>
@@ -304,7 +301,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                     key={service.id} 
                     onClick={() => {
                       setSelectedService(service);
-                      setBookingModalOpen(true);
+                      setServiceDetailModalOpen(true);
                     }}
                     className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl p-8 border border-gray-100 hover:border-gray-200 transition-all duration-500 relative overflow-hidden cursor-pointer transform hover:-translate-y-2"
                   >
@@ -609,6 +606,18 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600 rounded-full blur-3xl opacity-5"></div>
         <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600 rounded-full blur-3xl opacity-5"></div>
       </footer>
+
+      {/* Service Detail Modal */}
+      <ServiceDetailModal
+        isOpen={serviceDetailModalOpen}
+        onClose={() => setServiceDetailModalOpen(false)}
+        service={selectedService}
+        onBookNow={() => {
+          setServiceDetailModalOpen(false);
+          setBookingModalOpen(true);
+        }}
+        IconComponent={selectedService ? iconMap[selectedService.icon] : undefined}
+      />
 
       {/* Booking Wizard Modal */}
       <BookingWizard

@@ -23,7 +23,7 @@ export interface BookingForm {
   preferredTime: string;
   createdAt: Date;
   updatedAt?: Date;
-  status: 'pending_verification' | 'pending_password' | 'confirmed' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+  status: 'pending' | 'pending_verification' | 'pending_password' | 'confirmed' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
   verification_token?: string;
   verified_at?: Date;
   userId?: string | null;
@@ -44,6 +44,9 @@ export interface Service {
   description: string;
   icon: string;
   price?: string;
+  detailed_info?: string; // Detaylı açıklama için
+  duration?: string; // Süre bilgisi
+  features?: string; // Özellikler (JSON string)
 }
 
 export interface Personnel {
@@ -120,7 +123,7 @@ export interface BookingDbRow {
   preferred_date: string;
   preferred_time: string;
   notes?: string | null;
-  status: 'pending_verification' | 'pending_password' | 'confirmed' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+  status: 'pending' | 'pending_verification' | 'pending_password' | 'confirmed' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
   verification_token?: string | null;
   verified_at?: string | null;
   user_id?: number | null;

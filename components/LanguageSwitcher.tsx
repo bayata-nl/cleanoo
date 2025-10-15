@@ -5,13 +5,13 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { ChevronDown } from 'lucide-react';
 
 const languages = [
-  { code: 'en', flag: '🇬🇧', name: 'English' },
   { code: 'nl', flag: '🇳🇱', name: 'Nederlands' },
-  { code: 'pl', flag: '🇵🇱', name: 'Polski' },
+  { code: 'en', flag: '🇬🇧', name: 'English' },
   { code: 'tr', flag: '🇹🇷', name: 'Türkçe' },
-  { code: 'ro', flag: '🇷🇴', name: 'Română' },
-  { code: 'uk', flag: '🇺🇦', name: 'Українська' },
+  { code: 'pl', flag: '🇵🇱', name: 'Polski' },
   { code: 'bg', flag: '🇧🇬', name: 'Български' },
+  { code: 'uk', flag: '🇺🇦', name: 'Українська' },
+  { code: 'ro', flag: '🇷🇴', name: 'Română' },
 ];
 
 export function LanguageSwitcher() {
