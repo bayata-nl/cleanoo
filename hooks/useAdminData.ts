@@ -14,7 +14,10 @@ export function useAdminData() {
 
   const fetchBookings = useCallback(async () => {
     try {
-      const response = await fetch('/api/bookings');
+      const response = await fetch(`/api/bookings?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
@@ -48,7 +51,10 @@ export function useAdminData() {
 
   const fetchStaff = useCallback(async () => {
     try {
-      const response = await fetch('/api/staff');
+      const response = await fetch(`/api/staff?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
@@ -62,7 +68,10 @@ export function useAdminData() {
 
   const fetchTeams = useCallback(async () => {
     try {
-      const response = await fetch('/api/teams');
+      const response = await fetch(`/api/teams?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
@@ -76,7 +85,10 @@ export function useAdminData() {
 
   const fetchAssignments = useCallback(async () => {
     try {
-      const response = await fetch('/api/assignments');
+      const response = await fetch(`/api/assignments?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
@@ -90,7 +102,10 @@ export function useAdminData() {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await fetch('/api/users');
+      const response = await fetch(`/api/users?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
