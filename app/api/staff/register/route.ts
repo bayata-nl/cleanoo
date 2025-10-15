@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
       'cleaner', 
       'inactive', // Inactive until approved
       'pending_info', // Waiting for detailed info
-      false, // Not verified yet
+      0, // Not verified yet (0 = false in SQLite)
       verificationToken
     )
 
