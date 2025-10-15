@@ -282,3 +282,89 @@ export async function notifyNewStaff(staff: any) {
     console.error('❌ Failed to send staff notification:', error);
   }
 }
+
+// Notify staff of new assignment
+export async function sendAssignmentNotification(assignment: any) {
+  try {
+    const transporter = getTransporter();
+    
+    const emailHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+          .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
+          .detail-row { margin: 15px 0; padding: 10px; background: white; border-radius: 5px; }
+          .label { font-weight: bold; color: #4b5563; }
+          .value { color: #1f2937; }
+          .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
+          .button { display: inline-block; background: #3b82f6; color: white; padding: 15px 40px; text-decoration: none; border-radius: 8px; margin: 25px 0; font-weight: bold; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>📋 New Assignment</h1>
+            <p>You have a new cleaning assignment</p>
+          </div>
+          <div class="content">
+            <p>Dear ${assignment.staff_name || 'Team Member'},</p>
+            <p>You have been assigned to a new cleaning job. Please review the details below:</p>
+            
+            <h3>Job Details:</h3>
+            <div class="detail-row">
+              <span class="label">Service:</span>
+              <span class="value">${assignment.service_type}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Date:</span>
+              <span class="value">${assignment.preferred_date}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Time:</span>
+              <span class="value">${assignment.preferred_time}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Address:</span>
+              <span class="value">${assignment.customer_address}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Customer:</span>
+              <span class="value">${assignment.customer_name}</span>
+            </div>
+            ${assignment.booking_notes ? `
+            <div class="detail-row">
+              <span class="label">Notes:</span>
+              <span class="value">${assignment.booking_notes}</span>
+            </div>
+            ` : ''}
+            
+            <div style="text-align: center;">
+              <a href="https://cleanoo.nl/staff/dashboard" class="button">View in Dashboard</a>
+            </div>
+            
+            <div class="footer">
+              <p>Cleanoo - Professional Cleaning Services</p>
+              <p>Please check your dashboard for more details</p>
+            </div>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM,
+      to: assignment.staff_email,
+      subject: '📋 New Assignment - Cleanoo',
+      html: emailHtml,
+    });
+
+    console.log('✅ Assignment notification sent to staff');
+  } catch (error) {
+    console.error('❌ Failed to send assignment notification:', error);
+  }
+}
