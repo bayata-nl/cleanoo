@@ -14,9 +14,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'All fields are required' }, { status: 400 })
     }
 
+    // Check if email exists in staff table
     const existing = db.prepare('SELECT id FROM staff WHERE email = ?').get(email.toLowerCase())
     if (existing) {
       return NextResponse.json({ success: false, error: 'Email already exists' }, { status: 400 })
+    }
+
+    // Check if email exists in users (customer) table
+    const existingCustomer = db.prepare('SELECT id FROM users WHERE email = ?').get(email.toLowerCase())
+    if (existingCustomer) {
+      return NextResponse.json({ success: false, error: 'This email is already registered as a customer. Please use a different email.' }, { status: 400 })
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)

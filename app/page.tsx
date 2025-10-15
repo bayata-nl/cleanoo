@@ -75,6 +75,23 @@ export default function HomePage() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [serviceDetailModalOpen, setServiceDetailModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  // Check user role
+  useEffect(() => {
+    if (user) {
+      fetch('/api/auth/check')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.role) {
+            setUserRole(data.role);
+          }
+        })
+        .catch(err => console.error('Role check error:', err));
+    } else {
+      setUserRole(null);
+    }
+  }, [user]);
 
   useEffect(() => {
     // Fetch services from API
@@ -175,7 +192,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                 <div className="animate-pulse bg-gray-100 rounded px-3 py-2">
                   <div className="w-16 h-4 bg-gray-200 rounded"></div>
                 </div>
-              ) : user ? (
+              ) : user && userRole === 'customer' ? (
             <Button
               variant="ghost"
               size="sm"
@@ -185,7 +202,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
               <User className="h-4 w-4 mr-2" />
               {t('nav.dashboard')}
             </Button>
-          ) : (
+          ) : !user ? (
             <Button
               variant="ghost"
               size="sm"
@@ -194,7 +211,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
             >
               {t('nav.login')}
             </Button>
-          )}
+          ) : null}
             </div>
           </div>
         </div>
@@ -300,6 +317,15 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
                   <div 
                     key={service.id} 
                     onClick={() => {
+                      // Only allow customers and guests to book
+                      if (userRole && userRole !== 'customer') {
+                        toast({
+                          title: 'Access Denied',
+                          description: 'Only customers can make bookings.',
+                          variant: 'destructive',
+                        });
+                        return;
+                      }
                       setSelectedService(service);
                       setServiceDetailModalOpen(true);
                     }}

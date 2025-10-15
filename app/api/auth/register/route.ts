@@ -18,6 +18,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Email already exists' }, { status: 400 });
     }
 
+    // Check if email exists in staff table
+    const existingStaff = db.prepare('SELECT id FROM staff WHERE email = ?').get(email);
+    if (existingStaff) {
+      return NextResponse.json({ success: false, error: 'This email is already registered as staff. Please use a different email.' }, { status: 400 });
+    }
+
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
