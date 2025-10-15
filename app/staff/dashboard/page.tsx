@@ -38,6 +38,7 @@ import {
   Zap
 } from 'lucide-react';
 import Calendar from '@/components/ui/calendar';
+import StaffProfileDetailsModal from '@/components/StaffProfileDetailsModal';
 
 interface Assignment {
   id: string;
@@ -82,6 +83,8 @@ export default function StaffDashboard() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [loading, setLoading] = useState(true);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [staffDetails, setStaffDetails] = useState<any>(null);
+  const [showProfileDetailsModal, setShowProfileDetailsModal] = useState(false);
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: '',
     newPassword: '',
@@ -135,7 +138,24 @@ export default function StaffDashboard() {
     fetchAssignments();
     fetchNotifications();
     fetchPerformanceData();
+    fetchStaffDetails();
   }, [staff, router, isLoading]);
+
+  const fetchStaffDetails = async () => {
+    if (!staff?.id) return;
+    
+    try {
+      const response = await fetch(`/api/staff/${staff.id}`);
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          setStaffDetails(result.data);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching staff details:', error);
+    }
+  };
 
   const fetchNotifications = async () => {
     try {
@@ -575,11 +595,21 @@ export default function StaffDashboard() {
                       <User className="h-4 w-4 mr-2" />
                       Edit Profile
                     </button>
-                      <button
-                        onClick={() => {
-                          setShowPasswordModal(true);
-                          setShowProfileMenu(false);
-                        }}
+                    <button
+                      onClick={() => {
+                        setShowProfileDetailsModal(true);
+                        setShowProfileMenu(false);
+                      }}
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                    >
+                      <FileText className="h-4 w-4 mr-2" />
+                      View Full Profile
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowPasswordModal(true);
+                        setShowProfileMenu(false);
+                      }}
                       className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                       >
                       <Settings className="h-4 w-4 mr-2" />
@@ -1372,6 +1402,13 @@ export default function StaffDashboard() {
           </div>
         </div>
       )}
+
+      {/* Staff Profile Details Modal */}
+      <StaffProfileDetailsModal
+        isOpen={showProfileDetailsModal}
+        onClose={() => setShowProfileDetailsModal(false)}
+        staffDetails={staffDetails}
+      />
       </div>
     </ProtectedStaffRoute>
   );

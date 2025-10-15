@@ -202,7 +202,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
               <User className="h-4 w-4 mr-2" />
               {t('nav.dashboard')}
             </Button>
-          ) : !user ? (
+          ) : (
             <Button
               variant="ghost"
               size="sm"
@@ -211,7 +211,7 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
             >
               {t('nav.login')}
             </Button>
-          ) : null}
+          )}
             </div>
           </div>
         </div>
