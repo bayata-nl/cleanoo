@@ -30,7 +30,7 @@ export default function ProtectedRoute({ children, allowedRole = 'customer' }: P
           if (data.success && data.role) {
             if (data.role !== allowedRole) {
               // Wrong role - redirect
-              const redirectMap = {
+              const redirectMap: Record<string, string> = {
                 'customer': '/dashboard',
                 'staff': '/staff/dashboard',
                 'admin': '/admin'
@@ -42,7 +42,7 @@ export default function ProtectedRoute({ children, allowedRole = 'customer' }: P
                 variant: 'destructive',
               });
               
-              router.replace(redirectMap[data.role] || '/');
+              router.replace(redirectMap[data.role as string] || '/');
             }
           }
         })

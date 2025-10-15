@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     // Check approval status
     if (staffData.approval_status !== 'approved') {
-      const statusMessages = {
+      const statusMessages: Record<string, string> = {
         'pending_info': 'Please complete your profile with required documents.',
         'pending_approval': 'Your application is pending admin approval. You will receive an email once approved.',
         'rejected': 'Your application has been rejected. Please contact admin for more information.'
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       
       return NextResponse.json({ 
         success: false, 
-        error: statusMessages[staffData.approval_status] || 'Account not approved for login',
+        error: statusMessages[staffData.approval_status as string] || 'Account not approved for login',
         approvalStatus: staffData.approval_status
       }, { status: 403 })
     }

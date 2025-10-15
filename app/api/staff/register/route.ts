@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
 
     // Send verification email
     try {
-      const transporter = nodemailer.createTransporter({
+      const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: parseInt(process.env.SMTP_PORT || '465'),
         secure: process.env.SMTP_SECURE === 'true',
