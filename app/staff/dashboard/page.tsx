@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useStaffAuth } from '@/contexts/StaffAuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import ProtectedStaffRoute from '@/components/ProtectedStaffRoute';
 import { 
   Sparkles, 
   User, 
@@ -471,7 +471,7 @@ export default function StaffDashboard() {
   }
 
   return (
-    <ProtectedRoute allowedRole="staff">
+    <ProtectedStaffRoute>
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
         <header className="bg-white shadow-sm border-b">
@@ -1373,6 +1373,6 @@ export default function StaffDashboard() {
         </div>
       )}
       </div>
-    </ProtectedRoute>
+    </ProtectedStaffRoute>
   );
 }

@@ -39,7 +39,20 @@ export default function StaffTab({
     specialization: '',
     experience_years: 0,
     hourly_rate: 0,
-    password: ''
+    password: '',
+    // Professional info
+    zzp_number: '',
+    kvk_number: '',
+    bsn_number: '',
+    brp_number: '',
+    car_type: '',
+    bhv_certificate: false,
+    identity_document: '',
+    passport_number: '',
+    bank_account: '',
+    // Approval
+    approval_status: 'approved',
+    email_verified: true
   });
   const [editingPersonnel, setEditingPersonnel] = useState<any>(null);
   const [selectedStaff, setSelectedStaff] = useState<any>(null);
@@ -57,25 +70,48 @@ export default function StaffTab({
       specialization: '',
       experience_years: 0,
       hourly_rate: 0,
-      password: ''
+      password: '',
+      zzp_number: '',
+      kvk_number: '',
+      bsn_number: '',
+      brp_number: '',
+      car_type: '',
+      bhv_certificate: false,
+      identity_document: '',
+      passport_number: '',
+      bank_account: '',
+      approval_status: 'approved',
+      email_verified: true
     });
     setEditingPersonnel(null);
   };
 
   const handleEdit = (person: Personnel) => {
     setEditingPersonnel(person);
+    const personData = person as any;
     setStaffForm({
       name: person.name,
       email: person.email,
       confirm_email: person.email,
       phone: person.phone,
-      address: (person as any).address || '',
+      address: personData.address || '',
       role: person.role,
       status: person.status,
       specialization: person.specialization || '',
       experience_years: person.experience_years,
       hourly_rate: person.hourly_rate || 0,
-      password: ''
+      password: '',
+      zzp_number: personData.zzp_number || '',
+      kvk_number: personData.kvk_number || '',
+      bsn_number: personData.bsn_number || '',
+      brp_number: personData.brp_number || '',
+      car_type: personData.car_type || '',
+      bhv_certificate: personData.bhv_certificate || false,
+      identity_document: personData.identity_document || '',
+      passport_number: personData.passport_number || '',
+      bank_account: personData.bank_account || '',
+      approval_status: personData.approval_status || 'approved',
+      email_verified: personData.email_verified || true
     });
     setShowStaffForm(true);
   };
@@ -386,6 +422,121 @@ export default function StaffTab({
                 min="0"
               />
             </FormField>
+          </div>
+
+          {/* Professional Information */}
+          <div className="mt-6 pt-6 border-t">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Professional Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField label="ZZP Number">
+                <input
+                  type="text"
+                  value={staffForm.zzp_number}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, zzp_number: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="ZZP number"
+                />
+              </FormField>
+
+              <FormField label="KVK Number">
+                <input
+                  type="text"
+                  value={staffForm.kvk_number}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, kvk_number: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="KVK number"
+                />
+              </FormField>
+
+              <FormField label="BSN Number">
+                <input
+                  type="text"
+                  value={staffForm.bsn_number}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, bsn_number: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="BSN number"
+                />
+              </FormField>
+
+              <FormField label="BRP Number">
+                <input
+                  type="text"
+                  value={staffForm.brp_number}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, brp_number: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="BRP number"
+                />
+              </FormField>
+
+              <FormField label="Car Type">
+                <select
+                  value={staffForm.car_type}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, car_type: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Select car type</option>
+                  <option value="sedan">Sedan</option>
+                  <option value="hatchback">Hatchback</option>
+                  <option value="suv">SUV</option>
+                  <option value="van">Van</option>
+                  <option value="no_car">No Car</option>
+                </select>
+              </FormField>
+
+              <FormField label="BHV Certificate">
+                <select
+                  value={staffForm.bhv_certificate ? 'yes' : 'no'}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, bhv_certificate: e.target.value === 'yes' }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+              </FormField>
+
+              <FormField label="Identity Document">
+                <input
+                  type="text"
+                  value={staffForm.identity_document}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, identity_document: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="ID number"
+                />
+              </FormField>
+
+              <FormField label="Passport Number">
+                <input
+                  type="text"
+                  value={staffForm.passport_number}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, passport_number: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Passport number"
+                />
+              </FormField>
+
+              <FormField label="Bank Account (IBAN)">
+                <input
+                  type="text"
+                  value={staffForm.bank_account}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, bank_account: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="NL00 BANK 0000 0000 00"
+                />
+              </FormField>
+
+              <FormField label="Approval Status">
+                <select
+                  value={staffForm.approval_status}
+                  onChange={(e) => setStaffForm(prev => ({ ...prev, approval_status: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="pending_info">Pending Info</option>
+                  <option value="pending_approval">Pending Approval</option>
+                  <option value="approved">Approved</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </FormField>
+            </div>
           </div>
 
           {!editingPersonnel && (

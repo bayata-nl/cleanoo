@@ -67,7 +67,11 @@ export async function PUT(
       }, { status: 404 })
     }
 
-    const { name, email, phone, address, password, role, status, specialization, experience_years, hourly_rate } = body
+    const { 
+      name, email, phone, address, password, role, status, specialization, experience_years, hourly_rate,
+      zzp_number, kvk_number, bsn_number, brp_number, car_type, bhv_certificate,
+      identity_document, passport_number, bank_account, approval_status
+    } = body
 
     // Check if email is being changed and if it already exists
     if (email && email !== (existingStaff as any).email) {
@@ -97,6 +101,16 @@ export async function PUT(
           specialization = COALESCE(?, specialization),
           experience_years = COALESCE(?, experience_years),
           hourly_rate = COALESCE(?, hourly_rate),
+          zzp_number = COALESCE(?, zzp_number),
+          kvk_number = COALESCE(?, kvk_number),
+          bsn_number = COALESCE(?, bsn_number),
+          brp_number = COALESCE(?, brp_number),
+          car_type = COALESCE(?, car_type),
+          bhv_certificate = COALESCE(?, bhv_certificate),
+          identity_document = COALESCE(?, identity_document),
+          passport_number = COALESCE(?, passport_number),
+          bank_account = COALESCE(?, bank_account),
+          approval_status = COALESCE(?, approval_status),
           updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `)
@@ -112,6 +126,16 @@ export async function PUT(
       specialization,
       experience_years,
       hourly_rate,
+      zzp_number,
+      kvk_number,
+      bsn_number,
+      brp_number,
+      car_type,
+      bhv_certificate ? 1 : 0,
+      identity_document,
+      passport_number,
+      bank_account,
+      approval_status,
       staffId
     )
 
