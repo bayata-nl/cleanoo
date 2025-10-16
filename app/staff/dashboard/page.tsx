@@ -35,7 +35,8 @@ import {
   TrendingUp,
   Star,
   Target,
-  Zap
+  Zap,
+  FileText
 } from 'lucide-react';
 import Calendar from '@/components/ui/calendar';
 import StaffProfileDetailsModal from '@/components/StaffProfileDetailsModal';
