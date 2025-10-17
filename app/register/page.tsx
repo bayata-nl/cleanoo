@@ -30,17 +30,17 @@ export default function RegisterPage() {
     e.preventDefault();
     
     if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) {
-      alert('Emails do not match');
+      alert(t('auth.register.emailMismatch'));
       return;
     }
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      alert(t('auth.register.passwordMismatch'));
       return;
     }
 
     if (password.length < 6) {
-      alert('Password must be at least 6 characters long');
+      alert(t('auth.register.passwordTooShort'));
       return;
     }
 

@@ -98,6 +98,22 @@ function initializeDatabase() {
         detailed_info TEXT,
         duration TEXT,
         features TEXT,
+        -- Translations for title
+        title_nl TEXT,
+        title_en TEXT,
+        title_tr TEXT,
+        title_pl TEXT,
+        title_bg TEXT,
+        title_uk TEXT,
+        title_ro TEXT,
+        -- Translations for description
+        description_nl TEXT,
+        description_en TEXT,
+        description_tr TEXT,
+        description_pl TEXT,
+        description_bg TEXT,
+        description_uk TEXT,
+        description_ro TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);

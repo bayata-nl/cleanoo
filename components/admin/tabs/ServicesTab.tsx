@@ -60,12 +60,31 @@ export default function ServicesTab({
     price: '',
     detailed_info: '',
     duration: '',
-    features: ''
+    features: '',
+    // Translations
+    title_nl: '',
+    title_en: '',
+    title_tr: '',
+    title_pl: '',
+    title_bg: '',
+    title_uk: '',
+    title_ro: '',
+    description_nl: '',
+    description_en: '',
+    description_tr: '',
+    description_pl: '',
+    description_bg: '',
+    description_uk: '',
+    description_ro: '',
   });
   const [editingService, setEditingService] = useState<any>(null);
 
   const resetForm = () => {
-    setServiceForm({ title: '', description: '', icon: '', price: '', detailed_info: '', duration: '', features: '' });
+    setServiceForm({ 
+      title: '', description: '', icon: '', price: '', detailed_info: '', duration: '', features: '',
+      title_nl: '', title_en: '', title_tr: '', title_pl: '', title_bg: '', title_uk: '', title_ro: '',
+      description_nl: '', description_en: '', description_tr: '', description_pl: '', description_bg: '', description_uk: '', description_ro: '',
+    });
     setEditingService(null);
   };
 
@@ -78,7 +97,21 @@ export default function ServicesTab({
       price: service.price || '',
       detailed_info: service.detailed_info || '',
       duration: service.duration || '',
-      features: service.features || ''
+      features: service.features || '',
+      title_nl: service.title_nl || '',
+      title_en: service.title_en || '',
+      title_tr: service.title_tr || '',
+      title_pl: service.title_pl || '',
+      title_bg: service.title_bg || '',
+      title_uk: service.title_uk || '',
+      title_ro: service.title_ro || '',
+      description_nl: service.description_nl || '',
+      description_en: service.description_en || '',
+      description_tr: service.description_tr || '',
+      description_pl: service.description_pl || '',
+      description_bg: service.description_bg || '',
+      description_uk: service.description_uk || '',
+      description_ro: service.description_ro || '',
     });
     setShowServiceForm(true);
   };
@@ -309,6 +342,163 @@ export default function ServicesTab({
               rows={4}
             />
           </FormField>
+
+          {/* Translations Section */}
+          <div className="mt-6 pt-6 border-t">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Translations (Title & Description)</h3>
+            
+            {/* Title Translations */}
+            <div className="mb-6">
+              <h4 className="text-sm font-medium text-gray-700 mb-3">Title Translations</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField label="🇳🇱 Nederlands">
+                  <input
+                    type="text"
+                    value={serviceForm.title_nl}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, title_nl: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Dutch title"
+                  />
+                </FormField>
+
+                <FormField label="🇬🇧 English">
+                  <input
+                    type="text"
+                    value={serviceForm.title_en}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, title_en: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="English title"
+                  />
+                </FormField>
+
+                <FormField label="🇹🇷 Türkçe">
+                  <input
+                    type="text"
+                    value={serviceForm.title_tr}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, title_tr: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Turkish title"
+                  />
+                </FormField>
+
+                <FormField label="🇵🇱 Polski">
+                  <input
+                    type="text"
+                    value={serviceForm.title_pl}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, title_pl: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Polish title"
+                  />
+                </FormField>
+
+                <FormField label="🇧🇬 Български">
+                  <input
+                    type="text"
+                    value={serviceForm.title_bg}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, title_bg: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Bulgarian title"
+                  />
+                </FormField>
+
+                <FormField label="🇺🇦 Українська">
+                  <input
+                    type="text"
+                    value={serviceForm.title_uk}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, title_uk: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Ukrainian title"
+                  />
+                </FormField>
+
+                <FormField label="🇷🇴 Română">
+                  <input
+                    type="text"
+                    value={serviceForm.title_ro}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, title_ro: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Romanian title"
+                  />
+                </FormField>
+              </div>
+            </div>
+
+            {/* Description Translations */}
+            <div className="mb-4">
+              <h4 className="text-sm font-medium text-gray-700 mb-3">Description Translations</h4>
+              <div className="space-y-4">
+                <FormField label="🇳🇱 Nederlands">
+                  <textarea
+                    value={serviceForm.description_nl}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, description_nl: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Dutch description"
+                    rows={2}
+                  />
+                </FormField>
+
+                <FormField label="🇬🇧 English">
+                  <textarea
+                    value={serviceForm.description_en}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, description_en: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="English description"
+                    rows={2}
+                  />
+                </FormField>
+
+                <FormField label="🇹🇷 Türkçe">
+                  <textarea
+                    value={serviceForm.description_tr}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, description_tr: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Turkish description"
+                    rows={2}
+                  />
+                </FormField>
+
+                <FormField label="🇵🇱 Polski">
+                  <textarea
+                    value={serviceForm.description_pl}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, description_pl: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Polish description"
+                    rows={2}
+                  />
+                </FormField>
+
+                <FormField label="🇧🇬 Български">
+                  <textarea
+                    value={serviceForm.description_bg}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, description_bg: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Bulgarian description"
+                    rows={2}
+                  />
+                </FormField>
+
+                <FormField label="🇺🇦 Українська">
+                  <textarea
+                    value={serviceForm.description_uk}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, description_uk: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Ukrainian description"
+                    rows={2}
+                  />
+                </FormField>
+
+                <FormField label="🇷🇴 Română">
+                  <textarea
+                    value={serviceForm.description_ro}
+                    onChange={(e) => setServiceForm(prev => ({ ...prev, description_ro: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Romanian description"
+                    rows={2}
+                  />
+                </FormField>
+              </div>
+            </div>
+          </div>
 
           <div className="flex space-x-3 pt-4">
             <Button type="submit" className="flex-1">

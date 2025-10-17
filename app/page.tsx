@@ -66,7 +66,7 @@ import ServiceDetailModal from '@/components/ServiceDetailModal';
 
 export default function HomePage() {
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
@@ -76,6 +76,14 @@ export default function HomePage() {
   const [serviceDetailModalOpen, setServiceDetailModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
+
+  // Get translated service field
+  const getServiceField = (service: any, field: 'title' | 'description') => {
+    const translatedField = `${field}_${language}`;
+    return (service[translatedField] && service[translatedField].trim()) 
+      ? service[translatedField] 
+      : service[field]; // Fallback to default
+  };
 
   // Check user role
   useEffect(() => {
@@ -345,19 +353,19 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
 
                       {/* Title */}
                       <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center group-hover:text-gray-800 transition-colors">
-                        {service.title}
+                        {getServiceField(service, 'title')}
                       </h3>
 
                       {/* Description */}
                       <p className="text-gray-600 text-center leading-relaxed group-hover:text-gray-700 transition-colors mb-6">
-                        {service.description}
+                        {getServiceField(service, 'description')}
                       </p>
 
                       {/* Book Now Badge */}
                       <div className="mt-6 pt-4 border-t border-gray-200 group-hover:border-blue-300 transition-all">
                         <div className="flex items-center justify-center space-x-2 px-4 py-2 rounded-lg bg-blue-50 group-hover:bg-blue-600 transition-all duration-300">
                           <span className="text-sm font-semibold text-blue-700 group-hover:text-white transition-colors">
-                            Book Now
+                            {t('services.bookNow')}
                           </span>
                           <ArrowRight className="h-4 w-4 text-blue-700 group-hover:text-white group-hover:translate-x-1 transition-all" />
                         </div>

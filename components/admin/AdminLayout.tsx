@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import { Sparkles, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -25,7 +24,6 @@ export default function AdminLayout({ children, onLogout, userName }: AdminLayou
             </Link>
             
             <div className="flex items-center space-x-4">
-              <LanguageSwitcher />
               {userName && (
                 <div className="text-right">
                   <p className="text-sm font-medium text-gray-900">{userName}</p>
