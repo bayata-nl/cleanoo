@@ -20,9 +20,17 @@ export default function ServiceDetailModal({
   onBookNow,
   IconComponent 
 }: ServiceDetailModalProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   if (!isOpen || !service) return null;
+
+  // Get translated service field
+  const getServiceField = (service: any, field: 'title' | 'description') => {
+    const translatedField = `${field}_${language}`;
+    return (service[translatedField] && service[translatedField].trim()) 
+      ? service[translatedField] 
+      : service[field]; // Fallback to default
+  };
 
   // Parse features if it's a JSON string
   let features: string[] = [];
@@ -48,7 +56,7 @@ export default function ServiceDetailModal({
                 </div>
               )}
               <div>
-                <h2 className="text-3xl font-bold">{service.title}</h2>
+                <h2 className="text-3xl font-bold">{getServiceField(service, 'title')}</h2>
                 {service.duration && (
                   <div className="flex items-center space-x-2 mt-2 text-blue-100">
                     <Clock className="h-4 w-4" />
@@ -75,7 +83,7 @@ export default function ServiceDetailModal({
               {t('services.modal.description')}
             </h3>
             <p className="text-gray-600 leading-relaxed">
-              {service.description}
+              {getServiceField(service, 'description')}
             </p>
           </div>
 

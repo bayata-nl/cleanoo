@@ -29,7 +29,11 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { title, description, icon, price } = body;
+    const { 
+      title, description, icon, price, detailed_info, duration, features,
+      title_nl, title_en, title_tr, title_pl, title_bg, title_uk, title_ro,
+      description_nl, description_en, description_tr, description_pl, description_bg, description_uk, description_ro
+    } = body;
 
     // Validation
     if (!title || !description) {
@@ -37,11 +41,19 @@ export async function POST(request: NextRequest) {
     }
 
     const stmt = db.prepare(`
-      INSERT INTO services (title, description, icon, price) 
-      VALUES (?, ?, ?, ?)
+      INSERT INTO services (
+        title, description, icon, price, detailed_info, duration, features,
+        title_nl, title_en, title_tr, title_pl, title_bg, title_uk, title_ro,
+        description_nl, description_en, description_tr, description_pl, description_bg, description_uk, description_ro
+      ) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
     
-    const result = stmt.run(title, description, icon || '', price || '');
+    const result = stmt.run(
+      title, description, icon || '', price || '', detailed_info || '', duration || '', features || '',
+      title_nl || '', title_en || '', title_tr || '', title_pl || '', title_bg || '', title_uk || '', title_ro || '',
+      description_nl || '', description_en || '', description_tr || '', description_pl || '', description_bg || '', description_uk || '', description_ro || ''
+    );
     
     // Get inserted record
     const inserted = db.prepare('SELECT * FROM services WHERE id = ?').get(result.lastInsertRowid);

@@ -21,7 +21,11 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   try {
     const { id } = await params;
     const body = await request.json();
-    const { title, description, icon, price } = body;
+    const { 
+      title, description, icon, price, detailed_info, duration, features,
+      title_nl, title_en, title_tr, title_pl, title_bg, title_uk, title_ro,
+      description_nl, description_en, description_tr, description_pl, description_bg, description_uk, description_ro
+    } = body;
 
     // Validation
     if (!title || !description) {
@@ -33,11 +37,20 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     const stmt = db.prepare(`
       UPDATE services 
-      SET title = ?, description = ?, icon = ?, price = ?
+      SET 
+        title = ?, description = ?, icon = ?, price = ?, 
+        detailed_info = ?, duration = ?, features = ?,
+        title_nl = ?, title_en = ?, title_tr = ?, title_pl = ?, title_bg = ?, title_uk = ?, title_ro = ?,
+        description_nl = ?, description_en = ?, description_tr = ?, description_pl = ?, description_bg = ?, description_uk = ?, description_ro = ?
       WHERE id = ?
     `);
     
-    const result = stmt.run(title, description, icon || '', price || '', id);
+    const result = stmt.run(
+      title, description, icon || '', price || '', detailed_info || '', duration || '', features || '',
+      title_nl || '', title_en || '', title_tr || '', title_pl || '', title_bg || '', title_uk || '', title_ro || '',
+      description_nl || '', description_en || '', description_tr || '', description_pl || '', description_bg || '', description_uk || '', description_ro || '',
+      id
+    );
     
     if (result.changes === 0) {
       return NextResponse.json({ 
